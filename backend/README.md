@@ -34,10 +34,37 @@ $ pip freeze > requirements.txt
 
 ## 3. 장고 프로젝트 시작하기
 ```bash
-$ django-admin startproject mysite
+$ django-admin startproject PROJECT-NAME
 ```
 
 ## 4. 장고 서버 실행
 ```bash
 $ python manage.py runserver
 ```
+
+## 5. 장고 앱 추가
+#### 5-1. 장고 앱 설치
+```bash
+$ python manage.py startapp APPNAME
+```
+
+- `프로젝트 이름/settings.py'
+```python
+INSTALLED_APPS = [
+		# Project Apps
+		'accounts',
+
+		# thirdparty Apps
+
+		# installed Apps
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+```
+
+#### 5-2. 장고 앱 설정
+- 새로 만든 앱 폴더로 이동 후 `templates` 폴더 생성
