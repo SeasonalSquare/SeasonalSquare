@@ -3,7 +3,7 @@
 ## 1. Venv 환경 켜기
 ```bash
 # backend 폴더 내에서
-$ venv/Scripts/activate
+$ Source venv/Scripts/activate
 # (venv) 표시가 있는지 확인
 ```
 
