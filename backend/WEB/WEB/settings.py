@@ -31,6 +31,26 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    # Local Apps
+    'accounts',
+    'recipe_api',
+
+    # thirdparty Apps
+    # DRF
+    'rest_framework',
+
+    # DRF - token auth
+    'rest_framework.authtoken',
+
+    # rest_auth
+    'django.contrib.sites',
+    'rest_auth',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+    'corsheaders',
+
+    # Basic Apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
