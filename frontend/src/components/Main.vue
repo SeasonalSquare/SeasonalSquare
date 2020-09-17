@@ -16,6 +16,11 @@
 </template>
 
 <script>
+  // import http from "@/util/http-common"
+  import axios from 'axios';
+  const SERVER_URL = 'http://localhost:8301'
+
+
   export default {
     name: 'HelloWorld',
     data() {
@@ -27,6 +32,11 @@
    methods:{
      TextInput() {
        console.log(this.TestInput)
+       axios.get(`${SERVER_URL}/api/recipe/grocery/${this.TestInput}`)
+       .then(response => {
+         console.log(response)
+       })
+
      }
    }
   }
