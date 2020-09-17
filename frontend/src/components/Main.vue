@@ -22,13 +22,13 @@
 
 <script>
   // import http from "@/util/http-common"
-  import axios from 'axios'
+  import http from '@/util/http-common.js'
   import RecipeCard from '@/components/RecipeCard.vue'
   const SERVER_URL = 'http://localhost:8301'
 
 
   export default {
-    name: 'HelloWorld',
+    name: 'Main',
     components : {
       RecipeCard,
     },
@@ -41,11 +41,13 @@
    methods:{
      textInput() {
        console.log(this.testInput)
-       axios.get(`${SERVER_URL}/api/recipe/grocery/${this.testInput}`)
+       http.get(`/recipe/grocery/${this.testInput}`)
        .then(response => {
         this.recipes = response.data
        })
-
+       .catch(err => {
+        console.log(err + "죽인다")
+       })
      }
    }
   }
