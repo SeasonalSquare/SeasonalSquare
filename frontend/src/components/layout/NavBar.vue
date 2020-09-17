@@ -11,7 +11,7 @@
 
         <v-spacer class="justify-center">
           <!-- 공간 -->
-          <router-link to='/Login' ><span class="clbue">임시 로그인</span></router-link>
+          <router-link to='/login' ><span class="clbue">임시 로그인</span></router-link>
         </v-spacer>
 
       </v-app-bar>

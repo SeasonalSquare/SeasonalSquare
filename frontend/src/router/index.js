@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 // Login Pingpong Test
-import Login from '../views/TempLogin.vue'
+import TempLogin from '../views/TempLogin.vue'
 
 Vue.use(VueRouter)
 
@@ -14,11 +14,11 @@ const routes = [
   },
   {
     path: '/login',
-    name: 'Login',
+    name: 'TempLogin',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Login
+    component: TempLogin
   },
 ]
 
