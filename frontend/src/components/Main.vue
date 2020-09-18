@@ -24,7 +24,6 @@
   // import http from "@/util/http-common"
   import http from '@/util/http-common.js'
   import RecipeCard from '@/components/RecipeCard.vue'
-  const SERVER_URL = 'http://localhost:8301'
 
 
   export default {
