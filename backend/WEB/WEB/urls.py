@@ -25,7 +25,7 @@ urlpatterns = [
     path('api/accounts/', include('accounts.urls')),
     # 직접 만든 적은 없지만 rest_auth라는 앱이 생긴다.
     # 로그인 & 로그아웃
-    path('rest-auth/', include('rest_auth.urls')),
+    path('api/rest-auth/', include('rest_auth.urls')),
     # 회원가입
     path('rest-auth/signup/', include('rest_auth.registration.urls')),
     # drf_yasg
@@ -36,4 +36,5 @@ urlpatterns = [
     # url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'), 
     # url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'), 
     # url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('api/rest-auth/signup/', include('rest_auth.registration.urls'))
 ]
