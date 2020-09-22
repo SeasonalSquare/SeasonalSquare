@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <NavBar/>
+    
     <v-main>
       <Main/>
     </v-main>
