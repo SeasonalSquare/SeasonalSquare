@@ -31,7 +31,7 @@ export default {
   methods:{
     tempLogin() {
       http
-        .post('/accounts/token/', {
+        .post('/rest-auth/login/', {
           username: this.id,
           password: this.password
         })
