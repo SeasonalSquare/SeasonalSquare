@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # thirdparty Apps
     # DRF
     'rest_framework',
+    'drf_yasg',
 
     # DRF - token auth
     'rest_framework.authtoken',
