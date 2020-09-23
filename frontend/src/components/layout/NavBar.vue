@@ -26,7 +26,7 @@
       <v-row  align="center" style="margin-top:30px">
         <v-col align="center">
             <div style="">
-              <v-img width="115px" src="@/assets/logo2.png"></v-img>
+              <v-img width="115px" src="@/assets/logo2.png" @click.prevent="moveToMain"></v-img>
             </div>
         </v-col>
       </v-row>
@@ -70,6 +70,9 @@ export default {
    methods:{
         onScroll(e) {
             this.windowTop = e.target.documentElement.scrollTop;
+        },
+        moveToMain() {
+          this.$router.push("/").catch(() => {})
         }
     },
     mounted() {
