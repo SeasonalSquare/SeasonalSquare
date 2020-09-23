@@ -1,14 +1,13 @@
 <template>
 <v-app>
-  <v-container  > 
+  <v-container  fluid style="padding-top:0px"> 
     <v-row align="center" class="text-center">
-      <v-col cols="12" align="center">
+      <v-col cols="12" align="center" style="padding-top:0px">
         <food-carousel :foods="foods" ></food-carousel>
       </v-col>
     </v-row>
-    <v-row  align="center" class="text-center"> 
-      <category-main-food/>
-    </v-row>
+    
+    <category-main-food/>
 
 
         <h1>다음은 API위한 테스트 인풋 박스입니다.</h1>

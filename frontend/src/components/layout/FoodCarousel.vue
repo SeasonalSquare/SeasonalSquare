@@ -1,20 +1,22 @@
 <template>
   <v-row>
-    <v-carousel cycle  interval="600000" hide-delimiter-background  height="450" >
+    <span style="background:#f7f7f7;width:100%;margin-top:0;padding-top:50px" class="tit">이 농산물 어때요?</span>
+    <v-carousel cycle  interval="600000"   height="450" >
+      <!-- hide-delimiter-background -->
         <v-carousel-item v-for="(food, i) in foods" :key="i">
-          <v-sheet color="#5C5749" height="450" >
+          <v-sheet color="#f7f7f7" height="450" >
             <v-row class="fill-height" align="center" justify="center">
               <v-col cols="0" lg="2"> </v-col>
               <v-col cols="6" lg="4"  >
                   <v-hover v-slot:default="{ hover }">
-                      <v-img :aspect-ratio="16/13" :src="food.image"  @click="goFood(food.pk)" style="border-radius: 7px;"> 
+                      <v-img :aspect-ratio="16/9" :src="food.image"  @click="goFood(food.pk)"> 
                         <v-row align="end" class="fill-height" >
                           <v-col
                             align-self="start" align="left"
                             style="padding-top:0px !important"
                             cols="12"
                           >
-                            <v-avatar color="#EC8852" style="opacity: 0.8;z-index:1" size="60" tile>
+                            <v-avatar color="#EC8852" style="opacity: 0.8;z-index:1" size="70" tile>
                               <span style="font-size:17px;font-weight:bold">30%</span> 
                               <!-- <i style="color:#070279" class="fas fa-arrow-down"></i> -->
                               <v-icon size="22" color="#070279">{{arrowDown}}</v-icon>
@@ -47,7 +49,7 @@
               <v-col cols="6" lg="4">
                 <div style="font-size:28px;font-weight:700"></div>
                 <div >
-                  <h2 style="margin-bottom:20px">‘<span style="font-weight:700;color:#FEF2C7">감자</span>’ <span style="color:#BEDDBF;font-size:39px">더</span> 맛있어지는 방법 <i style="color:#BEDDBF"  class="fas fa-exclamation"></i></h2>
+                  <h2 style="margin-bottom:20px;color:#333">‘<span style="font-weight:700;color:#EC8852">감자</span>’ <span style="color:#5C5749;font-size:39px">더</span> 맛있어지는 방법 <i style="color:#5C5749"  class="fas fa-exclamation"></i></h2>
                   <recipe-main  :food="food.title" ></recipe-main> 
                 </div>
               </v-col>
@@ -96,4 +98,11 @@ export default {
   position: absolute;
   width: 100%;
 }
+ .tit{
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -0.3px;
+    text-align: center;
+ }
 </style>
