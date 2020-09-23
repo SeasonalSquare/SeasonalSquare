@@ -1,9 +1,17 @@
 <template>
   <v-container  align="center" class="text-center">
-    <v-row v-for="(cate,index) in categoryBig" :key="index" style="margin-top:50px">
+    <!-- <v-row v-for="(cate,index) in categoryBig" :key="index" style="margin-top:50px">
       <v-col cols="12" class="tit">{{cate}} <i style="font-size:25px" class="fas fa-chevron-right"></i>
         <v-col cols="12">
           <food-item :cate="cate" />
+        </v-col>
+      </v-col>
+    </v-row> -->
+
+   <v-row  style="margin-top:50px">
+      <v-col cols="12" class="tit">오늘의 추천 농작물
+        <v-col cols="12">
+          <food-item />
         </v-col>
       </v-col>
     </v-row>
@@ -12,7 +20,7 @@
     <v-btn id="scrollButton"
         fab
         small
-        color="#FEAA6E"
+        color="#5C5749"
         retain-focus-on-click
         @click="scrollToTop"
     > 
@@ -32,13 +40,13 @@ export default {
   },
   data() {
     return {
-      categoryBig:['식량작물', '채소류', '특용작물', '과일류', '축산물', '수산물'],
+      // categoryBig:['식량작물', '채소류', '특용작물', '과일류', '축산물', '수산물'],
       windowTop: 0,
     }
   },
   watch: {
     windowTop: function() {
-        if (this.windowTop > 400) {
+        if (this.windowTop > 300) {
             let btn = document.getElementById('scrollButton')
             btn.style.display = 'block'
         }
@@ -75,9 +83,10 @@ export default {
     text-align: center;
  }
  #scrollButton {
+   z-index: 10;
     position: fixed;
     display: none;
-    bottom: 20px;
+    bottom: 50px;
     right: 30px;
 }
 </style>

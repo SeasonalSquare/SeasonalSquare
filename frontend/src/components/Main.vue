@@ -10,8 +10,8 @@
     <category-main-food/>
 
 
-        <h1>다음은 API위한 테스트 인풋 박스입니다.</h1>
-        <v-text-field
+        <!-- <h1>다음은 API위한 테스트 인풋 박스입니다.</h1>
+        <v-text-field 
           label="농수산물"
           solo
           v-model="testInput"
@@ -22,7 +22,7 @@
           v-for="(recipe, index) in recipes" 
           :key="index" 
           :recipe="recipe">
-        </recipe-card> 
+        </recipe-card>  -->
       
   </v-container>
 </v-app>
@@ -31,7 +31,7 @@
 <script>
   // import http from "@/util/http-common"
   import http from '@/util/http-common.js'
-  import RecipeCard from '@/components/RecipeCard.vue'
+  // import RecipeCard from '@/components/RecipeCard.vue'
   import FoodCarousel from '@/components/layout/FoodCarousel.vue'
   import CategoryMainFood from '@/components/layout/CategoryMainFood.vue'
   //const SERVER_URL = 'http://localhost:8301'
@@ -40,7 +40,7 @@
   export default {
     name: 'Main',
     components : {
-      RecipeCard,
+      // RecipeCard,
       FoodCarousel,
       CategoryMainFood,
     },

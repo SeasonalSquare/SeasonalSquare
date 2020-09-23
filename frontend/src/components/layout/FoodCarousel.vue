@@ -1,13 +1,13 @@
 <template>
   <v-row>
     <span style="background:#f7f7f7;width:100%;margin-top:0;padding-top:50px" class="tit">이 농산물 어때요?</span>
-    <v-carousel cycle  interval="600000"   height="450" >
+    <v-carousel cycle  interval="600000"   height="auto" >
       <!-- hide-delimiter-background -->
         <v-carousel-item v-for="(food, i) in foods" :key="i">
           <v-sheet color="#f7f7f7" height="450" >
             <v-row class="fill-height" align="center" justify="center">
-              <v-col cols="0" lg="2"> </v-col>
-              <v-col cols="6" lg="4"  >
+              <v-col cols="0" lg="2" md="2"> </v-col>
+              <v-col cols="12" lg="4"  md="4">
                   <v-hover v-slot:default="{ hover }">
                       <v-img :aspect-ratio="16/9" :src="food.image"  @click="goFood(food.pk)"> 
                         <v-row align="end" class="fill-height" >
@@ -46,14 +46,14 @@
                   </v-hover>
               </v-col>
               
-              <v-col cols="6" lg="4">
+              <v-col cols="12" lg="4"  md="4">
                 <div style="font-size:28px;font-weight:700"></div>
                 <div >
                   <h2 style="margin-bottom:20px;color:#333">‘<span style="font-weight:700;color:#EC8852">감자</span>’ <span style="color:#5C5749;font-size:39px">더</span> 맛있어지는 방법 <i style="color:#5C5749"  class="fas fa-exclamation"></i></h2>
                   <recipe-main  :food="food.title" ></recipe-main> 
                 </div>
               </v-col>
-              <v-col cols="0" lg="2"> </v-col>
+              <v-col cols="0" lg="2"  md="2"> </v-col>
             </v-row>
           </v-sheet>
         </v-carousel-item>

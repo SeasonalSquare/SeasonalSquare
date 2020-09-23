@@ -1,11 +1,12 @@
 <template>
   <v-row>
      <template v-for="(food,i) in foods">
-        <v-col :key="i" cols="6" lg="3" xl="3" align="center" >
+        <v-col :key="i" cols="12" lg="3" md="3" xl="3" align="center" >
           <v-img :src="food.image" style="height:320px;width:249px"></v-img>
           <div>
-            <span  class="name">{{cate}}</span>
-            <span style="font-size:16px">설명</span>
+            <span  class="name">{{food.title}}</span>
+            <span  class="price">7,000원</span>
+            <span  class="des">설명</span>
           </div>
         </v-col>
      </template>
@@ -19,17 +20,16 @@ export default {
   name: 'FoodItem',
   components: {
   },
-  props: ['cate'],
   data() {
     return {
       foods:null,
     }
   },
   created() {
-      http.get(`/recipe/grocery/${this.cate}`).then(res => {
+      http.get(`/recipe/grocery/감자`).then(res => {
         console.log(this.cate)
         this.foods=res.data
-        this.foods.splice(4)
+        this.foods.splice(8)
       }).catch(err => {
         console.log(err + "죽인다")
       })
@@ -43,14 +43,31 @@ export default {
 
 <style scoped>
 .name{
-     overflow: hidden;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     max-height: 50px;
     margin-top: 11px;
-    text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     font-weight:700;
-    font-size:16px;
+    font-size:20px;
+}
+.price{
+    font-weight: 700;
+    color: #EC8852 ;
+    font-size:17px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    
+}
+.des{
+    display: block;
+    padding-top: 8px;
+    font-size: 13px;
+    color: #666;
+    line-height: 19px;  
 }
 </style>
