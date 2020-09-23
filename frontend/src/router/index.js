@@ -6,6 +6,8 @@ import VueRouter from 'vue-router'
 import Main from "@/components/Main.vue"
 // Login Pingpong Test
 import TempLogin from '../views/TempLogin.vue'
+import RecipeDetail from '@/views/recipe/RecipeDetail.vue'
+import RecipeList from '@/views/recipe/RecipeList.vue'
 
 
 Vue.use(VueRouter)
@@ -23,6 +25,18 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: TempLogin
+  },
+  {
+    path: '/recipe/detail/:pk',
+    name: 'RecipeDetail',
+    props: ({params}) => ({pk: Number.parseInt(params.pk, 10) || 0 , summary: params.summary}),
+    component: RecipeDetail,
+  },
+  {
+    path: '/recipe/list',
+    name: 'RecipeList',
+    props: ({params}) => ({grocery: params.grocery}),
+    component: RecipeList,
   },
 ]
 
