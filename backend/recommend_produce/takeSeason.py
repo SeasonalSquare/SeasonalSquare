@@ -1,9 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-
 class crawlSeason:
-
     def __init__(self, name):
         open_url = 'https://search.naver.com/search.naver?where=kdic&sm=tab_jum&query='+name
 
@@ -27,14 +25,14 @@ class crawlSeason:
                 if "월" in t:
                     print(t)
                     if "~" in t:
-                            month = t.split("~")
+                        month = t.split("~")
 
-                            start = month[0].split("월")
-                            end = month[1].split("월")
+                        start = month[0].split("월")
+                        end = month[1].split("월")
 
-                            for x in range(int(start[0]), int(end[0])+1):
-                                months.append(str(x))
-                            print("제철 정보 : ", start[0], end[0])
+                        for x in range(int(start[0]), int(end[0])+1):
+                            months.append(str(x))
+                        print("제철 정보 : ", start[0], end[0])
                     else:
                         month = t.split("월")
                         print("제철 정보 : ", month[0])
