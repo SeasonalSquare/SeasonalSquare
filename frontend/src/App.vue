@@ -1,9 +1,10 @@
 <template>
   <v-app>
     <NavBar/>
-    <v-main>
-      <router-view />
-    </v-main>
+    <router-view></router-view>
+    <!-- <v-main>
+      <Main/>
+    </v-main> -->
     <Footer/>
   </v-app>
 </template>

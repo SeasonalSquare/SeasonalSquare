@@ -1054,6 +1054,12 @@
         "to-fast-properties": "^2.0.0"
       }
     },
+    "@fortawesome/fontawesome-free": {
+      "version": "5.14.0",
+      "resolved": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.14.0.tgz",
+      "integrity": "sha512-OfdMsF+ZQgdKHP9jUbmDcRrP0eX90XXrsXIdyjLbkmSBzmMXPABB8eobUJtivaupucYaByz6WNe1PI1JuYm3qA==",
+      "dev": true
+    },
     "@hapi/address": {
       "version": "2.1.4",
       "resolved": "https://registry.npmjs.org/@hapi/address/-/address-2.1.4.tgz",
@@ -1103,6 +1109,11 @@
         "cssnano-preset-default": "^4.0.0",
         "postcss": "^7.0.0"
       }
+    },
+    "@mdi/js": {
+      "version": "5.6.55",
+      "resolved": "https://registry.npmjs.org/@mdi/js/-/js-5.6.55.tgz",
+      "integrity": "sha512-FphEd6PTivVSfsxjRB/Z5sJhxUmxA0jL/+nEQmqk8Ok1miSnw92ibj4p1SPAmgnR8OFTNCkHX23AvlU8YZQb5A=="
     },
     "@mrmlnc/readdir-enhanced": {
       "version": "2.2.1",
