@@ -26,8 +26,8 @@ export default {
     }
   },
   created() {
-      http.get(`/recipe/grocery/감자`).then(res => {
-        // console.log(res.data)
+      http.get(`/recipe/grocery/${this.cate}`).then(res => {
+        console.log(this.cate)
         this.foods=res.data
         this.foods.splice(4)
       }).catch(err => {
