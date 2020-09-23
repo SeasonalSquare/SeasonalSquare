@@ -7,6 +7,17 @@
         </v-col>
       </v-col>
     </v-row>
+
+  
+    <v-btn id="scrollButton"
+        fab
+        small
+        color="#FEAA6E"
+        retain-focus-on-click
+        @click="scrollToTop"
+    > 
+        <v-icon color="#fff">mdi-chevron-up</v-icon>
+    </v-btn>
   </v-container >
 </template>
 
@@ -21,11 +32,35 @@ export default {
   },
   data() {
     return {
-      categoryBig:['식량작물', '채소류', '특용작물', '과일류', '축산물', '수산물']
+      categoryBig:['식량작물', '채소류', '특용작물', '과일류', '축산물', '수산물'],
+      windowTop: 0,
     }
   },
-  
+  watch: {
+    windowTop: function() {
+        if (this.windowTop > 400) {
+            let btn = document.getElementById('scrollButton')
+            btn.style.display = 'block'
+        }
+        else {
+            let btn = document.getElementById('scrollButton')
+            btn.style.display = 'none'
+        }
+    }
+  },
+  mounted() {
+      window.addEventListener("scroll", this.onScroll)
+  },
+  beforeDestroy() {
+      window.removeEventListener("scroll", this.onScroll);
+  },
   methods: {
+      scrollToTop() {
+          window.scroll({top: 0, left: 0, behavior: 'smooth'})
+      },
+      onScroll(e) {
+          this.windowTop = e.target.documentElement.scrollTop;
+      }
   }
   
 }
@@ -39,4 +74,10 @@ export default {
     letter-spacing: -0.3px;
     text-align: center;
  }
+ #scrollButton {
+    position: fixed;
+    display: none;
+    bottom: 20px;
+    right: 30px;
+}
 </style>

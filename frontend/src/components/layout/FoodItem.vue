@@ -1,7 +1,7 @@
 <template>
   <v-row>
      <template v-for="(food,i) in foods">
-        <v-col :key="i" cols="6" sm="2" md="2" lg="3" xl="3" align="center" >
+        <v-col :key="i" cols="6" lg="3" xl="3" align="center" >
           <v-img :src="food.image" style="height:320px;width:249px"></v-img>
           <div>
             <span  class="name">{{cate}}</span>
