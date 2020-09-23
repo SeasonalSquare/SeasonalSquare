@@ -66,7 +66,7 @@ def recipe(request, recipe_pk):
 
     recipe_data['ingredient_data'] = ingredient_data
 
-    steps = data.select('#contents_area > div:nth-child(11) > div.view_step_cont')
+    steps = data.select('#contents_area > div.view_step > div.view_step_cont')
     # print(steps)
     step_list = []
     for idx, step in enumerate(steps, start=1):
