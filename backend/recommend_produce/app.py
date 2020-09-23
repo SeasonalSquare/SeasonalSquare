@@ -23,9 +23,9 @@ def produceImg():
     path_dir = './static/data/img/'
     file_list = os.listdir(path_dir)  # path 에 존재하는 파일 목록 가져오기
     name = request.args.get('name')
+    print("넘어온 name =", name)
     for f in file_list:
         if name in f:
-            print(f)
             return send_file(path_dir + f, mimetype='image/jpg')
 
     filename =  'error.jpg'
