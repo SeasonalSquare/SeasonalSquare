@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on, attrs }">
         <v-avatar  style="margin-right:20px"  v-bind="attrs" v-on="on"
             size="90">
-            <img :src="recipe.image"  @click="goRecipe(recipe.pk)" >
+            <img :src="recipe.image"  @click="goRecipe(recipe)" >
         </v-avatar>
       </template>
       <span>{{recipe.title}}</span>
@@ -37,8 +37,8 @@ export default {
       })
   },
   methods: {
-    goRecipe(pk){
-        alert("recipe"+pk);
+    goRecipe(recipe){
+        this.$router.push({name: 'RecipeDetail', params: {pk: recipe.pk, summary: recipe}});
     }
   }
   

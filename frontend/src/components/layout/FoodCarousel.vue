@@ -81,8 +81,10 @@ export default {
   },
   
   methods: {
-    goFood(pk){
-      alert("food"+pk);
+    goFood(foodName){
+      // 작믈 이름을 넘겨주세요
+      foodName = '감자'
+      this.$router.push({name: 'RecipeList', params: {grocery: foodName}});
     }
   }
   

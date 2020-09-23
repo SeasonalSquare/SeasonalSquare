@@ -119,7 +119,7 @@
 
 <script>
 import http from '@/util/http-common.js'
-import RecipeImage from '@/components/RecipeImage'
+import RecipeImage from '@/components/recipe/RecipeImage'
 
 export default {
     components: {
