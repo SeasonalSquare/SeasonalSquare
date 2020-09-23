@@ -2,7 +2,9 @@
   <v-row>
      <template v-for="(food,i) in foods">
         <v-col :key="i" cols="12" lg="3" md="3" xl="3" align="center" >
-          <v-img :src="food.image" style="height:320px;width:249px"></v-img>
+          <div class="box" style="height:320px;width:249px">
+            <v-img :src="food.image"  class="scale" style="height:100%" ></v-img>
+          </div>
           <div>
             <span  class="name">{{food.title}}</span>
             <span  class="price">7,000원</span>
@@ -65,9 +67,26 @@ export default {
 }
 .des{
     display: block;
-    padding-top: 8px;
     font-size: 13px;
     color: #666;
     line-height: 19px;  
+}
+.scale {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
+}
+.scale:hover {
+  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}
+.box{
+   overflow:hidden 
 }
 </style>
