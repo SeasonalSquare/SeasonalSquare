@@ -3,6 +3,11 @@ import json
 
 # Create your models here.
 
+class Grocery(models.Model):
+    name = models.CharField(max_length=50)
+    calorie = models.IntegerField()
+
+
 class Recipe(models.Model):
     img = models.CharField(max_length=150)
     ingredients = models.ManyToManyField(
@@ -20,9 +25,3 @@ class Recipe(models.Model):
 
 
 
-class Grocery(models.Model):
-    name = models.CharField(max_length=50)
-    calorie = models.IntegerField()
-    season = 
-
-class
