@@ -16,9 +16,9 @@
 
         <div  class="text-right" id="userMenu">
           <ul class="list_menu">
-            <li  class="menu" style="color:#EC8852;padding-right:10px"> 회원가입 </li>
+            <li  class="menu" > <a style="color:#EC8852;font-weight:700;padding-right:10px" @click="goSignUp()">회원가입</a> </li>
             <li class="menu"  style="padding-right:10px"> | </li>
-            <li  class="menu" style="color:#333"> 로그인 </li>
+            <li  class="menu" > <a style="color:#333;font-weight:700" @click="goLogin()">로그인</a> </li>
           </ul>
         </div>
       </v-app-bar>
@@ -68,12 +68,20 @@ export default {
     }
   },
    methods:{
-        onScroll(e) {
-            this.windowTop = e.target.documentElement.scrollTop;
-        },
+
+      onScroll(e) {
+        this.windowTop = e.target.documentElement.scrollTop;
+      },
+      goLogin(){
+        this.$router.push({name: 'UserLogin'})
+      },
+      goSignUp(){
+        this.$router.push({name: 'UserSignUp'})
+      },
         moveToMain() {
           this.$router.push("/").catch(() => {})
         }
+
     },
     mounted() {
         window.addEventListener("scroll", this.onScroll)
@@ -81,6 +89,7 @@ export default {
     beforeDestroy() {
         window.removeEventListener("scroll", this.onScroll);
     },
+
 }
 </script>
 
