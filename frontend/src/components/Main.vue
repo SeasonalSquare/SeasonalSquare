@@ -3,7 +3,7 @@
   <v-container  fluid style="padding-top:0px"> 
     <v-row align="center" class="text-center">
       <v-col cols="12" align="center" style="padding-top:0px">
-        <food-carousel :foods="foods" ></food-carousel>
+        <food-carousel :produces="produces" ></food-carousel>
       </v-col>
     </v-row>
     
@@ -31,6 +31,7 @@
 <script>
   // import http from "@/util/http-common"
   import http from '@/util/http-common.js'
+  import httpPro from '@/util/http-produce.js'
   // import RecipeCard from '@/components/recipe/RecipeCard.vue'
   import FoodCarousel from '@/components/layout/FoodCarousel.vue'
   import CategoryMainFood from '@/components/layout/CategoryMainFood.vue'
@@ -48,7 +49,7 @@
       return {
         testInput: '',
         recipes: [],
-        foods : null,
+        produces : null,
       }
    },
    methods:{
@@ -64,12 +65,12 @@
      }
    },
     created() {
-      http.get(`/recipe/grocery/감자`).then(res => {
+      httpPro.get(`/todayProduce`).then(res => {
         // console.log(res.data)
-        this.foods=res.data
-        this.foods.splice(7)
+        this.produces=res.data
+        this.produces.splice(7)
       }).catch(err => {
-        console.log(err + "죽인다")
+        console.log("[Main Cretated] " + err)
       })
     }
   }

@@ -1,9 +1,9 @@
 <template>
     <div>
         <div style="display: flex; margin: 1rem; justify-content: space-evenly;">
-        <v-img src="https://health.chosun.com/site/data/img_dir/2020/05/07/2020050702573_0.jpg"
+        <v-img :src="'http://j3a503.p.ssafy.io:8000/produceImg?name='+grocery"
             max-width="300" max-height="200" style="border: 1px gray solid "/>
-            <p>감자가 더 맛있어지는 법... 대충 설명...<br> 여기에 뭘뭘 넣지 뭔내용 넣을까아아ㅏ</p>
+            <p>{{this.grocery}}가 더 맛있어지는 법... 대충 설명...<br> 여기에 뭘뭘 넣지 뭔내용 넣을까아아ㅏ</p>
         </div>
         <br>
         <v-divider />
