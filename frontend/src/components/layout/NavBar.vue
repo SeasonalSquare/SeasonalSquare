@@ -16,9 +16,9 @@
 
         <div  class="text-right" id="userMenu">
           <ul class="list_menu">
-            <li  class="menu" style="color:#EC8852;padding-right:10px"> 회원가입 </li>
+            <li  class="menu" > <a style="color:#EC8852;font-weight:700;padding-right:10px" @click="goSignUp()">회원가입</a> </li>
             <li class="menu"  style="padding-right:10px"> | </li>
-            <li  class="menu" style="color:#333"> 로그인 </li>
+            <li  class="menu" > <a style="color:#333;font-weight:700" @click="goLogin()">로그인</a> </li>
           </ul>
         </div>
       </v-app-bar>
@@ -26,7 +26,9 @@
       <v-row  align="center" style="margin-top:30px">
         <v-col align="center">
             <div style="">
-              <v-img width="115px" src="@/assets/logo2.png"></v-img>
+               <router-link to="/">
+                <v-img width="115px" src="@/assets/logo2.png"></v-img>
+               </router-link>
             </div>
         </v-col>
       </v-row>
@@ -68,9 +70,15 @@ export default {
     }
   },
    methods:{
-        onScroll(e) {
-            this.windowTop = e.target.documentElement.scrollTop;
-        }
+      onScroll(e) {
+        this.windowTop = e.target.documentElement.scrollTop;
+      },
+      goLogin(){
+        this.$router.push({name: 'UserLogin'})
+      },
+      goSignUp(){
+        this.$router.push({name: 'UserSignUp'})
+      }
     },
     mounted() {
         window.addEventListener("scroll", this.onScroll)
@@ -78,6 +86,7 @@ export default {
     beforeDestroy() {
         window.removeEventListener("scroll", this.onScroll);
     },
+
 }
 </script>
 
