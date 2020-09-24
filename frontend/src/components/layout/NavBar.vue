@@ -26,9 +26,7 @@
       <v-row  align="center" style="margin-top:30px">
         <v-col align="center">
             <div style="">
-               <router-link to="/">
-                <v-img width="115px" src="@/assets/logo2.png"></v-img>
-               </router-link>
+              <v-img width="115px" src="@/assets/logo2.png" @click.prevent="moveToMain"></v-img>
             </div>
         </v-col>
       </v-row>
@@ -70,6 +68,7 @@ export default {
     }
   },
    methods:{
+
       onScroll(e) {
         this.windowTop = e.target.documentElement.scrollTop;
       },
@@ -78,7 +77,11 @@ export default {
       },
       goSignUp(){
         this.$router.push({name: 'UserSignUp'})
-      }
+      },
+        moveToMain() {
+          this.$router.push("/").catch(() => {})
+        }
+
     },
     mounted() {
         window.addEventListener("scroll", this.onScroll)

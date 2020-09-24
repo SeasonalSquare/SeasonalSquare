@@ -1,50 +1,61 @@
 <template>
   <div>
     <v-hover v-slot:default="{ hover }">
-      <v-card 
-        class="d-inline-block mx-auto"
-        :elevation="hover ? 12 : 2"
+      <v-card
+        class="mx-auto"
+        color="grey lighten-4"
+        max-width="600"
       >
-        <v-container>
-          <router-link :to="{name: 'RecipeDetail', params: {pk: recipe.pk, summary: recipe}}" tag="div">
-            <div style="font-size: 1.5rem; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: center; max-width:250px; padding-left: 1rem; padding-right: 1rem;">
-              {{ recipe.title }}
+        <v-img 
+          :src="img"
+          max-width="250"
+          max-height="200">
+          <v-expand-transition>
+            <div
+              v-if="hover"
+              class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3"
+              style="height: 100%;"
+            >
+              <row class="fill-height">
+                <v-btn
+                  text
+                  @click.prevent="moveToRecipeDetail"
+                  style="height: 100%; font-size: 1.3rem;"
+                >
+                  레시피
+                  <br>
+                  바로 보기
+                </v-btn>
+              </row>
+              <row class="fill-height">
+                <v-btn
+                  text
+                  @click.prevent="moveToHome"
+                  style="height: 100%; font-size: 1.3rem;"
+                >
+                  장 보러
+                  <br>
+                  가기
+                </v-btn>
+              </row>
             </div>
-            <RecipeImage
-              :src="img"
-              :max-width="250"
-              :max-height="200"
-              style="margin: 1rem;"
-            />
-            <v-btn
-              color="#EC8852"
-              text
-            >
-              레시피 바로 보기
-            </v-btn>
-
-            <v-btn
-              color="#EC8852"
-              text
-              @click.prevent="moveToHome"
-            >
-              장 보러가기
-            </v-btn>
-          </router-link>
-        </v-container>
+          </v-expand-transition>
+        </v-img>
+        <v-card-text>
+          <div
+            class="card-title"
+          >
+            {{ recipe.title }}
+          </div>
+        </v-card-text>
       </v-card>
     </v-hover>
   </div>
 </template>
 
 <script>
-import RecipeImage from '@/components/recipe/RecipeImage'
-
 export default {
   name: 'RecipeCard',
-  components: {
-    RecipeImage
-  },
   props : {
     recipe: {
       type: Object,
@@ -61,6 +72,9 @@ export default {
     },
   },
   methods: {
+    moveToRecipeDetail() {
+      this.$router.push({name: 'RecipeDetail', params: {pk: this.recipe.pk, summary: this.recipe}});
+    },
     moveToHome() {
       alert("미구현");
       this.$router.push("/");
@@ -69,6 +83,21 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.v-card--reveal {
+  align-items: center;
+  bottom: 0;
+  justify-content: center;
+  opacity: .5;
+  position: absolute;
+  width: 100%;
+}
+.card-title {
+  color: #5C5749;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 210px;
+  text-align: center;
+}
 </style>
