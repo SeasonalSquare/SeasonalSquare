@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 
 // import Home from '../views/Home.vue'
 import Main from "@/components/Main.vue"
+import UserLogin from '@/components/user/UserLogin.vue'
+import UserSignUp from '@/components/user/UserSignUp.vue'
 // Login Pingpong Test
 import TempLogin from '../views/TempLogin.vue'
 import RecipeDetail from '@/views/recipe/RecipeDetail.vue'
@@ -17,6 +19,16 @@ const routes = [
     path: '/',
     name: 'Main',
     component: Main
+  },  
+  {
+    path: '/user/login',
+    name: 'UserLogin',
+    component: UserLogin
+  },
+  {
+    path: '/user/signup',
+    name: 'UserSignUp',
+    component: UserSignUp
   },
   {
     path: '/login',

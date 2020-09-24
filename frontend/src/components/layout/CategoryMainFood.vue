@@ -1,5 +1,6 @@
 <template>
-  <v-container  align="center" class="text-center">
+  <v-container >
+     <!-- align="center" class="text-center" -->
     <!-- <v-row v-for="(cate,index) in categoryBig" :key="index" style="margin-top:50px">
       <v-col cols="12" class="tit">{{cate}} <i style="font-size:25px" class="fas fa-chevron-right"></i>
         <v-col cols="12">
