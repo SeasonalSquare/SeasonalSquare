@@ -107,7 +107,7 @@ DATABASES = {
         'NAME': 'seasonal_square',
         'USER': 'root',
         'PASSWORD': 'ssafy',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
