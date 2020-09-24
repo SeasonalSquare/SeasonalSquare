@@ -156,7 +156,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = '/var/www/html/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # CORS_ALLOWED_ORIGINS = [
 #     "http://localhost:8080",
