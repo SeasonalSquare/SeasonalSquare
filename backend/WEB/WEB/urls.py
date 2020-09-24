@@ -21,11 +21,11 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/recipe/', include('recipe_api.urls')),
-    path('api/accounts/', include('accounts.urls')),
+    path('recipe/', include('recipe_api.urls')),
+    path('accounts/', include('accounts.urls')),
     # 직접 만든 적은 없지만 rest_auth라는 앱이 생긴다.
     # 로그인 & 로그아웃
-    path('api/rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/', include('rest_auth.urls')),
     # 회원가입
     path('rest-auth/signup/', include('rest_auth.registration.urls')),
     # drf_yasg
@@ -36,5 +36,5 @@ urlpatterns = [
     # url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'), 
     # url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'), 
     # url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path('api/rest-auth/signup/', include('rest_auth.registration.urls'))
+    path('rest-auth/signup/', include('rest_auth.registration.urls'))
 ]
