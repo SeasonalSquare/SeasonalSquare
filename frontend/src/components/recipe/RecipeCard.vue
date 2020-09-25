@@ -16,28 +16,24 @@
               class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3"
               style="height: 100%;"
             >
-              <row class="fill-height">
-                <v-btn
-                  text
-                  @click.prevent="moveToRecipeDetail"
-                  style="height: 100%; font-size: 1.3rem;"
-                >
-                  레시피
-                  <br>
-                  바로 보기
-                </v-btn>
-              </row>
-              <row class="fill-height">
-                <v-btn
-                  text
-                  @click.prevent="moveToHome"
-                  style="height: 100%; font-size: 1.3rem;"
-                >
-                  장 보러
-                  <br>
-                  가기
-                </v-btn>
-              </row>
+              <v-btn
+                text
+                @click.prevent="moveToRecipeDetail"
+                style="height: 100%; font-size: 1.3rem;"
+              >
+                레시피
+                <br>
+                바로 보기
+              </v-btn>
+              <v-btn
+                text
+                @click.prevent="moveToRecipeCart"
+                style="height: 100%; font-size: 1.3rem;"
+              >
+                장 보러
+                <br>
+                가기
+              </v-btn>
             </div>
           </v-expand-transition>
         </v-img>
@@ -75,9 +71,8 @@ export default {
     moveToRecipeDetail() {
       this.$router.push({name: 'RecipeDetail', params: {pk: this.recipe.pk, summary: this.recipe}});
     },
-    moveToHome() {
-      alert("미구현");
-      this.$router.push("/");
+    moveToRecipeCart() {
+      this.$router.push({name: 'RecipeCart', params: {pk: this.recipe.pk, summary: this.recipe}});
     }
   },
 }
