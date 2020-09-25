@@ -114,16 +114,18 @@
                 {{ step.explain }}
             </v-col>
         </div>
+        <scroll-top/>
     </v-container>
 </template>
 
 <script>
 import http from '@/util/http-common.js'
 import RecipeImage from '@/components/recipe/RecipeImage'
-
+import ScrollTop from '@/components/layout/ScrollTop.vue'
 export default {
     components: {
         RecipeImage,
+         ScrollTop,
     },
     props: {
         summary: {

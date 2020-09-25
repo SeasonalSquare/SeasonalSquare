@@ -5,9 +5,9 @@
         color="#FFFFFF"
         dark flat id="nav"
       >
-        <div class="d-flex align-center">
+        <!-- <div class="d-flex align-center">
           <p>제철의 광장</p>
-        </div>
+        </div> -->
 
         <v-spacer class="justify-center">
           <!-- 공간 -->
@@ -26,7 +26,7 @@
       <v-row  align="center" style="margin-top:30px">
         <v-col align="center">
             <div style="">
-              <v-img width="115px" src="@/assets/logo2.png" @click.prevent="moveToMain"></v-img>
+              <a  @click.prevent="moveToMain"><v-img width="115px" src="@/assets/logo2.png"></v-img></a>
             </div>
         </v-col>
       </v-row>

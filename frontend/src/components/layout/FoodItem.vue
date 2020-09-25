@@ -1,14 +1,15 @@
 <template>
   <v-row>
-     <template v-for="(food,i) in foods">
-        <v-col :key="i" cols="12" lg="3" md="3" xl="3" align="center" >
+     <template v-for="(produce,i) in produces">
+        <v-col :key="i" cols="12" lg="3" md="3" xl="3" align="center" style="margin-top:50px" >
           <div class="box" style="height:320px;width:249px">
-            <v-img :src="food.image"  class="scale" style="height:100%" ></v-img>
+            <a   @click="goProduce(produce.name)" ><v-img :src="imgURL(produce.name)"  class="scale" style="height:100%" ></v-img></a>
           </div>
           <div>
-            <span  class="name">{{food.title}}</span>
-            <span  class="price">7,000원</span>
-            <span  class="des">설명</span>
+            <span  class="name"><a  @click="goProduce(produce.name)"  style="color:#333;">{{produce.fullname}}</a></span>
+            <span  class="price">{{produce.price}}원 <span style="color:#333;font-size:14px">({{produce.unit}})</span></span>
+            <span  class="des">칼로리 {{produce.kcal}}</span>
+            <span  class="des">제철 {{produce.months}}</span>
           </div>
         </v-col>
      </template>
@@ -16,7 +17,8 @@
 </template>
 
 <script>
- import http from '@/util/http-common.js'
+ import httpPro from '@/util/http-produce.js'
+const baseURL = "http://j3a503.p.ssafy.io:8000"
 
 export default {
   name: 'FoodItem',
@@ -24,19 +26,23 @@ export default {
   },
   data() {
     return {
-      foods:null,
+      produces:null,
     }
   },
   created() {
-      http.get(`/recipe/grocery/감자`).then(res => {
+      httpPro.get(`/todayProduce`).then(res => {
         console.log(this.cate)
-        this.foods=res.data
-        this.foods.splice(8)
+        this.produces=res.data
+        this.produces.splice(8)
       }).catch(err => {
         console.log(err + "죽인다")
       })
   },
   methods: {
+    goProduce(foodName){
+      this.$router.push({name: 'RecipeList', params: {grocery: foodName}});
+    },
+    imgURL(name) { return baseURL + "/produceImg?name=" + name },
   },
 
   
@@ -77,7 +83,7 @@ export default {
   -moz-transform: scale(1);
   -ms-transform: scale(1);
   -o-transform: scale(1);
-  transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
+  transition: all 0.5s ease-in-out; 
 }
 .scale:hover {
   transform: scale(1.1);

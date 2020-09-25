@@ -9,7 +9,8 @@
               <v-col cols="0" lg="2" md="2"> </v-col>
               <v-col cols="12" lg="4"  md="4" >
                   <v-hover v-slot:default="{ hover }">
-                      <v-img :aspect-ratio="16/9" :src="imgURL(produce.name)"  @click="goProduce(produce.name)"> 
+                      <a   @click="goProduce(produce.name)">
+                      <v-img :aspect-ratio="16/9" :src="imgURL(produce.name)" > 
                         <v-row align="end" class="fill-height">
                           <v-col
                             align-self="start" align="left"
@@ -24,30 +25,31 @@
                             </v-avatar>
                           </v-col>
 
-                          <v-col class="py-0">
+                          <v-col class="py-0" style="padding-right:0px;padding-left:0px;">
                             <v-list-item
                               color="rgba(0, 0, 0, .4)"
                               dark
                             >
-                              <v-list-item-content >
+                              <v-list-item-content style="background:#333;">
                                 <v-list-item-title class="title">{{produce.fullname}}</v-list-item-title>
                                 <v-list-item-subtitle>{{produce.price}}원</v-list-item-subtitle>
                               </v-list-item-content>
                             </v-list-item>
                           </v-col>
                         </v-row>
-                        <div style="position:absolute; top:0px; color:white; width:100%; height:100%; background:black; opacity: 0.7;"
+                        <div style="position:absolute; top:0px; color:white; width:100%; height:100%; background:black; opacity: 0.8;"
                           v-if="hover"
                           class="d-flex transition-fast-in-fast-out  darken-2 v-card--reveal display-3 white--text"
                         >
                               <div style="font-size:15px">
-                                <span>{{produce.fullname}}</span>
-                                <span>{{produce.price}} ({{produce.unit}})</span>
-                                <span>{{produce.kcal}}</span>
-                                <span>제철 {{produce.months}}</span>
+                                <span  class="name" >{{produce.fullname}}</span>
+                                <span class="price">{{produce.price}}원 ({{produce.unit}})</span>
+                                <span class="des">{{produce.kcal}}</span>
+                                <span class="des">제철 {{produce.months}}</span>
                               </div>
                           </div>
                       </v-img>
+                      </a>
                   </v-hover>
               </v-col>
               
@@ -58,7 +60,7 @@
                   <recipe-main  :food="produce.name" ></recipe-main> 
                 </div>
               </v-col>
-              <v-col cols="0" lg="2"  md="2"> </v-col>
+              <v-col cols="12" lg="2"  md="2"></v-col>
             </v-row>
           </v-sheet>
         </v-carousel-item>
@@ -113,4 +115,32 @@ export default {
     letter-spacing: -0.3px;
     text-align: center;
  }
+ 
+.name{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-height: 60px;
+    margin-top: 11px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-weight:700;
+    font-size:40px;
+}
+.price{
+    font-weight: 700;
+    color: #EC8852 ;
+    font-size:40px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    
+}
+.des{
+    display: block;
+    font-size: 25px;
+    color: #fff;
+    line-height: 34px;  
+}
 </style>
