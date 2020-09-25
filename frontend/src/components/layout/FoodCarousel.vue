@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <span style="background:#f7f7f7;width:100%;margin-top:0;padding-top:50px" class="tit">이 농산물 어때요?</span>
-    <v-carousel cycle  interval="600000"   height="auto" >
+    <v-carousel cycle  interval="9000"   height="auto" >
       <!-- hide-delimiter-background -->
         <v-carousel-item v-for="(produce, i) in produces" :key="i">
           <v-sheet color="#f7f7f7" height="450" >
