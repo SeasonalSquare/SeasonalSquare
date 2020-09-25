@@ -17,59 +17,29 @@
       </v-col>
     </v-row>
 
-  
-    <v-btn id="scrollButton"
-        fab
-        small
-        color="#5C5749"
-        retain-focus-on-click
-        @click="scrollToTop"
-    > 
-        <v-icon color="#fff">mdi-chevron-up</v-icon>
-    </v-btn>
+    <scroll-top/>
   </v-container >
 </template>
 
 <script>
 import '@fortawesome/fontawesome-free/css/all.css'
 import FoodItem from '@/components/layout/FoodItem.vue'
+import ScrollTop from '@/components/layout/ScrollTop.vue'
 
 export default {
   name: 'CategoryMainFood',
   components: {
     FoodItem,
+    ScrollTop,
   },
   data() {
     return {
       // categoryBig:['식량작물', '채소류', '특용작물', '과일류', '축산물', '수산물'],
-      windowTop: 0,
     }
   },
   watch: {
-    windowTop: function() {
-        if (this.windowTop > 300) {
-            let btn = document.getElementById('scrollButton')
-            btn.style.display = 'block'
-        }
-        else {
-            let btn = document.getElementById('scrollButton')
-            btn.style.display = 'none'
-        }
-    }
-  },
-  mounted() {
-      window.addEventListener("scroll", this.onScroll)
-  },
-  beforeDestroy() {
-      window.removeEventListener("scroll", this.onScroll);
   },
   methods: {
-      scrollToTop() {
-          window.scroll({top: 0, left: 0, behavior: 'smooth'})
-      },
-      onScroll(e) {
-          this.windowTop = e.target.documentElement.scrollTop;
-      }
   }
   
 }
@@ -83,11 +53,4 @@ export default {
     letter-spacing: -0.3px;
     text-align: center;
  }
- #scrollButton {
-   z-index: 10;
-    position: fixed;
-    display: none;
-    bottom: 50px;
-    right: 30px;
-}
 </style>

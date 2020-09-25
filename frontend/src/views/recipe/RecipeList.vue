@@ -16,16 +16,19 @@
                 style="margin: 1rem;">
             </recipe-card>
         </div>
+        <scroll-top/>
     </div>
 </template>
 
 <script>
 import http from '@/util/http-common.js'
 import RecipeCard from '@/components/recipe/RecipeCard.vue'
+import ScrollTop from '@/components/layout/ScrollTop.vue'
 
 export default {
     components : {
         RecipeCard,
+        ScrollTop,
     },
     props: {
         grocery: {
