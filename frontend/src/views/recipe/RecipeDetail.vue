@@ -139,18 +139,15 @@ export default {
         }
     },
     async created() {
-        await this.test();
+        await this.fetchRecipe();
     },
     methods: {
-        async test() {
+        async fetchRecipe() {
             http.get(`/recipe/${this.summary.pk}`)
             .then(response => {
                 this.main_ingredients = response.data.ingredient_data.main_ingredients
                 this.source_ingredients = response.data.ingredient_data.source_ingredients
                 this.recipe = response.data.recipe
-                console.log(this.main_ingredients)
-                console.log(this.source_ingredients)
-                console.log(this.recipe)
             })
             .catch(err => {
                 console.log(err)

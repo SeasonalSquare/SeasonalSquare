@@ -10,6 +10,7 @@ import UserSignUp from '@/components/user/UserSignUp.vue'
 import TempLogin from '../views/TempLogin.vue'
 import RecipeDetail from '@/views/recipe/RecipeDetail.vue'
 import RecipeList from '@/views/recipe/RecipeList.vue'
+import RecipeCart from '@/views/cart/RecipeCart.vue'
 
 
 Vue.use(VueRouter)
@@ -49,6 +50,17 @@ const routes = [
     name: 'RecipeList',
     props: ({params}) => ({grocery: params.grocery}),
     component: RecipeList,
+  },
+  {
+    path: '/cart/recipe',
+    name: 'RecipeCart',
+    props: ({params}) => ({pk: Number.parseInt(params.pk, 10) || 0 , summary: params.summary}),
+    component: RecipeCart,
+  },
+  {
+    path: "*",
+    name: "Error",
+    component: RecipeCart,
   },
 ]
 
