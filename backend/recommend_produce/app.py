@@ -1,9 +1,11 @@
 from flask import Flask, request, send_file
 import todayPrices
 import os
-
+from flask_cors import CORS
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
+CORS(app)
 
 
 @app.route('/')
