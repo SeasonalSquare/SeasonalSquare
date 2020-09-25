@@ -4,7 +4,11 @@
         <div  class="section_login"> 
           <h3 class="tit_login">로그인</h3> 
           <div style="padding-top: 36px;">
-            <v-text-field style="margin-bottom:0px !important" label="아이디를 입력해주세요" solo  required></v-text-field>
+            <v-text-field style="margin-bottom:0px !important" 
+              v-model="id"
+              label="아이디를 입력해주세요" solo  required
+            ></v-text-field>
+
             <v-text-field  solo
               v-model="password"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -34,10 +38,6 @@ export default {
          show1: false,
          id: null,
          password: null,
-          rules: {
-          required: value => !!value || 'Required.',
-          min: v => v.length >= 8 || 'Min 8 characters',
-        },
     };
   },
   methods:{
