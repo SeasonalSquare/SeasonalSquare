@@ -1,17 +1,35 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+
+
+// import Home from '../views/Home.vue'
+import Main from "@/components/Main.vue"
+import UserLogin from '@/components/user/UserLogin.vue'
+import UserSignUp from '@/components/user/UserSignUp.vue'
 // Login Pingpong Test
 import TempLogin from '../views/TempLogin.vue'
-import TempSignup from '../views/TempSignup.vue'
+import RecipeDetail from '@/views/recipe/RecipeDetail.vue'
+import RecipeList from '@/views/recipe/RecipeList.vue'
+import RecipeCart from '@/views/cart/RecipeCart.vue'
+
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Main',
+    component: Main
+  },  
+  {
+    path: '/user/login',
+    name: 'UserLogin',
+    component: UserLogin
+  },
+  {
+    path: '/user/signup',
+    name: 'UserSignUp',
+    component: UserSignUp
   },
   {
     path: '/login',
@@ -22,12 +40,27 @@ const routes = [
     component: TempLogin
   },
   {
-    path: '/signup',
-    name: 'TempSignup',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: TempSignup
+    path: '/recipe/detail/:pk',
+    name: 'RecipeDetail',
+    props: ({params}) => ({pk: Number.parseInt(params.pk, 10) || 0 , summary: params.summary}),
+    component: RecipeDetail,
+  },
+  {
+    path: '/recipe/list',
+    name: 'RecipeList',
+    props: ({params}) => ({grocery: params.grocery}),
+    component: RecipeList,
+  },
+  {
+    path: '/cart/recipe',
+    name: 'RecipeCart',
+    props: ({params}) => ({pk: Number.parseInt(params.pk, 10) || 0 , summary: params.summary}),
+    component: RecipeCart,
+  },
+  {
+    path: "*",
+    name: "Error",
+    component: RecipeCart,
   },
 ]
 
