@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import datetime
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'lfb%q6uwl+8n25&ky0^((@2b+q=snz@m0m(r5^#^y=q#w$%mpt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
@@ -156,7 +157,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = BASE_DIR / 'static'
 
 # CORS_ALLOWED_ORIGINS = [
 #     "http://localhost:8080",
@@ -218,3 +219,5 @@ JWT_AUTH = {
 SITE_ID = 1
 
 AUTH_USER_MODEL = 'accounts.User'
+
+FORCE_SCRIPT_NAME = '/api'
