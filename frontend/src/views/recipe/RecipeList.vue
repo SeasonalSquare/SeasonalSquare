@@ -46,7 +46,7 @@ export default {
     },
     methods:{
         findRecipeByFoodName() {
-            http.get(`/recipe/grocery/${this.grocery}`)
+            http.get(`/recipe/grocery/${this.grocery}/`)
             .then(response => {
                 this.recipes = response.data
             })
