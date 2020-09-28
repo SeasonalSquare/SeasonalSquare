@@ -2,7 +2,7 @@ from flask import Flask, request, send_file
 import todayPrices
 import os
 from flask_cors import CORS
-
+import produceWithout
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 CORS(app)
@@ -12,11 +12,20 @@ CORS(app)
 def hello_world():
     return 'Hello World!'
 
+
 @app.route('/todayProduce', methods = ['GET'])
 def todayProduce():
     #test1.test111.__init__(self='')
     #result = test1.test11()
     result = todayPrices.__init__(self='')
+    print(result)
+    return result
+
+@app.route('/todayProduceWithout', methods = ['GET'])
+def todayProduceWithout():
+    allergies = request.args.get('allergies')
+    vegi = request.args.get('vegi')
+    result = produceWithout.__init__(self='', allergies=allergies, vegi=vegi)
     print(result)
     return result
 

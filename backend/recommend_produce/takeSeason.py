@@ -12,18 +12,18 @@ class crawlSeason:
         # XML 도 Html 과 동일하게 html.parser 이용
 
         data = soup.select('div.inner')
-        print(data)
+        #print(data)
         months = []
         kcals = []
         for item in data:
             if item.em.string == "칼로리":
                 t = item.span.a.string
-                print("칼로리 정보 : ", t)
+                #print("칼로리 정보 : ", t)
                 kcals.append(t)
             if item.em.string == "제철":
                 t = item.span.a.string
                 if "월" in t:
-                    print(t)
+                    #print(t)
                     if "~" in t:
                         month = t.split("~")
 
@@ -32,18 +32,18 @@ class crawlSeason:
 
                         for x in range(int(start[0]), int(end[0])+1):
                             months.append(str(x))
-                        print("제철 정보 : ", start[0], end[0])
+                        #print("제철 정보 : ", start[0], end[0])
                     else:
                         month = t.split("월")
-                        print("제철 정보 : ", month[0])
+                        #print("제철 정보 : ", month[0])
                         months.append(str(month[0]))
                     break
 
-        print(months)
+        #print(months)
         if len(kcals) == 0:
             kcals.append("-")
         result = ' '.join(kcals) + '/' + ' '.join(months)
-        print(result)
+        #print(result)
 
         with open('./static/data/seanson.dat', 'a',encoding = 'utf-8', ) as file:
             file.write(name + ' ' + result +'\n')

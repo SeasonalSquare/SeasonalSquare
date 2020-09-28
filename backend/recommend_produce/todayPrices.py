@@ -4,6 +4,7 @@ import datetime
 import pandas as pd
 import json
 import takeSeason
+import calRank
 def crawl_today_produce():
     open_url = 'http://www.kamis.or.kr/service/price/xml.do?action=dailySalesList&p_cert_key=940b44e5-05f1-4ef1-a938-09a9d3e7ae6d&p_cert_id=1215&p_returntype=xml'
     # Open API URL 생성
@@ -78,6 +79,7 @@ def __init__(self):
             nowDatetime = now.strftime('%Y-%m-%d')
             if produce != nowDatetime:
                 crawl_today_produce()
+                calRank.calToday.__init__(self='')
 
 
             df = pd.read_csv('./static/data/result.csv')
