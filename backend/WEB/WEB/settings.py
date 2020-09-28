@@ -27,7 +27,7 @@ SECRET_KEY = 'lfb%q6uwl+8n25&ky0^((@2b+q=snz@m0m(r5^#^y=q#w$%mpt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', 'j3a503.p.ssafy.io', '127.0.0.1']
 
 
 # Application definition
@@ -189,8 +189,7 @@ CORS_ALLOW_HEADERS = (
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:8080',
-    'http://wouldyouci.ga',
-    'https://wouldyouci.ga'
+    'http://j3a503.p.ssafy.io',
 ]
 
  # jwt 인증 추가
