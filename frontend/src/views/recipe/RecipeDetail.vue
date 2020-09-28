@@ -26,6 +26,7 @@
                     <v-subheader>
                         <v-chip
                             color="#BEDDBF"
+                            style="font-weight: 600"
                         >
                             재료
                         </v-chip>
@@ -56,6 +57,7 @@
                     <v-subheader>
                         <v-chip
                             color="#BEDDBF"
+                            style="font-weight: 600"
                         >
                             양념 재료
                         </v-chip>
