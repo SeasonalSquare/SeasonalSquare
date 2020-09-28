@@ -3,10 +3,10 @@
      <template v-for="(produce,i) in produces">
         <v-col :key="i" cols="12" lg="3" md="3" xl="3" align="center" style="margin-top:50px" >
           <div class="box" style="height:320px;width:249px">
-            <a   @click="goProduce(produce.name)" ><v-img :src="imgURL(produce.name)"  class="scale" style="height:100%" ></v-img></a>
+            <a   @click="goProduce(produce)" ><v-img :src="imgURL(produce.name)"  class="scale" style="height:100%" ></v-img></a>
           </div>
           <div>
-            <span  class="name"><a  @click="goProduce(produce.name)"  style="color:#333;">{{produce.fullname}}</a></span>
+            <span  class="name"><a  @click="goProduce(produce)"  style="color:#333;">{{produce.fullname}}</a></span>
             <span  class="price">{{produce.price}}원 <span style="color:#333;font-size:14px">({{produce.unit}})</span></span>
             <span  class="des">칼로리 {{produce.kcal}}</span>
             <span  class="des">제철 {{produce.months}}</span>
@@ -39,8 +39,8 @@ export default {
       })
   },
   methods: {
-    goProduce(foodName){
-      this.$router.push({name: 'RecipeList', params: {grocery: foodName}});
+    goProduce(produce){
+      this.$router.push({name: 'RecipeList', params: {produce: produce}});
     },
     imgURL(name) { return baseURL + "/produceImg?name=" + name },
   },
