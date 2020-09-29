@@ -12,6 +12,7 @@ import RecipeList from '@/views/recipe/RecipeList.vue'
 import RecipeCart from '@/views/cart/RecipeCart.vue'
 import AllCart from '@/views/cart/AllCart.vue'
 
+import Error from '@/views/error/Error.vue'
 
 Vue.use(VueRouter)
 
@@ -57,7 +58,7 @@ const routes = [
   {
     path: "*",
     name: "Error",
-    component: RecipeCart,
+    component: Error,
   },
 ]
 
