@@ -11,11 +11,13 @@
 
         <v-spacer class="justify-center">
           <!-- 공간 -->
-          <router-link to='/login' ><span class="clbue">임시 로그인</span></router-link>
         </v-spacer>
 
         <div  class="text-right" id="userMenu">
           <ul class="list_menu">
+            <li  class="menu" >
+            <li  class="menu" > <a style="color:#333;font-weight:700;padding-right:10px" @click="goCart()">장바구니</a> </li>
+            <li class="menu"  style="padding-right:10px"> | </li>
             <li  class="menu" > <a style="color:#EC8852;font-weight:700;padding-right:10px" @click="goSignUp()">회원가입</a> </li>
             <li class="menu"  style="padding-right:10px"> | </li>
             <li  class="menu" > <a style="color:#333;font-weight:700" @click="goLogin()">로그인</a> </li>
@@ -67,7 +69,7 @@ export default {
         }
     }
   },
-   methods:{
+  methods:{
 
       onScroll(e) {
         this.windowTop = e.target.documentElement.scrollTop;
@@ -78,10 +80,12 @@ export default {
       goSignUp(){
         this.$router.push({name: 'UserSignUp'})
       },
-        moveToMain() {
-          this.$router.push("/").catch(() => {})
-        }
-
+      goCart(){
+        this.$router.push({name: 'AllCart'})
+      },
+      moveToMain() {
+        this.$router.push("/").catch(() => {})
+      },
     },
     mounted() {
         window.addEventListener("scroll", this.onScroll)

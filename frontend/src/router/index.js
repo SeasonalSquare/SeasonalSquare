@@ -6,11 +6,11 @@ import VueRouter from 'vue-router'
 import Main from "@/components/Main.vue"
 import UserLogin from '@/components/user/UserLogin.vue'
 import UserSignUp from '@/components/user/UserSignUp.vue'
-// Login Pingpong Test
-import TempLogin from '../views/TempLogin.vue'
+
 import RecipeDetail from '@/views/recipe/RecipeDetail.vue'
 import RecipeList from '@/views/recipe/RecipeList.vue'
 import RecipeCart from '@/views/cart/RecipeCart.vue'
+import AllCart from '@/views/cart/AllCart.vue'
 
 
 Vue.use(VueRouter)
@@ -32,14 +32,6 @@ const routes = [
     component: UserSignUp
   },
   {
-    path: '/login',
-    name: 'TempLogin',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: TempLogin
-  },
-  {
     path: '/recipe/detail/:pk',
     name: 'RecipeDetail',
     props: ({params}) => ({pk: Number.parseInt(params.pk, 10) || 0 , summary: params.summary}),
@@ -56,6 +48,11 @@ const routes = [
     name: 'RecipeCart',
     props: ({params}) => ({pk: Number.parseInt(params.pk, 10) || 0 , summary: params.summary}),
     component: RecipeCart,
+  },
+  {
+    path: '/cart/all',
+    name: 'AllCart',
+    component: AllCart,
   },
   {
     path: "*",
