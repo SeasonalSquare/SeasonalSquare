@@ -21,7 +21,7 @@
                     칼로리 : {{ produce.kcal }}
                 </div>
                 <div class="description-text">
-                    제철 : {{ formatMonths(produce.months) }}월
+                    제철 : {{ formatMonths(produce.months) }}
                 </div>
                 <div class="description-text">
                     가격 : {{ produce.price }}원 ({{ produce.unit }})
@@ -80,7 +80,8 @@ export default {
             })
         },
         formatMonths(months){
-            return months.replaceAll(" ", ", ")
+            if(months === '-') return '없음'
+            else return months.replaceAll(" ", ", ") + '월'
         },
     }
 }
