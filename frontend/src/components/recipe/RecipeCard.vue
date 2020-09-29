@@ -55,6 +55,7 @@ export default {
   props : {
     recipe: {
       type: Object,
+      required: true,
     }
   },
   data() {
