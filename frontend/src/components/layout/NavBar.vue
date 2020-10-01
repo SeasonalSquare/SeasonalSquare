@@ -14,13 +14,19 @@
         </v-spacer>
 
         <div  class="text-right" id="userMenu">
-          <ul class="list_menu">
+           <ul class="list_menu" v-if="!loggedIn">
             <li  class="menu" >
-            <li  class="menu" > <a style="color:#333;font-weight:700;padding-right:10px" @click="goCart()">장바구니</a> </li>
+            <li  class="menu" > <a class="nav1" @click="goSignUp()">회원가입</a> </li>
             <li class="menu"  style="padding-right:10px"> | </li>
-            <li  class="menu" > <a style="color:#EC8852;font-weight:700;padding-right:10px" @click="goSignUp()">회원가입</a> </li>
+            <li  class="menu" > <a class="nav2" @click="goLogin()">로그인</a> </li>
+          </ul>
+          <ul class="list_menu"  v-else>
+            <li  class="menu" >
+            <li  class="menu" > <a class="nav1" @click="goCart()">장바구니</a> </li>
             <li class="menu"  style="padding-right:10px"> | </li>
-            <li  class="menu" > <a style="color:#333;font-weight:700" @click="goLogin()">로그인</a> </li>
+            <li  class="menu" > <a class="nav2" style="padding-right:10px;" @click="goMyProfile()">내정보</a> </li>
+            <li class="menu"  style="padding-right:10px"> | </li>
+            <li  class="menu" > <a class="nav2" @click="goLogout()">로그아웃</a> </li>
           </ul>
         </div>
       </v-app-bar>
@@ -44,6 +50,7 @@
 </template>
 
 <script>
+import {mapState,mapGetters} from 'vuex'
 import CategoryTabs from "@/components/layout/CategoryTabs.vue"
 
 export default {
@@ -56,6 +63,10 @@ export default {
   },
   components: {
       CategoryTabs,
+  },
+  computed: {
+      ...mapState(['token', 'myProfile']),
+      ...mapGetters(['loggedIn'])
   },
   watch: {
     windowTop: function() {
@@ -86,6 +97,20 @@ export default {
       moveToMain() {
         this.$router.push("/").catch(() => {})
       },
+      goLogout() {
+         this.$store.dispatch("logout")
+         this.moveToMain();
+      },
+      goMyProfile(){
+        if (this.loggedIn) {
+          this.$router.push({ name: 'UserProfile' })
+        } else {
+            this.$dialog.notify.error('로그인 해주세요', {
+                position: 'top-right',
+                timeout: 2000
+            })
+        }
+      }
     },
     mounted() {
         window.addEventListener("scroll", this.onScroll)
@@ -120,5 +145,13 @@ ul{
   -moz-box-shadow: 0 6px 4px -4px rgba(0, 0, 0, 0.1);
   box-shadow: 0 6px 4px -4px rgba(0, 0, 0, 0.1);
 }
-
+.nav1{
+  color:#EC8852;
+  font-weight:700;
+  padding-right:10px;
+}
+.nav2{
+  color:#333;
+  font-weight:700;
+}
 </style>

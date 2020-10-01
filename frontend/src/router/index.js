@@ -6,7 +6,7 @@ import VueRouter from 'vue-router'
 import Main from "@/components/Main.vue"
 import UserLogin from '@/components/user/UserLogin.vue'
 import UserSignUp from '@/components/user/UserSignUp.vue'
-
+import UserProfile from '@/components/user/UserProfile.vue'
 import RecipeDetail from '@/views/recipe/RecipeDetail.vue'
 import RecipeList from '@/views/recipe/RecipeList.vue'
 import RecipeCart from '@/views/cart/RecipeCart.vue'
@@ -54,6 +54,11 @@ const routes = [
     path: '/cart/all',
     name: 'AllCart',
     component: AllCart,
+  },
+  {
+    path: '/user/profile',
+    name: 'UserProfile',
+    component: UserProfile,
   },
   {
     path: "*",
