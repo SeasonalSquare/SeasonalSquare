@@ -10,8 +10,9 @@
               <v-col cols="4"  lg="4"> <v-subheader class="subtitle">아이디<span class="subrequired">*</span></v-subheader></v-col>
               <v-col cols="5"  lg="6">
                 <v-text-field  
-                  v-model="id"
-                  label="아이디를 입력해주세요" solo  required
+                 v-model="email"
+                  label="이메일을 입력해주세요" solo  required
+                  :rules="emailRules"
                 ></v-text-field>
               </v-col>
 
@@ -27,10 +28,11 @@
               <v-col cols="4"  lg="4"> <v-subheader class="subtitle">비밀번호<span class="subrequired">*</span></v-subheader></v-col>
               <v-col cols="8"  lg="6">
                 <v-text-field  label="비밀번호를 입력해주세요" solo  required
-                  v-model="password"
+                      v-model="password1"
                   :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                   :type="show1 ? 'text' : 'password'"
                   @click:append="show1 = !show1"
+                  :rules="passwordRules"
                 ></v-text-field>
               </v-col>
               <v-col cols="2"></v-col>
@@ -40,34 +42,37 @@
               <v-col cols="4"  lg="4"> <v-subheader class="subtitle">비밀번호 확인<span class="subrequired">*</span></v-subheader></v-col>
               <v-col cols="8"  lg="6">
                 <v-text-field  label="비밀번호를 확인해주세요" solo  required
-                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                 v-model="password2"
+                   :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
                   :type="show2 ? 'text' : 'password'"
                   @click:append="show2 = !show2"
+                  :rules="passwordRules2"
                 ></v-text-field>
               </v-col>
               <v-col cols="2"></v-col>
             </v-row>
 
-            <v-row>
+            <!-- <v-row>
               <v-col cols="4"  lg="4"> <v-subheader class="subtitle">휴대폰<span class="subrequired">*</span></v-subheader></v-col>
               <v-col cols="8"  lg="6">
                 <v-text-field  label="숫자만 입력해주세요" solo  required></v-text-field>
               </v-col>
               <v-col cols="2"></v-col>
-            </v-row>
+            </v-row> -->
 
             <v-row>
               <v-col cols="4"  lg="4"> <v-subheader class="subtitle">이름<span class="subrequired">*</span></v-subheader></v-col>
               <v-col cols="8"  lg="6">
                 <v-text-field  
-                  v-model="id"
+                  v-model="username"
                   label="이름을 입력해주세요" solo  required
+                     :rules="usernameRules"
                 ></v-text-field>
               </v-col>
               <v-col cols="2"></v-col>
             </v-row>
 
-            <v-row>
+            <!-- <v-row>
               <v-col cols="4"  lg="4"> <v-subheader class="subtitle">성별<span class="subrequired">*</span></v-subheader></v-col>
               <v-col cols="8"  lg="6">
                 <v-radio-group v-model="gender" row>
@@ -106,7 +111,8 @@
                 </v-row>
               </v-col>
               <v-col lg="2"></v-col>
-            </v-row>
+            </v-row> -->
+
               <v-divider></v-divider>
             <v-row>
               <v-col cols="0" lg="3"></v-col>
@@ -132,9 +138,24 @@ export default {
     return {
         show1: false,
         show2: false,
-        id: null,
-        password: null,
-        gender: null,
+        email: null,
+        password1: null,
+        password2: null,
+        username: null,
+        emailRules: [
+          // v => !!v || 'E-mail is required',
+          v => /.+@.+\..+/.test(v) || '유효한 이메일 주소를 입력하십시오',
+        ],
+        passwordRules: [
+          v => (v && v.length >= 8) || '비밀번호는 최소 8 문자를 포함해야 합니다',
+        ],
+        passwordRules2: [
+          v => (v && v == this.password1) || '비밀번호가 일치하지 않습니다',
+        ],
+        usernameRules:[
+          v => (v && v.length >= 1) || '이름은 필수 값 입니다',
+        ],
+
     };
   },
   methods:{
