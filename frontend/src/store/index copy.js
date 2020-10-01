@@ -5,11 +5,11 @@ import http from '@/util/http-common.js'
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
+  state: {  //앱에서 공유할 데이터 관리, this.$stroe.state.이름 으로 접근
     token: sessionStorage.getItem("token"),
     myProfile: sessionStorage.getItem("myProfile")?JSON.parse(sessionStorage.getItem("myProfile")):[],
   },
-  getters: {
+  getters: {  //얻기
     config: (state) => ({headers: { Authorization: state.token }}),
     loggedIn(state){
       if(state.myProfile!=null && state.myProfile && state.myProfile!="" && state.myProfile!="null"){
@@ -18,7 +18,7 @@ export default new Vuex.Store({
       return false
     }, 
   },
-  mutations: {
+  mutations: { //동기적 처리  -> state 값 변경
     SET_USERPROFILE(state, value) {
       sessionStorage.setItem("myProfile",JSON.stringify(value))
       state.myProfile = value
@@ -34,8 +34,11 @@ export default new Vuex.Store({
       sessionStorage.removeItem("token")
     },
   },
-  actions: {
+  actions: { //비동기 처리(dispatch로 호출)  , action 끝나고 mutations 호출 (stroe.commit()으로 호출)
+    
+    //1. 로그인 성공시, 사용자 정보가져옴 -> 
     setUserProfile( { commit, getters } ) {
+      //console.log(">>>>>>>>>getters "+ JSON.stringify(getters));
 
       return http.get('/rest-auth/user/', getters.config)
       .then((res) => {
