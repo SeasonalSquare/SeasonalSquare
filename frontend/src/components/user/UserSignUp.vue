@@ -91,7 +91,7 @@
 
                   <v-col cols="4"  style="padding-right:0px;">
                     <v-text-field  
-                      v-model="id"
+                      v-model="id" 
                       label="MM" solo  required
                     ></v-text-field>
                   </v-col>
