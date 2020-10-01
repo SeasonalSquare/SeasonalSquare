@@ -36,7 +36,6 @@ export default new Vuex.Store({
   },
   actions: {
     setUserProfile( { commit, getters } ) {
-
       return http.get('/rest-auth/user/', getters.config)
       .then((res) => {
         console.log("내 정보", res)
