@@ -7,17 +7,18 @@
            <p style="border-bottom:1px solid black;color:#666;font-size:12px;text-align: right;line-height: 17px;padding: 23px 0 10px"><span class="subrequired">*</span> 필수입력사항</p>
           <div style="padding-top: 0px;">
             <v-row>
-              <v-col cols="4"  lg="4"> <v-subheader class="subtitle">아이디<span class="subrequired">*</span></v-subheader></v-col>
+              <v-col cols="4"  lg="4"> <v-subheader class="subtitle">이메일<span class="subrequired">*</span></v-subheader></v-col>
               <v-col cols="5"  lg="6">
                 <v-text-field  
                  v-model="email"
                   label="이메일을 입력해주세요" solo  required
                   :rules="emailRules"
+                  ref="email"
                 ></v-text-field>
               </v-col>
 
               <v-col cols="3" lg="2">
-                <v-btn color="#fff" style="border: 1px solid #5C5749;" class="btn">
+                <v-btn color="#fff" @click="goEmailChk()" style="border: 1px solid #5C5749;" class="btn">
                   <span style="color:#5C5749;font-size:14px;font-weight:bold">중복확인</span>
                 </v-btn>
               </v-col>
@@ -28,11 +29,12 @@
               <v-col cols="4"  lg="4"> <v-subheader class="subtitle">비밀번호<span class="subrequired">*</span></v-subheader></v-col>
               <v-col cols="8"  lg="6">
                 <v-text-field  label="비밀번호를 입력해주세요" solo  required
-                      v-model="password1"
+                  v-model="password1"
                   :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                   :type="show1 ? 'text' : 'password'"
                   @click:append="show1 = !show1"
                   :rules="passwordRules"
+                  ref="password1"
                 ></v-text-field>
               </v-col>
               <v-col cols="2"></v-col>
@@ -47,6 +49,7 @@
                   :type="show2 ? 'text' : 'password'"
                   @click:append="show2 = !show2"
                   :rules="passwordRules2"
+                  ref="password2"
                 ></v-text-field>
               </v-col>
               <v-col cols="2"></v-col>
@@ -67,6 +70,7 @@
                   v-model="username"
                   label="이름을 입력해주세요" solo  required
                      :rules="usernameRules"
+                     ref="username"
                 ></v-text-field>
               </v-col>
               <v-col cols="2"></v-col>
@@ -117,7 +121,7 @@
             <v-row>
               <v-col cols="0" lg="3"></v-col>
               <v-col cols="12" lg="6">
-                <v-btn color="#5C5749" style="border: 1px solid #5C5749;margin-top:15px" class="btn"><span style="color:#fff">가입하기</span></v-btn>
+                <v-btn color="#5C5749" style="border: 1px solid #5C5749;margin-top:15px" @click="goSignUp()" class="btn"><span style="color:#fff">가입하기</span></v-btn>
               </v-col>
               <v-col cols="0" lg="3"></v-col>
             </v-row>
@@ -130,7 +134,7 @@
 </template>
 
 <script>
-// import http from '@/util/http-common.js'
+import http from '@/util/http-common.js'
 
 export default {
   name: "UserSignUp",
@@ -159,6 +163,118 @@ export default {
     };
   },
   methods:{
+    goEmailChk(){
+      let form = new FormData();
+      form.append("email", this.email);
+
+      http.post('/rest-auth/signup/',form , {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+          }
+        })
+      .then(res => {
+          console.log(res)
+          
+      })
+      .catch(error => {
+        // console.log('failed', error.response.data)
+        if(error.response.data.email != null){
+          let msg =error.response.data.email
+          this.$dialog.notify.error(msg[0], {
+            position: 'top-right',
+            timeout: 3000
+          })
+          this.$refs.email.focus();
+        }else{
+          this.$dialog.notify.info('사용가능한 이메일입니다', {
+            position: 'top-right',
+            timeout: 3000
+          })
+        }
+      })
+    },
+    goSignUp(){
+      if(this.email == null){
+        this.$dialog.notify.warning("이메일을 입력해주세요", {
+            position: 'top-right',
+            timeout: 3000
+          })
+          this.$refs.email.focus();
+          return;
+      }else if(this.password1 == null){
+          this.$dialog.notify.warning("비밀번호를 입력해주세요", {
+            position: 'top-right',
+            timeout: 3000
+          })
+          this.$refs.password1.focus();
+          return;
+       }else if(this.password2 == null || this.password2 != this.password1){
+          this.$dialog.notify.warning("비밀번호를 확인해주세요", {
+            position: 'top-right',
+            timeout: 3000
+          })
+          this.$refs.password2.focus();
+          return;
+      }else if(this.username == null){
+          this.$dialog.notify.warning("이름을 입력해주세요", {
+            position: 'top-right',
+            timeout: 3000
+          })
+          this.$refs.username.focus();
+          return;
+      }
+
+      let form = new FormData();
+      form.append("email", this.email);
+      form.append("password1", this.password1);
+      form.append("password2", this.password2);
+      form.append("username", this.username);
+
+      http.post('/rest-auth/signup/',form , {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+          }
+        })
+      .then(res => {
+          console.log(">>>>>>"+res)
+          this.$dialog.notify.success('회원가입이 완료되었습니다', {
+            position: 'top-right',
+            timeout: 3000
+          })
+          this.$router.push({name: 'UserLogin'})
+      })
+      .catch(error => {
+        let data = error.response.data;
+        let msg;
+
+        if(data.email != null){
+          msg =data.email
+          this.$refs.email.focus();
+        }else if(data.password1 != null){
+          msg =data.password1
+          this.$refs.password1.focus();
+        }else if(data.password2 != null){
+          msg =data.password2
+          this.$refs.password2.focus();
+        }else if(data.username != null){
+          msg =data.username
+          this.$refs.username.focus();
+        }else if(data.non_field_errors != null){
+          msg =data.non_field_errors
+          this.$refs.password2.focus();
+        }else{
+           console.log('failed', error.response.data)
+           return;
+        }
+
+        this.$dialog.notify.error(msg[0], {
+          position: 'top-right',
+          timeout: 3000
+        })
+
+
+      })
+    }
   },
  
 }

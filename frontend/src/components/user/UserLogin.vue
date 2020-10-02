@@ -75,6 +75,10 @@ export default {
 
                 this.$store.dispatch("setAuth", "JWT " + data.token)
                 this.$store.dispatch("setUserProfile", data.token);
+                this.$dialog.notify.success('로그인이 완료되었습니다', {
+                  position: 'top-right',
+                  timeout: 2000
+                })
                 this.$router.push("/")
 
             })
