@@ -2,8 +2,8 @@
   <div>
     <v-tooltip bottom  v-for="(recipe, index) in recipes" :key="index" >
       <template v-slot:activator="{ on, attrs }">
-        <v-avatar  style="margin-right:20px"  v-bind="attrs" v-on="on"
-            size="90">
+        <v-avatar  v-bind="attrs" v-on="on" style="margin-right:30px;margin-bottom:10px"
+            size="95">
             <img :src="recipe.image"  @click="goRecipe(recipe)" >
         </v-avatar>
       </template>
@@ -25,15 +25,13 @@ export default {
     }
   },
   created() {
-    // console.log(">>>>>>>>>"+this.food);
-
     http.get(`/recipe/grocery/${this.food}`)
       .then(response => {
       this.recipes = response.data
-      this.recipes.splice(3)
+      this.recipes.splice(6)
       })
       .catch(err => {
-      console.log(err + "죽인다")
+      console.log(err)
       })
   },
   methods: {

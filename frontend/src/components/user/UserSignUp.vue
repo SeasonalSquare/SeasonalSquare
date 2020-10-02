@@ -119,11 +119,11 @@
 
               <v-divider></v-divider>
             <v-row>
-              <v-col cols="0" lg="3"></v-col>
-              <v-col cols="12" lg="6">
+              <v-col cols="0" lg="2"></v-col>
+              <v-col cols="12" lg="8">
                 <v-btn color="#5C5749" style="border: 1px solid #5C5749;margin-top:15px" @click="goSignUp()" class="btn"><span style="color:#fff">가입하기</span></v-btn>
               </v-col>
-              <v-col cols="0" lg="3"></v-col>
+              <v-col cols="0" lg="2"></v-col>
             </v-row>
           </div>
           
