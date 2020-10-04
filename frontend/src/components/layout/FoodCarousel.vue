@@ -9,7 +9,7 @@
               <v-col cols="0" lg="2" md="2"> </v-col>
               <v-col cols="12" lg="4"  md="4" >
                   <v-hover v-slot:default="{ hover }">
-                      <a   @click="goProduce(produce.name)">
+                      <a   @click="goProduce(produce)">
                       <v-img :aspect-ratio="16/9" :src="imgURL(produce.name)" > 
                         <v-row align="end" class="fill-height">
                           <v-col
@@ -88,10 +88,8 @@ export default {
     }
   },
   methods: {
-    goProduce(foodName){
-      // 작믈 이름을 넘겨주세요
-      //alert(foodName);
-      this.$router.push({name: 'RecipeList', params: {grocery: foodName}});
+    goProduce(produce){
+      this.$router.push({name: 'RecipeList', params: {produce: produce}});
     },
      imgURL(name) { return baseURL + "/produceImg?name=" + name },
   },

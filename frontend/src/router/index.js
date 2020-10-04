@@ -48,7 +48,7 @@ const routes = [
   {
     path: '/recipe/list',
     name: 'RecipeList',
-    props: ({params}) => ({grocery: params.grocery}),
+    props: ({params}) => ({produce: params.produce}),
     component: RecipeList,
   },
   {
