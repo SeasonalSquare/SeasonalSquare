@@ -1,12 +1,10 @@
 [
-  {"model" : "accounts.vegetarian", "pk" : 1, "fields" : {"v_type" : "fruitarian"}},
-  {"model" : "accounts.vegetarian", "pk" : 2, "fields" : {"v_type" : "vegan"}},
-  {"model" : "accounts.vegetarian", "pk" : 3, "fields" : {"v_type" : "lacto-vegetarian"}},
-  {"model" : "accounts.vegetarian", "pk" : 4, "fields" : {"v_type" : "ovo-vegetarian"}},
-  {"model" : "accounts.vegetarian", "pk" : 5, "fields" : {"v_type" : "lacto-ovo-vegetarian"}},
-  {"model" : "accounts.vegetarian", "pk" : 6, "fields" : {"v_type" : "pesco-vegetarian"}},
-  {"model" : "accounts.vegetarian", "pk" : 7, "fields" : {"v_type" : "pollo-vegetarian"}},
-  {"model" : "accounts.vegetarian", "pk" : 8, "fields" : {"v_type" : "flexitarian"}},
+  {"model" : "accounts.vegetarian", "pk" : 1, "fields" : {"v_type" : "vegan"}},
+  {"model" : "accounts.vegetarian", "pk" : 2, "fields" : {"v_type" : "lacto-vegetarian"}},
+  {"model" : "accounts.vegetarian", "pk" : 3, "fields" : {"v_type" : "ovo-vegetarian"}},
+  {"model" : "accounts.vegetarian", "pk" : 4, "fields" : {"v_type" : "lacto-ovo-vegetarian"}},
+  {"model" : "accounts.vegetarian", "pk" : 5, "fields" : {"v_type" : "pesco-vegetarian"}},
+  {"model" : "accounts.vegetarian", "pk" : 6, "fields" : {"v_type" : "pollo-vegetarian"}},
 
 
   {"model" : "accounts.allergy", "pk" : 1, "fields" : {"a_type" : "견과류"}},
