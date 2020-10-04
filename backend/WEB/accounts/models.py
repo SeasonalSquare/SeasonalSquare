@@ -3,12 +3,12 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 
 
-class Vegi(models.Model):
-    vegi_type = models.CharField(max_length=50)
+class Vegetarian(models.Model):
+    v_type = models.CharField(max_length=50)
 
 
 class Allergy(models.Model):
-    aller_type = models.TextField()
+    a_type = models.TextField()
 
 
 class User(AbstractUser):
@@ -17,8 +17,8 @@ class User(AbstractUser):
         blank=True, null=True,
         related_name = 'Allergy',
     )
-    vegi = models.ForeignKey(
-        Vegi,
+    vegetarian = models.ForeignKey(
+        Vegetarian,
         on_delete=models.CASCADE,
         blank=True, null=True
         )
