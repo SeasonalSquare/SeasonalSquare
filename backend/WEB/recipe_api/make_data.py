@@ -15,16 +15,29 @@ def get_content(recipe_pk):
     ingredients = data.select('#divConfirmedMaterialArea > ul:nth-child(1) > a')
     # [ 양념 ]
     sources = data.select('#divConfirmedMaterialArea > ul:nth-child(2) > a')
-    # allergy_data = [
-    #     ["땅콩", "잣", "호두", "아몬드", "캐슈넛", "피넛", "땅콩버터"], [], [],
-    # ]
+    allergy_data = {
+        "1": ["땅콩", "땅콩버터", "잣", "피넛버터"],
+        "2": [],
+        "3": [], 
+        "4": [],
+        "5": [],
+        "6": [],
+        "7": [],
+        "8": [],
+        "9": [],
+        "10": [],
+
+    }
     recipe_data = {}
     ingredient_data = {}
     temp = []
     allergy_list = []
     for ingredient in ingredients:
         # print(ingredient)
-        jaeryo = ingredient.select_one('li').text.split('\n') 
+        jaeryo = ingredient.select_one('li').text.split('\n')
+        for key, value in allergy_data.items():
+            if jaeryo in value:
+                allergy_list.append(int(key))
         item = {'ingredient_name' : jaeryo[0].strip(), 'amount' : jaeryo[1] }
         temp.append(item)
     ingredient_data['main_ingredients'] = temp
@@ -51,7 +64,7 @@ def get_content(recipe_pk):
         step_list.append(item)
 
     recipe_data['recipe'] = step_list
-    return writer, recipe_data
+    return allergy_list, writer, recipe_data
 
 
 current = os.getcwd()
