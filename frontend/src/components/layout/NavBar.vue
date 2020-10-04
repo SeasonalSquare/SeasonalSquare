@@ -11,14 +11,22 @@
 
         <v-spacer class="justify-center">
           <!-- 공간 -->
-          <router-link to='/login' ><span class="clbue">임시 로그인</span></router-link>
         </v-spacer>
 
         <div  class="text-right" id="userMenu">
-          <ul class="list_menu">
-            <li  class="menu" > <a style="color:#EC8852;font-weight:700;padding-right:10px" @click="goSignUp()">회원가입</a> </li>
+           <ul class="list_menu" v-if="!loggedIn">
+            <li  class="menu" >
+            <li  class="menu" > <a class="nav1" @click="goSignUp()">회원가입</a> </li>
             <li class="menu"  style="padding-right:10px"> | </li>
-            <li  class="menu" > <a style="color:#333;font-weight:700" @click="goLogin()">로그인</a> </li>
+            <li  class="menu" > <a class="nav2" @click="goLogin()">로그인</a> </li>
+          </ul>
+          <ul class="list_menu"  v-else>
+            <li  class="menu" >
+            <li  class="menu" > <a class="nav1" @click="goCart()">장바구니</a> </li>
+            <li class="menu"  style="padding-right:10px"> | </li>
+            <li  class="menu" > <a class="nav2" style="padding-right:10px;" @click="goMyProfile()">내정보</a> </li>
+            <li class="menu"  style="padding-right:10px"> | </li>
+            <li  class="menu" > <a class="nav2" @click="goLogout()">로그아웃</a> </li>
           </ul>
         </div>
       </v-app-bar>
@@ -33,8 +41,7 @@
 
       <v-row>
         <v-col align="center" style="margin:auto;padding:0px;">
-            <div style="border-bottom:solid 1px rgba(0,0,0,0.1);" class="shadow">
-                <category-tabs style="width:80%;height:48px;" />
+            <div style="border-bottom:solid 1px rgba(0,0,0,0.1);height:48px;" class="shadow">
             </div>
         </v-col>
       </v-row>
@@ -42,7 +49,7 @@
 </template>
 
 <script>
-import CategoryTabs from "@/components/layout/CategoryTabs.vue"
+import {mapState,mapGetters} from 'vuex'
 
 export default {
   name: "NavBar",
@@ -53,7 +60,10 @@ export default {
     }
   },
   components: {
-      CategoryTabs,
+  },
+  computed: {
+      ...mapState(['token', 'myProfile']),
+      ...mapGetters(['loggedIn'])
   },
   watch: {
     windowTop: function() {
@@ -67,7 +77,7 @@ export default {
         }
     }
   },
-   methods:{
+  methods:{
 
       onScroll(e) {
         this.windowTop = e.target.documentElement.scrollTop;
@@ -78,10 +88,26 @@ export default {
       goSignUp(){
         this.$router.push({name: 'UserSignUp'})
       },
-        moveToMain() {
-          this.$router.push("/").catch(() => {})
+      goCart(){
+        this.$router.push({name: 'AllCart'})
+      },
+      moveToMain() {
+        this.$router.push("/").catch(() => {})
+      },
+      goLogout() {
+         this.$store.dispatch("logout")
+         this.moveToMain();
+      },
+      goMyProfile(){
+        if (this.loggedIn) {
+          this.$router.push({ name: 'UserProfile' })
+        } else {
+            this.$dialog.notify.error('로그인 해주세요', {
+                position: 'top-right',
+                timeout: 2000
+            })
         }
-
+      }
     },
     mounted() {
         window.addEventListener("scroll", this.onScroll)
@@ -112,9 +138,17 @@ ul{
   letter-spacing:-.3px;
 }
 .shadow {
-  -webkit-box-shadow: 0 6px 4px -4px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 6px 4px -4px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 6px 4px -4px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 6px 4px -4px rgba(0, 0, 0, 0.1) !important;
+  -moz-box-shadow: 0 6px 4px -4px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 6px 4px -4px  rgba(0, 0, 0, 0.1) !important;
 }
-
+.nav1{
+  color:#EC8852;
+  font-weight:700;
+  padding-right:10px;
+}
+.nav2{
+  color:#333;
+  font-weight:700;
+}
 </style>

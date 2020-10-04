@@ -19,7 +19,8 @@
               <v-btn
                 text
                 @click.prevent="moveToRecipeDetail"
-                style="height: 100%; font-size: 1.3rem;"
+                color="black"
+                style="height: 100%; font-size: 1.3rem; font-weight: 600;"
               >
                 레시피
                 <br>
@@ -28,7 +29,7 @@
               <v-btn
                 text
                 @click.prevent="moveToRecipeCart"
-                style="height: 100%; font-size: 1.3rem;"
+                style="height: 100%; font-size: 1.3rem; font-weight: 600;"
               >
                 장 보러
                 <br>
@@ -55,6 +56,7 @@ export default {
   props : {
     recipe: {
       type: Object,
+      required: true,
     }
   },
   data() {

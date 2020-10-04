@@ -9,7 +9,7 @@
             <span  class="name"><a  @click="goProduce(produce)"  style="color:#333;">{{produce.fullname}}</a></span>
             <span  class="price">{{produce.price}}원 <span style="color:#333;font-size:14px">({{produce.unit}})</span></span>
             <span  class="des">칼로리 {{produce.kcal}}</span>
-            <span  class="des">제철 {{produce.months}}</span>
+            <span  class="des">제철 {{formatMonths(produce.months)}}</span>
           </div>
         </v-col>
      </template>
@@ -43,6 +43,10 @@ export default {
       this.$router.push({name: 'RecipeList', params: {produce: produce}});
     },
     imgURL(name) { return baseURL + "/produceImg?name=" + name },
+    formatMonths(months){
+      if(months === '-') return '없음'
+      else return months.replaceAll(" ", ", ") + '월'
+    },
   },
 
   
