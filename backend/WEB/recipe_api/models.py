@@ -10,7 +10,7 @@ class Grocery(models.Model):
 
 
 class Recipe(models.Model):
-    img = models.CharField(max_length=150)
+    image = models.CharField(max_length=150)
     main_grocery = models.CharField(max_length=50)
     title = models.CharField(max_length=150)
     writer = models.CharField(max_length=50)
