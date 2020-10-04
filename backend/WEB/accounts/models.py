@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 class Vegetarian(models.Model):
     v_type = models.CharField(max_length=50)
-
+    
 
 class Allergy(models.Model):
     a_type = models.TextField()
