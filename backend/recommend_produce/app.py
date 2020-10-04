@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, render_template
 import todayPrices
 import os
 from flask_cors import CORS
@@ -10,7 +10,7 @@ CORS(app)
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return render_template('index.html')
 
 
 @app.route('/todayProduce', methods = ['GET'])
@@ -25,6 +25,8 @@ def todayProduce():
 def todayProduceWithout():
     allergies = request.args.get('allergies')
     vegi = request.args.get('vegi')
+    print("들어온 알러지", allergies)
+    print("들어온 베지타입", vegi)
     result = produceWithout.__init__(self='', allergies=allergies, vegi=vegi)
     print(result)
     return result

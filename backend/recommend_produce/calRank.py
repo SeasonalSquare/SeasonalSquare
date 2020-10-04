@@ -67,6 +67,10 @@ class calToday:
                 #print("랭크점수올리는중",row)
                 sum += 1
                 sum += float(row[5])
+            if row[6] == '1': #등락여부( 0:가격하락 1:가격상승 2:등락없음 )
+                #print("랭크점수올리는중",row)
+                sum -= 1
+                sum -= float(row[5])
             #print(todayMonth, row[3])
             if str(todayMonth) in row[8]:
                 sum += 1

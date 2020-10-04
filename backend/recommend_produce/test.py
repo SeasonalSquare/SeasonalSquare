@@ -5,7 +5,7 @@ df = pd.read_csv('./static/data/result.csv')
 df = df.drop(['Unnamed: 0'], axis=1)
 print(df)
 t = 0
-names = ["시금치","오이","생강"]
+names = ["호박","시금치","오이","생강"]
 dropIndex = []
 for i in range(len(df)):
     #print(df.iloc[i])

@@ -84,7 +84,7 @@ def __init__(self):
 
             df = pd.read_csv('./static/data/result.csv')
             df = df.drop(['Unnamed: 0'], axis=1)
-            records = df.iloc[0:10].to_json(orient='records', force_ascii=False)
+            records = df.iloc[0:40].to_json(orient='records', force_ascii=False)
             #print(df.iloc[0:10].to_json(orient='records'))
 
             return str(records)
