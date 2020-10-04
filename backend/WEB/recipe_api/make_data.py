@@ -15,14 +15,16 @@ def get_content(recipe_pk):
     ingredients = data.select('#divConfirmedMaterialArea > ul:nth-child(1) > a')
     # [ 양념 ]
     sources = data.select('#divConfirmedMaterialArea > ul:nth-child(2) > a')
-
+    # allergy_data = [
+    #     ["땅콩", "잣", "호두", "아몬드", "캐슈넛", "피넛", "땅콩버터"], [], [],
+    # ]
     recipe_data = {}
     ingredient_data = {}
     temp = []
     allergy_list = []
     for ingredient in ingredients:
         # print(ingredient)
-        jaeryo = ingredient.select_one('li').text.split('\n')
+        jaeryo = ingredient.select_one('li').text.split('\n') 
         item = {'ingredient_name' : jaeryo[0].strip(), 'amount' : jaeryo[1] }
         temp.append(item)
     ingredient_data['main_ingredients'] = temp
@@ -80,12 +82,11 @@ for line in lines:
                 "image": image, 
                 "title": title, 
                 "main_grocery": grocery_name,
-                "allergies": allergy_list
+                # "allergies": allergy_list,
                 "content": str(content),
                 }
             }
         recipe_list.append(tem)
-    break
 recipe_json.write(json.dumps(recipe_list, ensure_ascii=False))
 grocery.close()
 recipe_json.close()
