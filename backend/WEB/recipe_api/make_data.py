@@ -16,7 +16,7 @@ def get_content(recipe_pk):
     # [ 양념 ]
     sources = data.select('#divConfirmedMaterialArea > ul:nth-child(2) > a')
     allergy_data = {
-        "1": ["땅콩", "땅콩버터", "잣", "피넛버터"],
+        "1": ["땅콩", "땅콩버터", "잣", "피넛버터", "땅콩분태", "볶은 땅콩", "견과류(땅콩/호두등)"],
         "2": [],
         "3": [], 
         "4": [],
@@ -87,7 +87,7 @@ for line in lines:
         image = recipe.select_one('div.common_sp_thumb > a > img').attrs['src']
         title =  recipe.select_one('div.common_sp_caption > div.common_sp_caption_tit.line2').text
         pk = recipe.select_one('div.common_sp_thumb > a').attrs['href'].replace('/recipe/','')
-        writer, content = get_content(pk)
+        allergy_list, writer, content = get_content(pk)
         tem = {"model": "recipe_api.recipe", 
             "pk": pk, 
             "fields": {
@@ -95,7 +95,7 @@ for line in lines:
                 "image": image, 
                 "title": title, 
                 "main_grocery": grocery_name,
-                # "allergies": allergy_list,
+                "allergies": allergy_list,
                 "content": str(content),
                 }
             }
