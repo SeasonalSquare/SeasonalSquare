@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'rest_auth.registration',
     'corsheaders',
 
@@ -218,7 +219,7 @@ SITE_ID = 1
 
 AUTH_USER_MODEL = 'accounts.User'
 
-FORCE_SCRIPT_NAME = '/api'
+# FORCE_SCRIPT_NAME = '/api'
 
 
 # 이메일로 로그인
@@ -229,6 +230,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
+<<<<<<< HEAD
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     "django.contrib.auth.backends.ModelBackend",
@@ -236,3 +238,7 @@ AUTHENTICATION_BACKENDS = (
     # `allauth` specific authentication methods, such as login by e-mail
     "allauth.account.auth_backends.AuthenticationBackend",
 )
+=======
+# 이메일로 인한 500에러 방지
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+>>>>>>> 132fcd64628ba8476bcd3629f914306fd41a089e
