@@ -44,7 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     allergy = models.ManyToManyField(
         Allergy,
-        blank=True, null=True,
+        blank=True,
         related_name = 'Allergy',
     )
     vegetarian = models.ForeignKey(
@@ -64,5 +64,5 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['email']
+    REQUIRED_FIELDS = []
     
