@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'rest_auth.registration',
     'corsheaders',
 
@@ -218,7 +219,7 @@ SITE_ID = 1
 
 AUTH_USER_MODEL = 'accounts.User'
 
-FORCE_SCRIPT_NAME = '/api'
+# FORCE_SCRIPT_NAME = '/api'
 
 
 # 이메일로 로그인
@@ -228,3 +229,6 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+
+# 이메일로 인한 500에러 방지
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
