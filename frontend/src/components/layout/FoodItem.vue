@@ -3,7 +3,7 @@
      <template v-for="(produce,i) in produces">
         <v-col :key="i" cols="12" lg="3" md="3" xl="3" align="center" style="margin-top:50px" >
           <div class="box" style="height:320px;width:249px">
-            <a   @click="goProduce(produce)" ><v-img :src="imgURL(produce.name)"  class="scale" style="height:100%" ></v-img></a>
+            <a   @click="goProduce(produce)" ><v-img :src="imgURL(produce.fullname)"  class="scale" style="height:100%" ></v-img></a>
           </div>
           <div>
             <span  class="name"><a  @click="goProduce(produce)"  style="color:#333;">{{produce.fullname}}</a></span>

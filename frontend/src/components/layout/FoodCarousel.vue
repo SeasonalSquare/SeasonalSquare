@@ -11,7 +11,7 @@
               <v-col cols="12" lg="4"  md="4" >
                   <v-hover v-slot:default="{ hover }">
                       <a   @click="goProduce(produce)">
-                      <v-img :aspect-ratio="16/9" :src="imgURL(produce.name)" > 
+                      <v-img :aspect-ratio="16/9" :src="imgURL(produce.fullname)" > 
                         <v-row align="end" class="fill-height">
                           <v-col
                             align-self="start" align="left"
