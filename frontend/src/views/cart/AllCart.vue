@@ -14,9 +14,6 @@
                 style="margin: 1rem;"
             />
         </div>
-        <v-btn block x-large color="#EC8852" style="margin-bottom: 1rem">
-            요리하러 가기
-        </v-btn>
     </v-container>
 </template>
 
@@ -31,17 +28,17 @@ export default {
         return {
             dumps : 
             [{
-                pk: '1',
+                pk: '6872350',
                 title: '상추비빔밥',
                 ingredients: ['고추장', '간장', '상추', '달걀', '참기름'],
             },
             {
-                pk: '2',
+                pk: '6872350',
                 title: '호박볶음',
                 ingredients: ['애호박', '베이컨', '마늘'],
             },
             {
-                pk: '3',
+                pk: '6872350',
                 title: '열무비빔밥',
                 ingredients: ['열무', '찹쌀가루', '쪽파', '양파'],
             }],
