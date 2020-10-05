@@ -38,7 +38,6 @@ export default {
          show1: false,
          email: null,
          password: null,
-         username: "a2",
     };
   },
   methods:{
@@ -49,8 +48,7 @@ export default {
       let form = new FormData();
       form.append("email", this.email);
       form.append("password", this.password);
-      form.append("username", this.username);
-      console.log(this.email);
+      // console.log(this.email);
 
       http.post('/rest-auth/login/',form , {
                  headers: {
@@ -60,7 +58,7 @@ export default {
           .then(res => {
             let frm = new FormData();
             frm.append("password", this.password);
-            frm.append("username", this.username);
+            frm.append("email", this.email);
             
             console.log(">>"+res);
 
@@ -77,7 +75,7 @@ export default {
                 this.$store.dispatch("setUserProfile", data.token);
                 this.$dialog.notify.success('로그인이 완료되었습니다', {
                   position: 'top-right',
-                  timeout: 2000
+                  timeout: 1000
                 })
                 this.$router.push("/")
 
