@@ -16,7 +16,7 @@ class Recipe(models.Model):
     writer = models.CharField(max_length=50)
     ingredients = models.ManyToManyField(
         Grocery,
-        blank=True, null=True,
+        blank=True,
         related_name = 'ingredients_recipe',
     )
     content = models.TextField()
