@@ -17,6 +17,7 @@ from django.views.decorators.http import require_POST
 # django model
 from django.shortcuts import render, get_object_or_404
 from .models import Allergy, Vegetarian
+from .serializers import UserSerializer
 
 # from .forms import CustomUserCreationForm
 # from .models import Post
@@ -39,14 +40,42 @@ def set_allergy(request):
     print(request.data)
     user = request.user
     allergy_list = request.data['allergy_list']
+    user.allergy.set([])
     for a_type in allergy_list:
         allergy_model = get_object_or_404(Allergy, a_type=a_type)
         user.allergy.add(allergy_model)
     vegan_list = request.data['vegan_list']
     for v_type in vegan_list:
         vegi_model = get_object_or_404(Vegetarian, v_type=v_type)
-        user.vegetarian.add(vegi_model)
+        user.vegetarian = vegi_model
     return Response(True)
+
+
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+@authentication_classes((JSONWebTokenAuthentication,))
+def get_allergy(request):
+    user = request.user
+    print(user)
+    serializer = UserSerializer(user)
+    data = {
+        'allergy': None,
+        'vegetarian': None,
+    }
+    temp = []
+    for a_pk in serializer.data['allergy']:
+        allergy_model = get_object_or_404(Allergy, pk=a_pk)
+        temp.append(allergy_model.a_type)
+    print(temp)
+    data['allergy'] = temp
+    v_pk = serializer.data['vegetarian']
+    if v_pk:
+        vegi_model = get_object_or_404(Vegetarian, pk=v_pk)
+        data['vegetarian'] = vegi_model.v_type
+    return Response(data)
+
+
 
 
 
