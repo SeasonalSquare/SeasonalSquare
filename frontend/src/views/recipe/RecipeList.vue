@@ -75,8 +75,11 @@ export default {
             .then(response => {
                 this.recipes = response.data
             })
-            .catch(err => {
-                console.log(err)
+            .catch(() => {
+                this.$dialog.notify.error('레시피를 불러올 수 없습니다.', {
+                    position: 'top-right',
+                    timeout: 2000
+                })
             })
         },
         formatMonths(months){

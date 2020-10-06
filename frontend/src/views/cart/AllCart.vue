@@ -55,10 +55,12 @@ export default {
                     "Authorization": this.token,
                 }
             }).then(response => {
-                console.log(response.data)
                 this.shoppinglist = response.data
-            }).catch(error => {
-                console.log(error)
+            }).catch(() => {
+                this.$dialog.notify.error('장바구니를 불러올 수 없습니다.', {
+                    position: 'top-right',
+                    timeout: 2000
+                })
             })
         },
     },
