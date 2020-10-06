@@ -1,52 +1,73 @@
 <template>
-    <v-container>
-        <h2 style="text-align: center; margin-top: 2rem;">장바구니</h2>
+    <v-container
+        style="min-height: 100%;"
+    >
+        <h2 class="title-position">장바구니</h2>
         <p style="border-bottom:1px solid black; font-size:12px; padding: 1rem 0 1rem" />
 
-        <div 
-            v-for="(dump, i) in dumps" 
-            :key="i"
+        <div v-if="token">
+            <div
+                v-for="(item, i) in shoppinglist" 
+                :key="i"
+            >
+                <CartItem 
+                    :pk="item.pk"
+                    :title="item.title"
+                    :image="item.image"
+                    :ingredients="item.ingredients"
+                    style="margin: 1rem;"
+                />
+            </div>
+        </div>
+        <div v-else
+            class="title-position"
         >
-            <CartItem 
-                :pk="dump.pk"
-                :title="dump.title"
-                :ingredients="dump.ingredients"
-                style="margin: 1rem;"
-            />
+            <v-icon x-large color="red" style="margin-bottom: 1rem">mdi-alert-circle</v-icon>
+            <h2 >로그인 해주세요.</h2>
         </div>
     </v-container>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import http from '@/util/http-common.js'
 import CartItem from '@/components/cart/CartItem'
 
 export default {
     components: {
         CartItem,
     },
+    computed: {
+        ...mapState(['token']),
+    },
     data() {
         return {
-            dumps : 
-            [{
-                pk: '6872350',
-                title: '상추비빔밥',
-                ingredients: ['고추장', '간장', '상추', '달걀', '참기름'],
-            },
-            {
-                pk: '6872350',
-                title: '호박볶음',
-                ingredients: ['애호박', '베이컨', '마늘'],
-            },
-            {
-                pk: '6872350',
-                title: '열무비빔밥',
-                ingredients: ['열무', '찹쌀가루', '쪽파', '양파'],
-            }],
+            shoppinglist: []
         }
+    },
+    async created() {
+        await this.fetchShoppingCart()
+    },
+    methods: {
+        async fetchShoppingCart() {
+            http.get(`/accounts/shoppingcart/`, {
+                headers: {
+                    "Authorization": this.token,
+                }
+            }).then(response => {
+                console.log(response.data)
+                this.shoppinglist = response.data
+            }).catch(error => {
+                console.log(error)
+            })
+        },
     },
 }
 </script>
 
 <style scoped>
-
+.title-position {
+    text-align: center;
+    margin-top: 2rem;
+}
 </style>
