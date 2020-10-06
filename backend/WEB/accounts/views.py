@@ -19,25 +19,11 @@ from django.shortcuts import render, get_object_or_404
 from .models import Allergy, Vegetarian
 from .serializers import UserSerializer
 
-# from .forms import CustomUserCreationForm
-# from .models import Post
-
-
-# @api_view(['GET'])
-# @permission_classes((IsAuthenticated, ))
-# @authentication_classes((JSONWebTokenAuthentication,))
-# def posts(request):
-#     posts = Post.objects.filter(
-#         published_at__isnull=False).order_by('-published_at')
-#     post_list = serializers.serialize('json', posts)
-#     return HttpResponse(post_list, content_type="text/json-comment-filtered")
-
 
 @api_view(['GET', 'POST'])
 @permission_classes((IsAuthenticated, ))
 @authentication_classes((JSONWebTokenAuthentication,))
 def allergy_vegan(request):
-    print(request.data)
     user = request.user
     if request.method == 'GET':
         serializer = UserSerializer(user)
@@ -61,8 +47,9 @@ def allergy_vegan(request):
         for a_type in allergy_list:
             allergy_model = get_object_or_404(Allergy, a_type=a_type)
             user.allergy.add(allergy_model)
-        vegan_list = request.data['vegan_list']
-        for v_type in vegan_list:
+        v_type = request.data['vegetarian']
+        user.vegetarian = None
+        if v_type:
             vegi_model = get_object_or_404(Vegetarian, v_type=v_type)
             user.vegetarian = vegi_model
         user.save()
@@ -80,7 +67,6 @@ def cart(request):
     else:
         shoppinglist = request.data['shoppinglist']
         user.set_shop_data(shoppinglist)
-        print(user.shoppingcart)
         user.save()
         return Response(True)
 

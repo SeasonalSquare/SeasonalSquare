@@ -32,7 +32,3 @@ class Recipe(models.Model):
 
     def get_content(self):
         return json.loads(self.content)
-
-
-
-
