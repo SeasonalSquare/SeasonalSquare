@@ -49,21 +49,18 @@ def set_allergy(request):
     return Response(True)
 
 
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 @permission_classes((IsAuthenticated, ))
 @authentication_classes((JSONWebTokenAuthentication,))
 def cart(request):
-    user = request.user
-    shoppinglist = request.data['shoppinglist']
-    user.shoppingcart.delete()
-    user.set_shop_data(shoppinglist)
-    return Response(True)
+    if request.method == 'GET':
+        user = request.user
+        shoppinglist = user.get_shop_data()
+        return Response(shoppinglist)
+    else:
+        user = request.user
+        shoppinglist = request.data['shoppinglist']
+        user.shoppingcart.delete()
+        user.set_shop_data(shoppinglist)
+        return Response(True)
 
-
-@api_view(['GET'])
-@permission_classes((IsAuthenticated, ))
-@authentication_classes((JSONWebTokenAuthentication,))
-def cart(request):
-    user = request.user
-    shoppinglist = user.get_shop_data()
-    return Response(shoppinglist)
