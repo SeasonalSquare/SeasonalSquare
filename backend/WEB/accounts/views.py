@@ -65,7 +65,22 @@ def allergy_vegan(request):
         for v_type in vegan_list:
             vegi_model = get_object_or_404(Vegetarian, v_type=v_type)
             user.vegetarian = vegi_model
+        user.save()
         return Response(True)
 
 
+@api_view(['GET', 'POST'])
+@permission_classes((IsAuthenticated, ))
+@authentication_classes((JSONWebTokenAuthentication,))
+def cart(request):
+    user = request.user
+    if request.method == 'GET':
+        shoppinglist = user.get_shop_data()
+        return Response(shoppinglist)
+    else:
+        shoppinglist = request.data['shoppinglist']
+        user.set_shop_data(shoppinglist)
+        print(user.shoppingcart)
+        user.save()
+        return Response(True)
 
