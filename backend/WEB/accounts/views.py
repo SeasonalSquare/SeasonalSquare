@@ -61,8 +61,9 @@ def allergy_vegan(request):
         for a_type in allergy_list:
             allergy_model = get_object_or_404(Allergy, a_type=a_type)
             user.allergy.add(allergy_model)
-        vegan_list = request.data['vegan_list']
-        for v_type in vegan_list:
+        v_type = request.data['vegetarian']
+        user.vegetarian = None
+        if v_type:
             vegi_model = get_object_or_404(Vegetarian, v_type=v_type)
             user.vegetarian = vegi_model
         user.save()
