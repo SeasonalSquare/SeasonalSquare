@@ -39,9 +39,10 @@ def produceImg():
     print("넘어온 name =", name)
     findname = "-"
     for f in file_list:
-        if name in f:
+        if f.split(".")[0] in name:
             findname = f
-        if name == f:
+            print("f는", f , "name은 ",name)
+        if name == f.split(".")[0]:
             return send_file(path_dir + f, mimetype='image/jpg')
     if findname == "-":
         filename = 'error.jpg'
