@@ -3,7 +3,7 @@
         <v-container style="display: flex; margin: 1rem; justify-content: space-evenly;">
             <div style="flex: 1 1 40%;">
                 <RecipeImage
-                    :src="'http://j3a503.p.ssafy.io:8000/produceImg?name='+produce.name"
+                    :src="'http://j3a503.p.ssafy.io:8000/produceImg?name='+produce.fullname"
                     :max-width="300"
                     :max-height="200"
                     style="margin: 0 auto;"
