@@ -6,7 +6,7 @@ from accounts.serializers import AllergySerializer
 
 
 class RecipeListSerializer(serializers.ModelSerializer):
-    allergies = AllergySerializer(required=False)
+    allergies = AllergySerializer(read_only=True, many=True)
 
     class Meta:
         model = Recipe
@@ -14,7 +14,7 @@ class RecipeListSerializer(serializers.ModelSerializer):
 
 
 class RecipeSerializer(serializers.ModelSerializer):
-    allergies = AllergySerializer(required=False)
+    allergies = AllergySerializer(read_only=True, many=True)
 
     class Meta:
         model = Recipe
