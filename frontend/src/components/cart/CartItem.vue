@@ -49,6 +49,7 @@
                         large
                         color="#EC8852"
                         @click.prevent="goRecipeDetail"
+                        style="margin-top: 1rem"
                     >
                         요리하러 가기
                     </v-btn>
@@ -65,6 +66,10 @@ export default {
             type: String,
             required: true,
         },
+        image: {
+            type: String,
+            required: true,
+        },
         title: {
             type: String,
             required: true,
@@ -76,8 +81,12 @@ export default {
     },
     methods: {
         goRecipeDetail(){
-            console.log("레시피 보여주기")
-            // this.$router.push({name: 'RecipeDetail', params: {pk: this.pk}});
+            let summary = {
+                pk: this.pk,
+                image: this.image,
+                title: this.title,
+            }
+            this.$router.push({name: 'RecipeDetail', params: {pk: this.pk, summary: summary}});
         }
     },
 }
