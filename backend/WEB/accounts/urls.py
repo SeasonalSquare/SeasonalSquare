@@ -7,6 +7,6 @@ urlpatterns = [
     path('token/', obtain_jwt_token),
     path('token/verify/', verify_jwt_token),
     path('token/refresh/', refresh_jwt_token),
-    path('set-allergy/', views.set_allergy),
     path('shoppingcart/', views.cart),
+    path('allergy-vegan/', views.allergy_vegan),
 ]
