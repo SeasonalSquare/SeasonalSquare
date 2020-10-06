@@ -37,11 +37,16 @@ def produceImg():
     file_list = os.listdir(path_dir)  # path 에 존재하는 파일 목록 가져오기
     name = request.args.get('name')
     print("넘어온 name =", name)
+    findname = "-"
     for f in file_list:
         if name in f:
+            findname = f
+        if name == f:
             return send_file(path_dir + f, mimetype='image/jpg')
-
-    filename =  'error.jpg'
+    if findname == "-":
+        filename = 'error.jpg'
+    else:
+        filename = findname
     return send_file(path_dir+filename, mimetype='image/jpg')
 
 
