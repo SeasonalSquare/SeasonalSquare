@@ -5,32 +5,36 @@ import requests
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
+from .models import Recipe
+from .serializers import RecipeSerializer, RecipeListSerializer
+
 
 # Create your views here.
 @api_view(['GET'])
 def grocery(request, grocery_name):
 
-    # 특정요리 url
-    url = 'https://www.10000recipe.com/recipe/list.html?q='
+    # # 특정요리 url
+    # url = 'https://www.10000recipe.com/recipe/list.html?q='
 
-    response = requests.get(url + grocery_name).text
-    data = BeautifulSoup(response, 'html.parser')
-
-
-    # contents > 재료
-    recipes = data.select('#contents_area_full > ul > ul > li')
-    # 음식사진, 음식이름
-    recipe_list = []
-    for recipe in recipes:
-        image = recipe.select_one('div.common_sp_thumb > a > img').attrs['src']
-        title =  recipe.select_one('div.common_sp_caption > div.common_sp_caption_tit.line2').text
-        pk = recipe.select_one('div.common_sp_thumb > a').attrs['href'].replace('/recipe/','')
-
-        tem = {'image': image, 'title': title, 'pk': pk }
-        recipe_list.append(tem)
+    # response = requests.get(url + grocery_name).text
+    # data = BeautifulSoup(response, 'html.parser')
 
 
-    return Response(recipe_list)
+    # # contents > 재료
+    # recipes = data.select('#contents_area_full > ul > ul > li')
+    # # 음식사진, 음식이름
+    # recipe_list = []
+    # for recipe in recipes:
+    #     image = recipe.select_one('div.common_sp_thumb > a > img').attrs['src']
+    #     title =  recipe.select_one('div.common_sp_caption > div.common_sp_caption_tit.line2').text
+    #     pk = recipe.select_one('div.common_sp_thumb > a').attrs['href'].replace('/recipe/','')
+
+    #     tem = {'image': image, 'title': title, 'pk': pk }
+    #     recipe_list.append(tem)
+
+    recipes = Recipe.objects.filter(main_grocery=grocery_name)
+    serializer = RecipeListSerializer(recipes, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
