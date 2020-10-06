@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     token: sessionStorage.getItem("token"),
     myProfile: sessionStorage.getItem("myProfile")?JSON.parse(sessionStorage.getItem("myProfile")):[],
+    info: sessionStorage.getItem("info")?JSON.parse(sessionStorage.getItem("info")):[],
   },
   getters: {
     config: (state) => ({headers: { Authorization: state.token }}),
@@ -22,6 +23,10 @@ export default new Vuex.Store({
     SET_USERPROFILE(state, value) {
       sessionStorage.setItem("myProfile",JSON.stringify(value))
       state.myProfile = value
+    },
+    SET_USERINFO(state, value) {
+      sessionStorage.setItem("info",JSON.stringify(value))
+      state.info = value
     },
     SET_AUTH(state,value){
       sessionStorage.setItem("token",value)
@@ -38,8 +43,16 @@ export default new Vuex.Store({
     setUserProfile( { commit, getters } ) {
       return http.get('/rest-auth/user/', getters.config)
       .then((res) => {
-        console.log("내 정보", res)
+        //console.log("내 정보", res)
         commit('SET_USERPROFILE', res.data)
+      })
+      .catch(err => console.log(err))
+    },
+    setUserInfo( { commit, getters } ) {
+      return http.get('/accounts/allergy-vegan/', getters.config)
+      .then((res) => {
+       // console.log("알러지비건 정보", res)
+        commit('SET_USERINFO', res.data)
       })
       .catch(err => console.log(err))
     },

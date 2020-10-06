@@ -55,69 +55,7 @@
               <v-col cols="2"></v-col>
             </v-row>
 
-            <!-- <v-row>
-              <v-col cols="4"  lg="4"> <v-subheader class="subtitle">휴대폰<span class="subrequired">*</span></v-subheader></v-col>
-              <v-col cols="8"  lg="6">
-                <v-text-field  label="숫자만 입력해주세요" solo  required></v-text-field>
-              </v-col>
-              <v-col cols="2"></v-col>
-            </v-row> -->
-
-            <!-- <v-row>
-              <v-col cols="4"  lg="4"> <v-subheader class="subtitle">이름<span class="subrequired">*</span></v-subheader></v-col>
-              <v-col cols="8"  lg="6">
-                <v-text-field  
-                  v-model="username"
-                  label="이름을 입력해주세요" solo  required
-                     :rules="usernameRules"
-                     ref="username"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="2"></v-col>
-            </v-row> -->
-
-            <!-- <v-row>
-              <v-col cols="4"  lg="4"> <v-subheader class="subtitle">성별<span class="subrequired">*</span></v-subheader></v-col>
-              <v-col cols="8"  lg="6">
-                <v-radio-group v-model="gender" row>
-                  <v-radio label="남자" color="#EC8852" value="남자"></v-radio>
-                  <v-radio label="여자" color="#EC8852" value="여자"></v-radio>
-                </v-radio-group>
-              </v-col>
-              <v-col cols="2"></v-col>
-            </v-row>
-
-            <v-row>
-              <v-col cols="4"  lg="4"> <v-subheader class="subtitle">생일<span class="subrequired">*</span></v-subheader></v-col>
-              <v-col cols="8"  lg="6">
-                <v-row>
-                  <v-col cols="4"  style="padding-left:0px;padding-right:0px;">
-                    <v-text-field  
-                      v-model="id"
-                      label="YYYY" solo  required
-                    ></v-text-field>
-                  </v-col>
-
-                  <v-col cols="4"  style="padding-right:0px;">
-                    <v-text-field  
-                      v-model="id" 
-                      label="MM" solo  required
-                    ></v-text-field>
-                  </v-col>
-
-                  <v-col cols="4" style="padding-right:0px;">
-                    <v-text-field  
-                      v-model="id"
-                      label="DD" solo  required
-                    ></v-text-field>
-                  </v-col>
-
-                </v-row>
-              </v-col>
-              <v-col lg="2"></v-col>
-            </v-row> -->
-
-              <v-divider></v-divider>
+            <v-divider></v-divider>
             <v-row>
               <v-col cols="0" lg="2"></v-col>
               <v-col cols="12" lg="8">
