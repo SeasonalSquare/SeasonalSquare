@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+import json
 
 class Vegetarian(models.Model):
     v_type = models.CharField(max_length=50)
@@ -70,4 +71,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(auto_now_add=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
+    def set_shop_data(self, json_file):
+        self.shoppingcart = json.dumps(json_file)
+
+    def get_shop_data(self):
+        return json.loads(self.shoppingcart)
     

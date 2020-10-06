@@ -56,6 +56,14 @@ def cart(request):
     user = request.user
     shoppinglist = request.data['shoppinglist']
     user.shoppingcart.delete()
-    for shop in shoppinglist:
-        user.shoppingcart.add(shop)
-    return Response
+    user.set_shop_data(shoppinglist)
+    return Response(True)
+
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+@authentication_classes((JSONWebTokenAuthentication,))
+def cart(request):
+    user = request.user
+    shoppinglist = user.get_shop_data()
+    return Response(shoppinglist)
