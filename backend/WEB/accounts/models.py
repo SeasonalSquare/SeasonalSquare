@@ -62,7 +62,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=20,
         blank=True, null=True
     )
-    shoppingcart = models.TextField()
+    shoppingcart = models.TextField(
+        blank=True, null=True
+    )
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -74,7 +76,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def set_shop_data(self, json_file):
         self.shoppingcart = json.dumps(json_file)
-
+        print(self.shoppingcart)
+        
     def get_shop_data(self):
         return json.loads(self.shoppingcart)
     
