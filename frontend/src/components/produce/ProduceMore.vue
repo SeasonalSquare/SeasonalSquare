@@ -1,29 +1,38 @@
 <template>
-  <v-row>
-     <template v-for="(produce,i) in produces">
-        <v-col :key="i" cols="12" lg="3" md="3" xl="3" align="center" style="margin-top:50px" >
-          <div class="box" style="height:320px;width:249px;border:1px solid rgb(247, 247, 247)">
-            <a   @click="goProduce(produce)" ><v-img :src="imgURL(produce.fullname)"  class="scale" style="height:100%" ></v-img></a>
-          </div>
-          <div>
-            <span  class="name"><a  @click="goProduce(produce)"  style="color:#333;">{{produce.fullname}}</a></span>
-            <span  class="price">{{produce.price}}원 <span style="color:#333;font-size:14px">({{produce.unit}})</span></span>
-            <span  class="des">칼로리 {{produce.kcal}}</span>
-            <span  class="des">제철 {{formatMonths(produce.months)}}</span>
-          </div>
-        </v-col>
-     </template>
-  </v-row>
+  <v-container style="" >
+   <v-row  style="margin-top:50px;">
+     <v-col style="" cols="12" class="tit"><a  @click="goProduceMore()" style="color:#333">오늘의 맞춤 추천 농작물 <i class="far fa-thumbs-up" style="padding-left:10px"></i></a>
+      </v-col>
+
+        <template >
+          <v-col v-for="(produce,i) in produces" :key="i" cols="12" lg="3" md="3" xl="3" align="center" style="margin-top:50px;" >
+            <div class="box" style="height:320px;width:249px;border:2px solid rgb(247, 247, 247)">
+              <a   @click="goProduce(produce)" ><v-img :src="imgURL(produce.fullname)"  class="scale" style="height:100%" ></v-img></a>
+            </div>
+            <div style="">
+              <span  class="name"><a  @click="goProduce(produce)"  style="color:#333;">{{produce.fullname}}</a></span>
+              <span  class="price">{{produce.price}}원 <span style="color:#333;font-size:14px">({{produce.unit}})</span></span>
+              <span  class="des">칼로리 {{produce.kcal}}</span>
+              <span  class="des">제철 {{formatMonths(produce.months)}}</span>
+            </div>
+          </v-col>
+      </template>
+
+    </v-row>
+      <scroll-top/>
+  </v-container>
 </template>
 
 <script>
  import httpPro from '@/util/http-produce.js'
+ import ScrollTop from '@/components/layout/ScrollTop.vue'
  import { mapState } from 'vuex'
 const baseURL = "http://j3a503.p.ssafy.io:8000"
 
 export default {
   name: 'FoodItem',
   components: {
+    ScrollTop,
   },
   computed : {
     ...mapState(['info']),
@@ -42,8 +51,8 @@ export default {
       let vege = this.$store.state.info.vegetarian;
       if(vege == null) vege = 0;
 
-      // console.log(">>>>>>>>"+vege);
-      // console.log(">>>>>>>>"+this.$store.state.info.allergy);
+      console.log(">>>>>>>>"+vege);
+      console.log(">>>>>>>>"+this.$store.state.info.allergy);
 
       url=`/todayProduceWithout?allergies=${this.$store.state.info.allergy},&vegi=${vege}` 
     }
@@ -51,7 +60,7 @@ export default {
     httpPro.get(url).then(res => {
       console.log(this.cate)
       this.produces=res.data
-      this.produces.splice(8)
+      //this.produces.splice(8)
     }).catch(err => {
       console.log(err)
     })
@@ -118,4 +127,11 @@ export default {
 .box{
    overflow:hidden 
 }
+ .tit{
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -0.3px;
+    text-align: center;
+ }
 </style>

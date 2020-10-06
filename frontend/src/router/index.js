@@ -7,6 +7,7 @@ import Main from "@/components/Main.vue"
 import UserLogin from '@/components/user/UserLogin.vue'
 import UserSignUp from '@/components/user/UserSignUp.vue'
 import UserProfile from '@/components/user/UserProfile.vue'
+import ProduceMore from '@/components/produce/ProduceMore.vue'
 import RecipeDetail from '@/views/recipe/RecipeDetail.vue'
 import RecipeList from '@/views/recipe/RecipeList.vue'
 import RecipeCart from '@/views/cart/RecipeCart.vue'
@@ -31,6 +32,11 @@ const routes = [
     path: '/user/signup',
     name: 'UserSignUp',
     component: UserSignUp
+  },
+  {
+    path: '/produce/more',
+    name: 'ProduceMore',
+    component: ProduceMore
   },
   {
     path: '/recipe/detail/:pk',
