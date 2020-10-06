@@ -61,6 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=20,
         blank=True, null=True
     )
+    shoppingcart = models.TextField()
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
