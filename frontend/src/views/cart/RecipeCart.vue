@@ -18,62 +18,60 @@
             </v-col>
 
             <v-col
-                style="display:flex; flex: 1 1 60%;"
+                style="display:flex; flex: 1 1 30%;"
             >
-                <v-col style="flex: 1 1 50%">
-                    <v-container>
-                        <v-chip
-                            color="#BEDDBF"
-                            class="emphasize-text"
-                        >
-                            재료
-                        </v-chip>
-                        <div
-                            v-for="(main_ingredient, i) in main_ingredients"
-                            :key = i
-                            class="d-flex"
-                        >
-                            <div style="flex: 1 1 40%;">
-                                <v-checkbox
-                                    color="#EC8852"
-                                    :value="main_ingredient.ingredient_name"
-                                    :label="main_ingredient.ingredient_name + ' ' + main_ingredient.amount"
-                                    v-model="main_checkbox"
-                                >
-                                </v-checkbox>
-                            </div>
+                <v-container>
+                    <v-chip
+                        color="#BEDDBF"
+                        class="emphasize-text"
+                    >
+                        재료
+                    </v-chip>
+                    <div
+                        v-for="(main_ingredient, i) in main_ingredients"
+                        :key = i
+                        class="d-flex"
+                    >
+                        <div style="flex: 1 1 40%;">
+                            <v-checkbox
+                                color="#EC8852"
+                                :value="main_ingredient.ingredient_name"
+                                :label="main_ingredient.ingredient_name + ' ' + main_ingredient.amount"
+                                v-model="main_checkbox"
+                            >
+                            </v-checkbox>
                         </div>
-                    </v-container>
-                </v-col>
-                <v-col 
-                    v-if="source_ingredients.length" 
-                    style="flex: 1 1 50%"
-                >
-                    <v-container>
-                        <v-chip
-                            color="#BEDDBF"
-                            class="emphasize-text"
-                        >
-                            양념 재료
-                        </v-chip>
-                        <div
-                            v-for="(source_ingredient, j) in source_ingredients"
-                            :key = j
-                            class="d-flex"
-                        >
-                            <div style="flex: 1 1 40%;">
-                                <v-checkbox
-                                    color="#EC8852"
-                                    :value="source_ingredient.source_name"
-                                    :label="source_ingredient.source_name + ' ' + source_ingredient.amount"
-                                    v-model="source_checkbox"
-                                >
-                                    <!-- <template #label :class="checkClass"> {{ source_ingredient.source_name }}</template> -->
-                                </v-checkbox>
-                            </div>
+                    </div>
+                </v-container>
+            </v-col>
+            <v-col 
+                v-if="source_ingredients.length" 
+                style="display: flex; flex: 1 1 30%"
+            >
+                <v-container>
+                    <v-chip
+                        color="#BEDDBF"
+                        class="emphasize-text"
+                    >
+                        양념 재료
+                    </v-chip>
+                    <div
+                        v-for="(source_ingredient, j) in source_ingredients"
+                        :key = j
+                        class="d-flex"
+                    >
+                        <div style="flex: 1 1 40%;">
+                            <v-checkbox
+                                color="#EC8852"
+                                :value="source_ingredient.source_name"
+                                :label="source_ingredient.source_name + ' ' + source_ingredient.amount"
+                                v-model="source_checkbox"
+                            >
+                                <!-- <template #label :class="checkClass"> {{ source_ingredient.source_name }}</template> -->
+                            </v-checkbox>
                         </div>
-                    </v-container>
-                </v-col>
+                    </div>
+                </v-container>
             </v-col>
         </div>
         <v-row style="justify-content: flex-end;">
@@ -117,6 +115,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import http from '@/util/http-common.js'
 import RecipeImage from '@/components/recipe/RecipeImage'
 
@@ -129,6 +128,9 @@ export default {
             type: Object,
             required: true,
         },
+    },
+    computed: {
+        ...mapState(['token']),
     },
     data() {
         return {
@@ -160,15 +162,42 @@ export default {
                     return source.source_name
                 })
             })
-            .catch(err => {
-                console.log(err)
+            .catch(() => {
+                this.$dialog.notify.error('레시피를 불러올 수 없습니다.', {
+                    position: 'top-right',
+                    timeout: 2000
+                })
             })
         },
         addToCart() {
             this.isInCart = true
             let cart = this.full_main_ingredients_name.filter((word) => !this.main_checkbox.includes(word));
             let fullcart = cart.concat(this.full_source_ingredients_name.filter((word) => !this.source_checkbox.includes(word)));
-            alert(`담길 예정이에요  ${fullcart}`)
+            
+            http.post(`/accounts/shoppingcart/`, {
+                shoppinglist: [{
+                    pk: this.summary.pk,
+                    title: this.summary.title,
+                    image: this.summary.image,
+                    ingredients: fullcart,
+                }]
+            }, {
+                headers: { 
+                    "Authorization": this.token,
+                }
+            }).then(() => {
+                this.$dialog.notify.success('장바구니에 담겼습니다.', {
+                    position: 'top-right',
+                    timeout: 1000
+                })
+            }).catch(() => {
+                let message = '장바구니 담기에 실패했습니다.'
+                if(!this.token) message = '로그인을 해주세요.'
+                this.$dialog.notify.error(message, {
+                    position: 'top-right',
+                    timeout: 2000
+                })
+            })
         },
     },
 }

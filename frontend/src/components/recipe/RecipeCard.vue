@@ -71,10 +71,10 @@ export default {
   },
   methods: {
     moveToRecipeDetail() {
-      this.$router.push({name: 'RecipeDetail', params: {pk: this.recipe.pk, summary: this.recipe}});
+      this.$router.replace({name: 'RecipeDetail', params: {pk: this.recipe.pk, summary: this.recipe}});
     },
     moveToRecipeCart() {
-      this.$router.push({name: 'RecipeCart', params: {pk: this.recipe.pk, summary: this.recipe}});
+      this.$router.replace({name: 'RecipeCart', params: {pk: this.recipe.pk, summary: this.recipe}});
     }
   },
 }

@@ -63,7 +63,7 @@
               <v-col cols="2"></v-col>
             </v-row> -->
 
-            <v-row>
+            <!-- <v-row>
               <v-col cols="4"  lg="4"> <v-subheader class="subtitle">이름<span class="subrequired">*</span></v-subheader></v-col>
               <v-col cols="8"  lg="6">
                 <v-text-field  
@@ -74,7 +74,7 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="2"></v-col>
-            </v-row>
+            </v-row> -->
 
             <!-- <v-row>
               <v-col cols="4"  lg="4"> <v-subheader class="subtitle">성별<span class="subrequired">*</span></v-subheader></v-col>
@@ -145,7 +145,6 @@ export default {
         email: null,
         password1: null,
         password2: null,
-        username: null,
         emailRules: [
           // v => !!v || 'E-mail is required',
           v => /.+@.+\..+/.test(v) || '유효한 이메일 주소를 입력하십시오',
@@ -156,9 +155,7 @@ export default {
         passwordRules2: [
           v => (v && v == this.password1) || '비밀번호가 일치하지 않습니다',
         ],
-        usernameRules:[
-          v => (v && v.length >= 1) || '이름은 필수 값 입니다',
-        ],
+       
 
     };
   },
@@ -215,20 +212,12 @@ export default {
           })
           this.$refs.password2.focus();
           return;
-      }else if(this.username == null){
-          this.$dialog.notify.warning("이름을 입력해주세요", {
-            position: 'top-right',
-            timeout: 3000
-          })
-          this.$refs.username.focus();
-          return;
       }
 
       let form = new FormData();
       form.append("email", this.email);
       form.append("password1", this.password1);
       form.append("password2", this.password2);
-      form.append("username", this.username);
 
       http.post('/rest-auth/signup/',form , {
               headers: {
@@ -256,9 +245,6 @@ export default {
         }else if(data.password2 != null){
           msg =data.password2
           this.$refs.password2.focus();
-        }else if(data.username != null){
-          msg =data.username
-          this.$refs.username.focus();
         }else if(data.non_field_errors != null){
           msg =data.non_field_errors
           this.$refs.password2.focus();

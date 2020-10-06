@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import http from '@/util/http-common.js'
+  // import http from '@/util/http-common.js'
   import httpPro from '@/util/http-produce.js'
   // import RecipeCard from '@/components/recipe/RecipeCard.vue'
   import FoodCarousel from '@/components/layout/FoodCarousel.vue'

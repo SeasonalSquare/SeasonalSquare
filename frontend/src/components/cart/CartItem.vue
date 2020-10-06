@@ -15,8 +15,8 @@
                 </template>
 
                 <v-list-item-group
-                    v-model="model"
                     multiple
+                    style="padding-start: 0.5rem;"
                 >
                     <template v-for="(item, i) in ingredients">
                         <v-divider
@@ -44,6 +44,15 @@
                             </template>
                         </v-list-item>
                     </template>
+                    <v-btn
+                        block
+                        large
+                        color="#EC8852"
+                        @click.prevent="goRecipeDetail"
+                        style="margin-top: 1rem"
+                    >
+                        요리하러 가기
+                    </v-btn>
                 </v-list-item-group>
             </v-list-group>
         </v-list>
@@ -55,7 +64,11 @@ export default {
     props : {
         pk: {
             type: String,
-            required: false,
+            required: true,
+        },
+        image: {
+            type: String,
+            required: true,
         },
         title: {
             type: String,
@@ -64,6 +77,16 @@ export default {
         ingredients: {
             type: Array,
             required: true,
+        }
+    },
+    methods: {
+        goRecipeDetail(){
+            let summary = {
+                pk: this.pk,
+                image: this.image,
+                title: this.title,
+            }
+            this.$router.push({name: 'RecipeDetail', params: {pk: this.pk, summary: summary}});
         }
     },
 }
