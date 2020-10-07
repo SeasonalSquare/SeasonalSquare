@@ -7,7 +7,7 @@
             <v-text-field style="margin-bottom:0px !important" 
               v-model="email"
               label="이메일을 입력해주세요" solo  required
-              ref="email"
+              ref="email" 
             ></v-text-field>
 
             <v-text-field  solo
@@ -16,7 +16,7 @@
               :type="show1 ? 'text' : 'password'"
               label="비밀번호를 입력해주세요"
               @click:append="show1 = !show1"
-              required
+              required @keydown.enter="goLogin()" 
             ></v-text-field>
             <v-btn color="#5C5749" style="border: 1px solid #5C5749;margin-top:15px" @click="goLogin()" class="btn"><span style="color:#fff">로그인</span></v-btn>
             <v-btn color="#fff" style="border: 1px solid #5C5749;margin-top:10px" @click="goSignUp()" class="btn"><span style="color:#5C5749">회원가입</span></v-btn>
