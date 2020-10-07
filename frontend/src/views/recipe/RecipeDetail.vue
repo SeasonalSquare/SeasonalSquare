@@ -132,7 +132,7 @@
                 style="margin: 1rem;">
             </recipe-card>
         </v-container>
-        
+
         <div class="title-text">색다른 추천 레시피</div>
         <v-container style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
             <recipe-card
@@ -147,6 +147,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import http from '@/util/http-common.js'
 import RecipeImage from '@/components/recipe/RecipeImage'
 import RecipeCard from '@/components/recipe/RecipeCard'
@@ -164,6 +166,9 @@ export default {
             required: true,
         },
     },
+    computed: {
+        ...mapState(['token']),
+    },
     data() {
         return {
             main_ingredients : [],
@@ -178,7 +183,11 @@ export default {
     },
     methods: {
         async fetchRecipe() {
-            http.get(`/recipe/${this.summary.pk}/`)
+            http.get(`/recipe/${this.summary.pk}/`,{
+                headers: {
+                    "Authorization": this.token,
+                }
+            })
             .then(response => {
                 this.main_ingredients = response.data.ingredient_data.main_ingredients
                 this.source_ingredients = response.data.ingredient_data.source_ingredients
