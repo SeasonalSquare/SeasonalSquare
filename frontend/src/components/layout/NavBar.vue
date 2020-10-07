@@ -83,13 +83,13 @@ export default {
         this.windowTop = e.target.documentElement.scrollTop;
       },
       goLogin(){
-        this.$router.push({name: 'UserLogin'})
+        this.$router.push({name: 'UserLogin'}).catch(() => {})
       },
       goSignUp(){
-        this.$router.push({name: 'UserSignUp'})
+        this.$router.push({name: 'UserSignUp'}).catch(() => {})
       },
       goCart(){
-        this.$router.push({name: 'AllCart'})
+        this.$router.push({name: 'AllCart'}).catch(() => {})
       },
       moveToMain() {
         this.$router.push("/").catch(() => {})
@@ -100,7 +100,7 @@ export default {
       },
       goMyProfile(){
         if (this.loggedIn) {
-          this.$router.push({ name: 'UserProfile' })
+          this.$router.push({ name: 'UserProfile' }).catch(() => {})
         } else {
             this.$dialog.notify.error('로그인 해주세요', {
                 position: 'top-right',
