@@ -27,8 +27,9 @@ export default {
   created() {
     http.get(`/recipe/grocery/${this.food}/`)
       .then(response => {
-      this.recipes = response.data
-      this.recipes.splice(6)
+      this.recipes = response.data;
+      this.recipes.splice(6);
+      console.log(">>>"+this.recipes);
       })
       .catch(err => {
       console.log(err)
