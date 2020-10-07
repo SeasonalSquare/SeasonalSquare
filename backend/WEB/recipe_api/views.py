@@ -1,79 +1,115 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from bs4 import BeautifulSoup
 import requests
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
+from .models import Recipe
+from .serializers import RecipeSerializer, RecipeListSerializer
+
 
 # Create your views here.
 @api_view(['GET'])
 def grocery(request, grocery_name):
-
-    # 특정요리 url
-    url = 'https://www.10000recipe.com/recipe/list.html?q='
-
-    response = requests.get(url + grocery_name).text
-    data = BeautifulSoup(response, 'html.parser')
-
-
-    # contents > 재료
-    recipes = data.select('#contents_area_full > ul > ul > li')
-    # 음식사진, 음식이름
-    recipe_list = []
-    for recipe in recipes:
-        image = recipe.select_one('div.common_sp_thumb > a > img').attrs['src']
-        title =  recipe.select_one('div.common_sp_caption > div.common_sp_caption_tit.line2').text
-        pk = recipe.select_one('div.common_sp_thumb > a').attrs['href'].replace('/recipe/','')
-
-        tem = {'image': image, 'title': title, 'pk': pk }
-        recipe_list.append(tem)
-
-
-    return Response(recipe_list)
+    recipes = Recipe.objects.filter(main_grocery=grocery_name)
+    serializer = RecipeListSerializer(recipes, many=True)
+    for recipe in serializer.data:
+        recipe['pk'] = recipe['id']
+    
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
 def recipe(request, recipe_pk):
-        # 특정 요리 recipe 정보
-    url = 'https://www.10000recipe.com/recipe/'
-    response = requests.get(url + str(recipe_pk)).text
-    data = BeautifulSoup(response, 'html.parser')
+    recipe = get_object_or_404(Recipe, pk=recipe_pk)
 
-    # 음식 사진
-    dish_image = data.select_one('#contents_area > div.view2_pic > div.centeredcrop > img').attrs['src']
-    # [ 재료 ]
-    ingredients = data.select('#divConfirmedMaterialArea > ul:nth-child(1) > a')
-    # [ 양념 ]
-    sources = data.select('#divConfirmedMaterialArea > ul:nth-child(2) > a')
+    recipes = Recipe.objects.filter(main_grocery=recipe.main_grocery)
 
-    recipe_data = {}
-    ingredient_data = {}
-    temp = []
-    for ingredient in ingredients:
-        # print(ingredient)
-        jaeryo = ingredient.select_one('li').text.split('\n')
-        item = {'ingredient_name' : jaeryo[0].strip(), 'amount' : jaeryo[1] }
-        temp.append(item)
-    ingredient_data['main_ingredients'] = temp
+    serializer = RecipeListSerializer(recipes, many=True)
 
-    temp = []
-    for source in sources:
-        jaeryo = source.select_one('li').text.split('\n')
-        item = {'source_name' : jaeryo[0].strip(), 'amount' : jaeryo[1] }
-        temp.append(item)
-    ingredient_data['source_ingredients'] = temp
+    """
+    Step 1.데이터 전처리 과정
+    KOnlpy로 명사 단위 형태소 분석
+    """
+    from konlpy.tag import Okt
+    from konlpy.utils import pprint
 
-    recipe_data['ingredient_data'] = ingredient_data
+    okt = Okt()
+    doc_nouns_list = []
+    idx_list = [recipe.pk]
 
-    steps = data.select('#contents_area > div.view_step > div.view_step_cont')
-    # print(steps)
-    step_list = []
-    for idx, step in enumerate(steps, start=1):
-        exp = step.select_one('div.media-body').text
-        image = step.select_one('img').attrs['src']
-        item = { 'step' : idx, 'explain' : exp , 'image' : image}
-        step_list.append(item)
+    for elm in serializer.data:
+        title_nouns = ' '.join(okt.nouns(elm['title']))
+        doc_nouns_list.append(title_nouns)
+        idx_list.append(elm['id'])
 
-    recipe_data['recipe'] = step_list
-    return Response(recipe_data)
+    current_title_nouns = ' '.join(okt.nouns(recipe.title))
+    doc_nouns_list = [current_title_nouns] + doc_nouns_list
+    """
+    Step 2. TF-IDF 분석
+
+    """
+    from sklearn.feature_extraction.text import TfidfVectorizer
+
+    tfidf_vectorizer = TfidfVectorizer(min_df=1)
+    tfidf_matrix = tfidf_vectorizer.fit_transform(doc_nouns_list)
+
+    """
+    Step 3.  코사인 유사도 계산
+
+    """
+
+    from sklearn.metrics.pairwise import linear_kernel
+    cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
+
+
+    """
+    Step 4.  항목별 유사도 가져오기
+
+    """
+
+    def recipe_REC(idx=0, cosine_sim=cosine_sim):
+        result = {}
+        
+        #입력한 레시피로 부터 인덱스 가져오기
+        # 모든 레시피에 대해서 해당 레시피와의 유사도를 구하기
+        sim_scores = list(enumerate(cosine_sim[idx]))
+
+        # 유사도에 따라 레시피들을 정렬
+        sim_scores = sorted(sim_scores, key=lambda x:x[1], reverse = True)
+        sim_scores_reversed = sorted(sim_scores, key=lambda x:x[1], reverse = False)
+
+        # 가장 유사한 3개의 레시피를 받아옴
+        sim_scores = sim_scores[2:5]
+        sim_scores_reversed = sim_scores_reversed[1:4]
+
+        # 가장 유사한 3개 레시피의 인덱스 받아옴
+        recipe_indices = [i[0] for i in sim_scores]
+        recipe_indices_reversed = [i[0] for i in sim_scores_reversed]
+        rrecipes = []
+        for idx in recipe_indices:
+            temp = {}
+            rrecipe = get_object_or_404(Recipe, pk=idx_list[idx])
+            temp['title'] = rrecipe.title
+            temp['image'] = rrecipe.image
+            temp['pk'] = rrecipe.id
+            rrecipes.append(temp)
+
+        
+        urrecipes = []
+        for idx in recipe_indices_reversed:
+            temp = {}
+            rrecipe = get_object_or_404(Recipe, pk=idx_list[idx])
+            temp['title'] = rrecipe.title
+            temp['image'] = rrecipe.image
+            temp['pk'] = rrecipe.id
+            urrecipes.append(temp)
+        
+        result['rel_recipes'] = rrecipes
+        result['unrel_recipes'] = urrecipes
+
+        return result
+    result = recipe.get_content()
+    result['recommend'] = recipe_REC()
+    return Response(result)

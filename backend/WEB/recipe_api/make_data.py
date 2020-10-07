@@ -124,7 +124,7 @@ def get_content(recipe_pk):
 
 
 current = os.getcwd()
-grocery = open(current + '\\grocery.txt', 'r', encoding='UTF-8')
+grocery = open(current + '\\recipe_api\\grocery.txt', 'r', encoding='UTF-8')
 recipe_json = open(current + '\\recipe.json', 'w', encoding='UTF-8')
 lines = grocery.readlines()
 recipe_list = []
@@ -152,7 +152,7 @@ for line in lines:
                 "title": title, 
                 "main_grocery": grocery_name,
                 "allergies": allergy_list,
-                "content": str(content),
+                "content": json.dumps(content),
                 }
             }
         recipe_list.append(tem)

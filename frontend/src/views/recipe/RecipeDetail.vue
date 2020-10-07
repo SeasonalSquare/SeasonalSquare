@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <div style="font-size: 2rem; margin: 1rem; color: #5C5749;"> 
+        <div class="title-text"> 
             {{ summary.title }}
         </div>
         <div
@@ -85,7 +85,7 @@
         <br>
         <v-divider></v-divider>
         <br>
-        <div style="font-size: 2rem; margin: 1rem; color: #5C5749;"> 만드는 법 </div>
+        <div class="title-text">만드는 법</div>
         <div
             class="d-flex"
                 v-for="(step, index) in recipe"
@@ -95,7 +95,7 @@
                 style="flex: 1 1 10%; text-align: center;"
             >
                 <v-avatar
-                    size="3rem"
+                    size="2.5rem"
                     color="#FFE1A2"
                 >
                     {{ step.step }}
@@ -153,8 +153,11 @@ export default {
                 this.source_ingredients = response.data.ingredient_data.source_ingredients
                 this.recipe = response.data.recipe
             })
-            .catch(err => {
-                console.log(err)
+            .catch(() => {
+                this.$dialog.notify.error('레시피를 불러올 수 없습니다.', {
+                    position: 'top-right',
+                    timeout: 2000
+                })
             })
         }
     },
@@ -162,4 +165,10 @@ export default {
 </script>
 
 <style scoped>
+.title-text {
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin: 1rem;
+    color: #5C5749;
+}
 </style>

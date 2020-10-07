@@ -1,16 +1,7 @@
 <template>
   <v-container >
-     <!-- align="center" class="text-center" -->
-    <!-- <v-row v-for="(cate,index) in categoryBig" :key="index" style="margin-top:50px">
-      <v-col cols="12" class="tit">{{cate}} <i style="font-size:25px" class="fas fa-chevron-right"></i>
-        <v-col cols="12">
-          <food-item :cate="cate" />
-        </v-col>
-      </v-col>
-    </v-row> -->
-
    <v-row  style="margin-top:50px">
-      <v-col cols="12" class="tit">오늘의 추천 농작물
+      <v-col cols="12" class="tit"><a  @click="goProduceMore()" style="color:#333">오늘의 맞춤 추천 농작물 <i class="fas fa-chevron-right " style="padding-left:10px"></i></a>
         <v-col cols="12">
           <food-item />
         </v-col>
@@ -34,12 +25,14 @@ export default {
   },
   data() {
     return {
-      // categoryBig:['식량작물', '채소류', '특용작물', '과일류', '축산물', '수산물'],
     }
   },
   watch: {
   },
   methods: {
+    goProduceMore(){
+       this.$router.push({name: 'ProduceMore'})
+    }
   }
   
 }
