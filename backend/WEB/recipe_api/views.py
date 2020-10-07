@@ -24,15 +24,9 @@ def grocery(request, grocery_name):
 def recipe(request, recipe_pk):
     recipe = get_object_or_404(Recipe, pk=recipe_pk)
 
-    # print(recipe.main_grocery)
-    # print(recipe.title)
     recipes = Recipe.objects.filter(main_grocery=recipe.main_grocery)
 
     serializer = RecipeListSerializer(recipes, many=True)
-    # num = len(serializer.data)
-    # for elm in serializer.data:
-    #     print(elm['id'])
-
 
     """
     Step 1.데이터 전처리 과정
@@ -51,10 +45,7 @@ def recipe(request, recipe_pk):
         idx_list.append(elm['id'])
 
     current_title_nouns = ' '.join(okt.nouns(recipe.title))
-    # print(current_title_nouns)
-
     doc_nouns_list = [current_title_nouns] + doc_nouns_list
-    # print(doc_nouns_list)
     """
     Step 2. TF-IDF 분석
 
@@ -82,7 +73,6 @@ def recipe(request, recipe_pk):
         result = {}
         
         #입력한 레시피로 부터 인덱스 가져오기
-
         # 모든 레시피에 대해서 해당 레시피와의 유사도를 구하기
         sim_scores = list(enumerate(cosine_sim[idx]))
 
@@ -100,8 +90,6 @@ def recipe(request, recipe_pk):
         rrecipes = []
         for idx in recipe_indices:
             temp = {}
-            print(idx, ":", doc_nouns_list[idx])
-            print(idx, ":", idx_list[idx])
             rrecipe = get_object_or_404(Recipe, pk=idx_list[idx])
             temp['title'] = rrecipe.title
             temp['image'] = rrecipe.image
@@ -112,8 +100,6 @@ def recipe(request, recipe_pk):
         urrecipes = []
         for idx in recipe_indices_reversed:
             temp = {}
-            print(idx, ":", doc_nouns_list[idx])
-            print(idx, ":", idx_list[idx])
             rrecipe = get_object_or_404(Recipe, pk=idx_list[idx])
             temp['title'] = rrecipe.title
             temp['image'] = rrecipe.image
