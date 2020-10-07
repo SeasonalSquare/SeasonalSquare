@@ -13,27 +13,53 @@
           <v-expand-transition>
             <div
               v-if="hover"
-              class="d-flex transition-fast-in-fast-out orange darken-2 v-card--reveal display-3"
-              style="height: 100%;"
+              class="d-flex transition-fast-in-fast-out white darken-2 v-card--reveal display-3"
+              style="height: 100%; opacity: 0.7;"
             >
               <v-btn
                 text
                 @click.prevent="moveToRecipeDetail"
-                color="black"
-                style="height: 100%; font-size: 1.3rem; font-weight: 600;"
+                color="#EC8852"
+                style="height: 100%; width: 50%; font-size: 0.9rem; font-weight: 800;"
               >
-                레시피
-                <br>
-                바로 보기
+                <div>
+                  <v-row>
+                    <v-avatar
+                      color="#EC8852"
+                      size="4rem"
+                    >
+                      <v-icon x-large color="black">mdi-chef-hat</v-icon>
+                    </v-avatar>
+                  </v-row>
+                  <v-row>
+                    <br>
+                    레시피
+                    <br>
+                    바로 보기
+                  </v-row>
+                </div>
               </v-btn>
               <v-btn
                 text
                 @click.prevent="moveToRecipeCart"
-                style="height: 100%; font-size: 1.3rem; font-weight: 600;"
+                style="height: 100%; width: 50%; font-size: 0.9rem; font-weight: 800;"
               >
-                장 보러
-                <br>
-                가기
+                <div style="width: 50%;">
+                  <v-row>
+                    <v-avatar
+                      color="black"
+                      size="4rem"
+                    >
+                      <v-icon x-large color="white">mdi-cart-variant</v-icon>
+                    </v-avatar>
+                  </v-row>
+                  <v-row>
+                    <br>
+                    장바구니
+                    <br>
+                    담기
+                  </v-row>
+                </div>
               </v-btn>
             </div>
           </v-expand-transition>
