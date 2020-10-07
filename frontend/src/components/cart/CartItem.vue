@@ -4,6 +4,7 @@
     >
         <v-list shaped>
             <v-list-group
+                :value="true"
                 prepend-icon="mdi-bowl-mix"
                 active-class="deep-purple--text text--accent-4"
                 no-action
