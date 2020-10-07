@@ -43,7 +43,6 @@ export default new Vuex.Store({
     setUserProfile( { commit, getters } ) {
       return http.get('/rest-auth/user/', getters.config)
       .then((res) => {
-        //console.log("내 정보", res)
         commit('SET_USERPROFILE', res.data)
       })
       .catch(err => console.log(err))
@@ -51,7 +50,6 @@ export default new Vuex.Store({
     setUserInfo( { commit, getters } ) {
       return http.get('/accounts/allergy-vegan/', getters.config)
       .then((res) => {
-       // console.log("알러지비건 정보", res)
         commit('SET_USERINFO', res.data)
       })
       .catch(err => console.log(err))

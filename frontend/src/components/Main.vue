@@ -40,11 +40,10 @@
    },
     created() {
       httpPro.get(`/todayProduce`).then(res => {
-        // console.log(res.data)
         this.produces=res.data
         this.produces.splice(7)
       }).catch(err => {
-        console.log("[Main Cretated] " + err)
+        console.log(err)
       })
     }
   }

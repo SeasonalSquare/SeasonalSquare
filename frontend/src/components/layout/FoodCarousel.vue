@@ -18,11 +18,11 @@
                             style="padding-top:0px !important"
                             cols="12"
                           >
-                            <v-avatar color="#EC8852" style="opacity: 0.8;z-index:1" size="70" tile>
-                              <span style="font-size:20px;font-weight:bold">{{produce.value}}</span> %
+                            <v-avatar color="#EC8852" style="opacity: 0.8;z-index:1" size="75" tile>
+                              <span style="font-size:17px;font-weight:bold">{{produce.value}}</span> %
                               <!-- <i style="color:#070279" class="fas fa-arrow-down"></i> -->
-                              <v-icon size="22" v-if="produce.direction == 0" color="#070279">{{arrowDown}}</v-icon>
-                              <v-icon size="22" v-else-if="produce.direction == 1" color="#AF0000">{{arrowUp}}</v-icon>
+                              <v-icon size="20" v-if="produce.direction == 0" color="#070279">{{arrowDown}}</v-icon>
+                              <v-icon size="20" v-else-if="produce.direction == 1" color="#AF0000">{{arrowUp}}</v-icon>
                             </v-avatar>
                           </v-col>
 
