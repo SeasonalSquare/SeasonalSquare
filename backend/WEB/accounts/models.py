@@ -79,4 +79,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         print(self.shoppingcart)
         
     def get_shop_data(self):
-        return json.loads(self.shoppingcart)
+        if self.shoppingcart:
+            return json.loads(self.shoppingcart)
+        else:
+            return None
