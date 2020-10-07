@@ -1,5 +1,5 @@
 <template >
-  <v-container style="min-height: 100%; text-align: center; margin-top: 2rem;">
+  <v-container style="text-align: center; margin-top: 2rem;">
         <v-row v-if="!loggedIn" >
           <v-icon x-large color="#EC8852">mdi-carrot</v-icon>
           <v-icon x-large color="#7CB342">mdi-food-apple</v-icon>
@@ -146,16 +146,20 @@
           </v-row>
 
         </v-row>
-
+    <scroll-top/>
     </v-container>
 </template>
 
 <script>
 import http from '@/util/http-common.js'
 import { mapState ,mapGetters } from 'vuex'
+import ScrollTop from '@/components/layout/ScrollTop.vue'
 
 export default {
   name: "UserProfile",
+  components: {
+    ScrollTop,
+  },
   data() {
     return {
       veganInfo: ["vegan", "lacto-vegetarian", "ovo-vegetarian", "lacto-ovo-vegetarian", "pesco-vegetarian", "pollo-vegetarian"],
@@ -230,6 +234,7 @@ export default {
 }
 .border{
   border:3px solid rgb(247, 247, 247);
-  padding-left:45px
+  padding-left:45px;
+  background:  rgb(247, 247, 247);;
 }
 </style>
