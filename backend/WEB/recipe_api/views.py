@@ -24,8 +24,8 @@ def grocery(request, grocery_name):
 def recipe(request, recipe_pk):
     recipe = get_object_or_404(Recipe, pk=recipe_pk)
 
-    print(recipe.main_grocery)
-    print(recipe.title)
+    # print(recipe.main_grocery)
+    # print(recipe.title)
     recipes = Recipe.objects.filter(main_grocery=recipe.main_grocery)
 
     serializer = RecipeListSerializer(recipes, many=True)
@@ -79,6 +79,8 @@ def recipe(request, recipe_pk):
     """
 
     def recipe_REC(idx=0, cosine_sim=cosine_sim):
+        result = {}
+        
         #입력한 레시피로 부터 인덱스 가져오기
 
         # 모든 레시피에 대해서 해당 레시피와의 유사도를 구하기
@@ -95,20 +97,33 @@ def recipe(request, recipe_pk):
         # 가장 유사한 3개 레시피의 인덱스 받아옴
         recipe_indices = [i[0] for i in sim_scores]
         recipe_indices_reversed = [i[0] for i in sim_scores_reversed]
-        
+        rrecipes = []
         for idx in recipe_indices:
+            temp = {}
             print(idx, ":", doc_nouns_list[idx])
             print(idx, ":", idx_list[idx])
             rrecipe = get_object_or_404(Recipe, pk=idx_list[idx])
-            print(rrecipe.title)
-        print()
-        print('색다른 레시피들')
+            temp['title'] = rrecipe.title
+            temp['image'] = rrecipe.image
+            temp['pk'] = rrecipe.id
+            rrecipes.append(temp)
 
+        
+        urrecipes = []
         for idx in recipe_indices_reversed:
+            temp = {}
             print(idx, ":", doc_nouns_list[idx])
             print(idx, ":", idx_list[idx])
             rrecipe = get_object_or_404(Recipe, pk=idx_list[idx])
-            print(rrecipe.title)
-        return
-    recipe_REC()
-    return Response(recipe.get_content())
+            temp['title'] = rrecipe.title
+            temp['image'] = rrecipe.image
+            temp['pk'] = rrecipe.id
+            urrecipes.append(temp)
+        
+        result['rel_recipes'] = rrecipes
+        result['unrel_recipes'] = urrecipes
+
+        return result
+    result = recipe.get_content()
+    result['recommend'] = recipe_REC()
+    return Response(result)
