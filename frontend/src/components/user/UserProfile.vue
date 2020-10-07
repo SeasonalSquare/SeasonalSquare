@@ -51,8 +51,11 @@
            <i class="fas fa-allergies" style="padding-right:10px"></i> 알레르기 선택
         </v-row>
         <v-row class="border" >
-          <v-row>
-            <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info1" :key="'a1'+index" >
+          <!-- <v-row style="">
+            <v-col cols="12"  class="gubun">
+              <h4><i class="fas fa-seedling"></i> 기타</h4>
+            </v-col>
+            <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info1" :key="'a1'+index" style="padding-top:0px" >
               <v-checkbox
                 v-model="allergy_chk"
                 :label=a
@@ -62,10 +65,13 @@
                 class="allergy_chk" style="text-align:center"
               ></v-checkbox>
             </v-col>
-          </v-row>
+          </v-row> -->
           <v-col cols="12"></v-col>
-          <v-row>
-            <v-col cols="4" sm="2" md="2"  v-for="(a,index) in allergy_info2" :key="'a2'+index" >
+          <v-row >
+            <v-col cols="12"  class="gubun">
+              <h4><i class="fas fa-drumstick-bite"></i> 육류</h4>
+            </v-col>
+            <v-col cols="4" sm="2" md="2"  v-for="(a,index) in allergy_info2" :key="'a2'+index" style="padding-top:0px" >
               <v-checkbox
                 v-model="allergy_chk"
                 :label=a
@@ -79,7 +85,10 @@
           
           <v-col cols="12"></v-col>
           <v-row >
-            <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info3" :key="'a3'+index" >
+            <v-col cols="12"  class="gubun">
+              <h4><i class="fas fa-fish"></i> 생선/해산물</h4>
+            </v-col>
+            <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info3" :key="'a3'+index" style="padding-top:0px" >
               <v-checkbox
                 v-model="allergy_chk"
                 :label=a
@@ -93,7 +102,10 @@
           <v-col cols="12"></v-col>
 
           <v-row >
-            <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info4" :key="'a4'+index" >
+            <v-col cols="12"  class="gubun">
+              <h4><i class="fas fa-seedling"></i> 곡물</h4>
+            </v-col>
+            <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info4" :key="'a4'+index"  style="padding-top:0px">
               <v-checkbox
                 v-model="allergy_chk"
                 :label=a
@@ -107,7 +119,10 @@
           <v-col cols="12"></v-col>
 
           <v-row  >
-            <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info5" :key="'a5'+index" >
+            <v-col cols="12"  class="gubun">
+              <h4><i class="fas fa-apple-alt"></i> 과일</h4>
+            </v-col>
+            <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info5" :key="'a5'+index"  style="padding-top:0px">
               <v-checkbox
                 v-model="allergy_chk"
                 :label=a
@@ -121,7 +136,10 @@
           <v-col cols="12"></v-col>
 
           <v-row >
-            <v-col cols="4" sm="2" md="2"  v-for="(a,index) in allergy_info6" :key="'a6'+index" >
+            <v-col cols="12"  class="gubun">
+              <h4><i class="fas fa-carrot"></i> 채소</h4>
+            </v-col>
+            <v-col cols="4" sm="2" md="2"  v-for="(a,index) in allergy_info6" :key="'a6'+index" style="padding-top:0px">
               <v-checkbox
                 v-model="allergy_chk"
                 :label=a
@@ -129,6 +147,22 @@
                 :value=a
                 hide-details
                 class="allergy_chk"
+              ></v-checkbox>
+            </v-col>
+          </v-row>
+          <v-col cols="12"></v-col>
+          <v-row style="">
+            <v-col cols="12"  class="gubun">
+              <h4><i class="fas fa-shopping-basket"></i> 기타</h4>
+            </v-col>
+            <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info1" :key="'a1'+index" style="padding-top:0px" >
+              <v-checkbox
+                v-model="allergy_chk"
+                :label=a
+                color="#EC8852"
+                :value=a
+                hide-details
+                class="allergy_chk" style="text-align:center"
               ></v-checkbox>
             </v-col>
           </v-row>
@@ -235,6 +269,10 @@ export default {
 .border{
   border:3px solid rgb(247, 247, 247);
   padding-left:45px;
+  padding-right:45px;
   background:  rgb(247, 247, 247);;
+}
+.gubun{
+  text-align:left;padding-bottom:0px;
 }
 </style>
