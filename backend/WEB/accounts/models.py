@@ -80,4 +80,3 @@ class User(AbstractBaseUser, PermissionsMixin):
         
     def get_shop_data(self):
         return json.loads(self.shoppingcart)
-    
