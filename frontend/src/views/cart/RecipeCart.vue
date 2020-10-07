@@ -23,7 +23,7 @@
                 <v-row>
                     <div style="font-size: 0.9rem; color: black; margin-start: 1rem">
                         <v-icon color="#FEAA6E">mdi-hand-pointing-right</v-icon>
-                        없는 재료를 장바구니에 담아 장보기에 활용하세요!
+                        없는 재료를 장바구니에 담아 장을 볼 때 활용하세요!
                     </div>
                 </v-row>
                 <v-row>
