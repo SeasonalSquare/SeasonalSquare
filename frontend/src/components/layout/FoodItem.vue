@@ -13,12 +13,13 @@
           </div>
         </v-col>
      </template>
+     {{getN}}
   </v-row>
 </template>
 
 <script>
  import httpPro from '@/util/http-produce.js'
- import { mapState } from 'vuex'
+ import { mapState,mapGetters } from 'vuex'
 const baseURL = "http://j3a503.p.ssafy.io:8000"
 
 export default {
@@ -26,7 +27,25 @@ export default {
   components: {
   },
   computed : {
+    ...mapGetters(['loggedIn','config']),
     ...mapState(['info']),
+      getN () { 
+          let url = "";
+         //console.log("******info 변화: "+ JSON.stringify(this.$store.getters.getN))
+          
+          if(this.$store.getters.getN == null || this.$store.getters.getN == ""){
+            url = "/todayProduce"
+          }else{
+            let vege = this.$store.state.info.vegetarian;
+            if(vege == null) vege = 0;
+
+            url=`/todayProduceWithout?allergies=${this.$store.state.info.allergy},&vegi=${vege}` 
+          }
+    
+          this.call(url);
+
+        return ''
+      }
   },
   data() {
     return {
@@ -42,18 +61,15 @@ export default {
       let vege = this.$store.state.info.vegetarian;
       if(vege == null) vege = 0;
 
-      //  console.log(">>>>>>>>"+vege);
-      //  console.log(">>>>>>>>"+this.$store.state.info.allergy);
-
       url=`/todayProduceWithout?allergies=${this.$store.state.info.allergy},&vegi=${vege}` 
     }
-    
-    httpPro.get(url).then(res => {
-      this.produces=res.data
-      this.produces.splice(8)
-    }).catch(err => {
-      console.log(err)
-    })
+    url
+    // httpPro.get(url).then(res => {
+    //   this.produces=res.data
+    //   this.produces.splice(8)
+    // }).catch(err => {
+    //   console.log(err)
+    // })
   },
   
   methods: {
@@ -65,6 +81,16 @@ export default {
       if(months === '-') return '없음'
       else return months.replaceAll(" ", ", ") + '월'
     },
+    async call(url) {
+        //console.log(">>>>>>>>>url"+url)
+        httpPro.get(url).then(res => {
+            this.produces=res.data
+              this.produces.splice(8)
+            //console.log(">>>>>>>>>produces:"+JSON.stringify(this.produces));
+            }).catch(err => {
+              console.log(err)
+          })
+      },
   },
 
   

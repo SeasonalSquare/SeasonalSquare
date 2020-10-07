@@ -75,9 +75,14 @@ export default {
                   position: 'top-right',
                   timeout: 1000
                 })
-                this.$router.push("/")
-
+               
             })
+             .catch(function (error) {
+                console.log(error);
+              })
+            .finally(() => {
+              this.$router.push("/");
+            });
           })
           .catch(error => {
             if(error.response.data.email != null){
