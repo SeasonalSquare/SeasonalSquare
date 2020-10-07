@@ -29,7 +29,7 @@ export default {
       .then(response => {
       this.recipes = response.data;
       this.recipes.splice(6);
-      console.log(">>>"+this.recipes);
+      //console.log(">>>"+this.recipes);
       })
       .catch(err => {
       console.log(err)
