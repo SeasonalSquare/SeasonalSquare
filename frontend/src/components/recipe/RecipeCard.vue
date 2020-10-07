@@ -69,7 +69,7 @@
             class="card-title"
           >
               {{ recipe.title }}
-              <div style="font-size: 0.8rem; font-weight: 500">
+              <div v-if="recipe.writer" style="font-size: 0.8rem; font-weight: 500">
                 <v-icon small color="#FEAA6E">mdi-lead-pencil</v-icon>
                 {{ recipe.writer }}
               </div>

@@ -121,6 +121,27 @@
                 {{ step.explain }}
             </v-col>
         </div>
+
+        <v-divider></v-divider>
+        <div class="title-text">연관 추천 레시피</div>
+        <v-container style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
+            <recipe-card
+                v-for="(recipe, index) in rel_recipes" 
+                :key="index" 
+                :recipe="recipe"
+                style="margin: 1rem;">
+            </recipe-card>
+        </v-container>
+        
+        <div class="title-text">색다른 추천 레시피</div>
+        <v-container style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
+            <recipe-card
+                v-for="(recipe, index) in unrel_recipes" 
+                :key="index" 
+                :recipe="recipe"
+                style="margin: 1rem;">
+            </recipe-card>
+        </v-container>
         <scroll-top/>
     </v-container>
 </template>
@@ -128,11 +149,14 @@
 <script>
 import http from '@/util/http-common.js'
 import RecipeImage from '@/components/recipe/RecipeImage'
+import RecipeCard from '@/components/recipe/RecipeCard'
 import ScrollTop from '@/components/layout/ScrollTop.vue'
+
 export default {
     components: {
         RecipeImage,
-         ScrollTop,
+        RecipeCard,
+        ScrollTop,
     },
     props: {
         summary: {
@@ -145,6 +169,8 @@ export default {
             main_ingredients : [],
             source_ingredients: [],
             recipe : [],
+            rel_recipes: [],
+            unrel_recipes: [],
         }
     },
     async created() {
@@ -157,6 +183,8 @@ export default {
                 this.main_ingredients = response.data.ingredient_data.main_ingredients
                 this.source_ingredients = response.data.ingredient_data.source_ingredients
                 this.recipe = response.data.recipe
+                this.rel_recipes = response.data.recommend.rel_recipes
+                this.unrel_recipes = response.data.recommend.unrel_recipes
             })
             .catch(() => {
                 this.$dialog.notify.error('레시피를 불러올 수 없습니다.', {
