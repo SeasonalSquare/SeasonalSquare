@@ -31,7 +31,7 @@
                     <v-btn
                         block
                         large
-                        color="#BEDDBF"
+                        color="#EC8852"
                         @click.prevent="deleteCart"
                         style="margin-top: 1rem"
                     >

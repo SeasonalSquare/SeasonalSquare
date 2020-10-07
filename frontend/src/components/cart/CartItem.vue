@@ -6,7 +6,7 @@
             <v-list-group
                 :value="true"
                 prepend-icon="mdi-bowl-mix"
-                active-class="deep-purple--text text--accent-4"
+                active-class="cart-active-checkbox"
                 no-action
             >
                 <template v-slot:activator>
@@ -48,7 +48,8 @@
                     <v-btn
                         block
                         large
-                        color="#EC8852"
+                        outlined
+                        color="primary"
                         @click.prevent="goRecipeDetail"
                         style="margin-top: 1rem"
                     >
@@ -94,7 +95,7 @@ export default {
 </script>
 
 <style scoped>
-.cart-active-checkbox {
+.v-list-item--active .cart-active-checkbox {
     color: #5C5749 !important;
     caret-color: #5C5749 !important;
 }
