@@ -147,7 +147,7 @@ export default {
     },
     methods: {
         async fetchRecipe() {
-            http.get(`/recipe/${this.summary.pk}`)
+            http.get(`/recipe/${this.summary.pk}/`)
             .then(response => {
                 this.main_ingredients = response.data.ingredient_data.main_ingredients
                 this.source_ingredients = response.data.ingredient_data.source_ingredients

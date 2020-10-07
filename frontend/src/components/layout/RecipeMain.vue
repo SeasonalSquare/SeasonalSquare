@@ -25,7 +25,7 @@ export default {
     }
   },
   created() {
-    http.get(`/recipe/grocery/${this.food}`)
+    http.get(`/recipe/grocery/${this.food}/`)
       .then(response => {
       this.recipes = response.data
       this.recipes.splice(6)
