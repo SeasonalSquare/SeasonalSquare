@@ -3,6 +3,11 @@
         <div class="title-text"> 
             {{ summary.title }}
         </div>
+        <div style="font-weight: 700; margin-start: 1rem">
+            <v-icon color="#FEAA6E">mdi-lead-pencil</v-icon>
+            작성자
+            {{ summary.writer }}
+        </div>
         <div
             class="d-flex"
         >

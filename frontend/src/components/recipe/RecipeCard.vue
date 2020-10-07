@@ -68,7 +68,11 @@
           <div
             class="card-title"
           >
-            {{ recipe.title }}
+              {{ recipe.title }}
+              <div style="font-size: 0.8rem; font-weight: 500">
+                <v-icon small color="#FEAA6E">mdi-lead-pencil</v-icon>
+                {{ recipe.writer }}
+              </div>
           </div>
         </v-card-text>
       </v-card>
@@ -117,6 +121,7 @@ export default {
 }
 .card-title {
   color: #5C5749;
+  font-weight: 700;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
