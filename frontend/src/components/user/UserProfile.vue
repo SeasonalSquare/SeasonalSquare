@@ -1,5 +1,5 @@
 <template >
-  <v-container style="min-height: 100%; text-align: center; margin-top: 3rem;">
+  <v-container style="min-height: 100%; text-align: center; margin-top: 2rem;">
         <v-row v-if="!loggedIn" >
           <v-icon x-large color="#EC8852">mdi-carrot</v-icon>
           <v-icon x-large color="#7CB342">mdi-food-apple</v-icon>
@@ -19,11 +19,19 @@
         <v-row v-else >
           <v-col cols="12" lg="12">
             <div  class="section_login"> 
-              <h2 style="text-align: center;">회원정보</h2>
-              ID: {{$store.state.myProfile.email}}
+              <h2 style="text-align: center;"> 회원 정보</h2>
+              <div style="font-size:12px;color:#EC8852">선택하신 비건·알레르기 정보를 기반으로 맞춤형 농작물과 레시피를 추천해줍니다.</div>
+              <div style="text-align: right;">{{$store.state.myProfile.email}}</div>
             </div>
           </v-col>
-          
+
+          <v-divider style="border:1px solid #EC8852 "></v-divider>
+        
+        <v-col cols="12"></v-col>
+        <v-row  style="text-align:left;  padding-left:45px; font-size:20px; font-weight:700" >
+           <i class="fas fa-leaf" style="padding-right:10px"></i> 비건 선택
+        </v-row>
+        <v-row class="border" >
           <v-row>
           <v-col cols="12" sm="12" md="12">
             <v-radio-group v-model="vege" row >             
@@ -36,7 +44,14 @@
             </v-radio-group>
           </v-col>
           </v-row>
-          <v-row  style="background:red" >
+        </v-row>
+
+        <v-col cols="12"></v-col>
+         <v-row  style="text-align:left;  padding-left:45px; font-size:20px; font-weight:700" >
+           <i class="fas fa-allergies" style="padding-right:10px"></i> 알레르기 선택
+        </v-row>
+        <v-row class="border" >
+          <v-row>
             <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info1" :key="'a1'+index" >
               <v-checkbox
                 v-model="allergy_chk"
@@ -44,12 +59,12 @@
                 color="#EC8852"
                 :value=a
                 hide-details
-                class="allergy_chk"
+                class="allergy_chk" style="text-align:center"
               ></v-checkbox>
             </v-col>
           </v-row>
           <v-col cols="12"></v-col>
-          <v-row  style="background:blue">
+          <v-row>
             <v-col cols="4" sm="2" md="2"  v-for="(a,index) in allergy_info2" :key="'a2'+index" >
               <v-checkbox
                 v-model="allergy_chk"
@@ -63,7 +78,7 @@
           </v-row>
           
           <v-col cols="12"></v-col>
-          <v-row style="background:yellow"  >
+          <v-row >
             <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info3" :key="'a3'+index" >
               <v-checkbox
                 v-model="allergy_chk"
@@ -77,7 +92,7 @@
           </v-row>
           <v-col cols="12"></v-col>
 
-          <v-row style="background:pink"  >
+          <v-row >
             <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info4" :key="'a4'+index" >
               <v-checkbox
                 v-model="allergy_chk"
@@ -91,7 +106,7 @@
           </v-row>
           <v-col cols="12"></v-col>
 
-          <v-row  style="background:skyblue" >
+          <v-row  >
             <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info5" :key="'a5'+index" >
               <v-checkbox
                 v-model="allergy_chk"
@@ -105,7 +120,7 @@
           </v-row>
           <v-col cols="12"></v-col>
 
-          <v-row style="background:purple;border:1px solid black" >
+          <v-row >
             <v-col cols="4" sm="2" md="2"  v-for="(a,index) in allergy_info6" :key="'a6'+index" >
               <v-checkbox
                 v-model="allergy_chk"
@@ -116,6 +131,7 @@
                 class="allergy_chk"
               ></v-checkbox>
             </v-col>
+          </v-row>
           </v-row>
 
           <v-col cols="12"></v-col>
@@ -200,7 +216,7 @@ export default {
 <style scoped>
 
 .section_login{
-   background: gray;
+   /* background: gray; */
    /* width: 100%; */
    margin: 0 auto;
 }
@@ -211,5 +227,9 @@ export default {
   overflow: hidden;
   border-radius: 3px;
   font-size:16px
+}
+.border{
+  border:3px solid rgb(247, 247, 247);
+  padding-left:45px
 }
 </style>
