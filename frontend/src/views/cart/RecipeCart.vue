@@ -150,10 +150,12 @@ export default {
             full_source_ingredients_name : [],
             main_checkbox : [],
             source_checkbox : [],
+            shoppinglist: [],
         }
     },
     async created() {
         await this.fetchRecipe();
+        this.fetchShoppingCart();
     },
     methods: {
         async fetchRecipe() {
@@ -177,6 +179,20 @@ export default {
                 })
             })
         },
+        fetchShoppingCart() {
+            http.get(`/accounts/shoppingcart/`, {
+                headers: {
+                    "Authorization": this.token,
+                }
+            }).then(response => {
+                this.shoppinglist = response.data
+            }).catch(() => {
+                this.$dialog.notify.error('장바구니를 불러올 수 없습니다.', {
+                    position: 'top-right',
+                    timeout: 2000
+                })
+            })
+        },
         addToCart() {
             if(this.isInCart) {
                 this.$dialog.notify.warning('이미 장바구니에 담긴 레시피입니다.', {
@@ -189,6 +205,13 @@ export default {
             let cart = this.full_main_ingredients_name.filter((word) => !this.main_checkbox.includes(word));
             let fullcart = cart.concat(this.full_source_ingredients_name.filter((word) => !this.source_checkbox.includes(word)));
             
+            if(this.shoppinglist){
+                this.putShoppingCart(fullcart);
+            }else{
+                this.postShoppingCart(fullcart);
+            }
+        },
+        postShoppingCart(fullcart) {
             http.post(`/accounts/shoppingcart/`, {
                 shoppinglist: [{
                     pk: this.summary.pk,
@@ -215,6 +238,33 @@ export default {
                 })
             })
         },
+        putShoppingCart(fullcart) {
+            http.put(`/accounts/shoppingcart/`, {
+                shoppinglist: [{
+                    pk: this.summary.pk,
+                    title: this.summary.title,
+                    image: this.summary.image,
+                    ingredients: fullcart,
+                }]
+            }, {
+                headers: { 
+                    "Authorization": this.token,
+                }
+            }).then(() => {
+                this.isInCart = true
+                this.$dialog.notify.success('장바구니에 담겼습니다.', {
+                    position: 'top-right',
+                    timeout: 1000
+                })
+            }).catch(() => {
+                let message = '장바구니 담기에 실패했습니다.'
+                if(!this.token) message = '로그인을 해주세요.'
+                this.$dialog.notify.error(message, {
+                    position: 'top-right',
+                    timeout: 2000
+                })
+            })
+        }
     },
 }
 </script>

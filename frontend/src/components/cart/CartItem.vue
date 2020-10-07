@@ -64,7 +64,7 @@
 export default {
     props : {
         pk: {
-            type: String,
+            type: Number,
             required: true,
         },
         image: {
