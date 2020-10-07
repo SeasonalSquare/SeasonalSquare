@@ -18,73 +18,80 @@
             </v-col>
 
             <v-col
-                style="display:flex; flex: 1 1 30%;"
+                style="flex: 1 1 60%; padding-top: 2rem;"
             >
-                <v-container>
-                    <v-chip
-                        color="#BEDDBF"
-                        class="emphasize-text"
-                    >
-                        재료
-                    </v-chip>
-                    <div
-                        v-for="(main_ingredient, i) in main_ingredients"
-                        :key = i
-                        class="d-flex"
-                    >
-                        <div style="flex: 1 1 40%;">
-                            <v-checkbox
-                                color="#EC8852"
-                                :value="main_ingredient.ingredient_name"
-                                :label="main_ingredient.ingredient_name + ' ' + main_ingredient.amount"
-                                v-model="main_checkbox"
-                            >
-                            </v-checkbox>
-                        </div>
+                <v-row>
+                    <div style="font-size: 0.9rem; color: black; margin-start: 1rem">
+                        <v-icon color="#FEAA6E">mdi-hand-pointing-right</v-icon>
+                        없는 재료를 장바구니에 담아 장보기에 활용하세요!
                     </div>
-                </v-container>
-            </v-col>
-            <v-col 
-                v-if="source_ingredients.length" 
-                style="display: flex; flex: 1 1 30%"
-            >
-                <v-container>
-                    <v-chip
-                        color="#BEDDBF"
-                        class="emphasize-text"
-                    >
-                        양념 재료
-                    </v-chip>
-                    <div
-                        v-for="(source_ingredient, j) in source_ingredients"
-                        :key = j
-                        class="d-flex"
-                    >
-                        <div style="flex: 1 1 40%;">
-                            <v-checkbox
-                                color="#EC8852"
-                                :value="source_ingredient.source_name"
-                                :label="source_ingredient.source_name + ' ' + source_ingredient.amount"
-                                v-model="source_checkbox"
+                </v-row>
+                <v-row>
+                    <v-col>
+                        <v-container>
+                            <v-chip
+                                color="#BEDDBF"
+                                class="emphasize-text"
                             >
-                                <!-- <template #label :class="checkClass"> {{ source_ingredient.source_name }}</template> -->
-                            </v-checkbox>
-                        </div>
-                    </div>
-                </v-container>
+                                재료
+                            </v-chip>
+                            <div
+                                v-for="(main_ingredient, i) in main_ingredients"
+                                :key = i
+                                class="d-flex"
+                            >
+                                <div style="flex: 1 1 40%;">
+                                    <v-checkbox
+                                        color="#EC8852"
+                                        :value="main_ingredient.ingredient_name"
+                                        :label="main_ingredient.ingredient_name + ' ' + main_ingredient.amount"
+                                        v-model="main_checkbox"
+                                    >
+                                    </v-checkbox>
+                                </div>
+                            </div>
+                        </v-container>
+                    </v-col>
+                    <v-col 
+                        v-if="source_ingredients.length"
+                    >
+                        <v-container>
+                            <v-chip
+                                color="#BEDDBF"
+                                class="emphasize-text"
+                            >
+                                양념 재료
+                            </v-chip>
+                            <div
+                                v-for="(source_ingredient, j) in source_ingredients"
+                                :key = j
+                                class="d-flex"
+                            >
+                                <div style="flex: 1 1 40%;">
+                                    <v-checkbox
+                                        color="#EC8852"
+                                        :value="source_ingredient.source_name"
+                                        :label="source_ingredient.source_name + ' ' + source_ingredient.amount"
+                                        v-model="source_checkbox"
+                                    >
+                                        <!-- <template #label :class="checkClass"> {{ source_ingredient.source_name }}</template> -->
+                                    </v-checkbox>
+                                </div>
+                            </div>
+                        </v-container>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col style="margin-left: 1rem; margin-right: 1rem;">
+                        <v-btn block x-large color="#5C5749" @click.prevent="addToCart">
+                            <v-icon v-if="!isInCart" color="white">mdi-cart-outline</v-icon>
+                            <v-icon v-else color="#EC8852">mdi-cart</v-icon>
+                        </v-btn>
+                    </v-col>
+                </v-row>
             </v-col>
         </div>
-        <v-row style="justify-content: flex-end;">
-            <v-col
-                style="flex: 1 1 20%;"
-            />
-            <v-col style="flex: 1 1 60%; padding-left: 3rem; padding-right: 3rem;">
-                <v-btn block x-large color="#5C5749" @click.once="addToCart">
-                    <v-icon v-if="!isInCart" color="white">mdi-cart-outline</v-icon>
-                    <v-icon v-else color="#EC8852">mdi-cart</v-icon>
-                </v-btn>
-            </v-col>
-        </v-row>
+
         <br>
         <v-divider></v-divider>
         <br>
@@ -111,6 +118,7 @@
                 {{ step.explain }}
             </v-col>
         </div>
+        <br>
     </v-container>
 </template>
 
@@ -170,7 +178,14 @@ export default {
             })
         },
         addToCart() {
-            this.isInCart = true
+            if(this.isInCart) {
+                this.$dialog.notify.warning('이미 장바구니에 담긴 레시피입니다.', {
+                    position: 'top-right',
+                    timeout: 1000
+                })
+                return;
+            }
+
             let cart = this.full_main_ingredients_name.filter((word) => !this.main_checkbox.includes(word));
             let fullcart = cart.concat(this.full_source_ingredients_name.filter((word) => !this.source_checkbox.includes(word)));
             
@@ -186,6 +201,7 @@ export default {
                     "Authorization": this.token,
                 }
             }).then(() => {
+                this.isInCart = true
                 this.$dialog.notify.success('장바구니에 담겼습니다.', {
                     position: 'top-right',
                     timeout: 1000
