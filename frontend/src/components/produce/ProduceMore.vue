@@ -51,14 +51,10 @@ export default {
       let vege = this.$store.state.info.vegetarian;
       if(vege == null) vege = 0;
 
-      console.log(">>>>>>>>"+vege);
-      console.log(">>>>>>>>"+this.$store.state.info.allergy);
-
       url=`/todayProduceWithout?allergies=${this.$store.state.info.allergy},&vegi=${vege}` 
     }
     
     httpPro.get(url).then(res => {
-      console.log(this.cate)
       this.produces=res.data
       //this.produces.splice(8)
     }).catch(err => {
