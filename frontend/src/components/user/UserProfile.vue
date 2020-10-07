@@ -29,7 +29,7 @@
         
         <v-col cols="12"></v-col>
         <v-row  style="text-align:left;  padding-left:45px; font-size:20px; font-weight:700" >
-           <i class="fas fa-leaf" style="padding-right:10px"></i> 비건 선택
+           <i class="fas fa-leaf" style="padding-right:10px;color:#6AAB38"></i> 비건 선택
         </v-row>
         <v-row class="border" >
           <v-row>
@@ -48,7 +48,7 @@
 
         <v-col cols="12"></v-col>
          <v-row  style="text-align:left;  padding-left:45px; font-size:20px; font-weight:700" >
-           <i class="fas fa-allergies" style="padding-right:10px"></i> 알레르기 선택
+           <i class="fas fa-allergies" style="padding-right:10px;color:#F3AE79"></i> 알레르기 선택
         </v-row>
         <v-row class="border" >
           <!-- <v-row style="">
@@ -69,7 +69,7 @@
           <v-col cols="12"></v-col>
           <v-row >
             <v-col cols="12"  class="gubun">
-              <h4><i class="fas fa-drumstick-bite"></i> 육류</h4>
+              <h4><i class="fas fa-drumstick-bite" style="color:#E55B53" ></i> 육류</h4>
             </v-col>
             <v-col cols="4" sm="2" md="2"  v-for="(a,index) in allergy_info2" :key="'a2'+index" style="padding-top:0px" >
               <v-checkbox
@@ -86,7 +86,7 @@
           <v-col cols="12"></v-col>
           <v-row >
             <v-col cols="12"  class="gubun">
-              <h4><i class="fas fa-fish"></i> 생선/해산물</h4>
+              <h4><i class="fas fa-fish" style="color:#64A9C1"></i> 생선/해산물</h4>
             </v-col>
             <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info3" :key="'a3'+index" style="padding-top:0px" >
               <v-checkbox
@@ -103,7 +103,7 @@
 
           <v-row >
             <v-col cols="12"  class="gubun">
-              <h4><i class="fas fa-seedling"></i> 곡물</h4>
+              <h4><i class="fas fa-seedling"  style="color:#C28B36"></i> 곡물</h4>
             </v-col>
             <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info4" :key="'a4'+index"  style="padding-top:0px">
               <v-checkbox
@@ -120,7 +120,7 @@
 
           <v-row  >
             <v-col cols="12"  class="gubun">
-              <h4><i class="fas fa-apple-alt"></i> 과일</h4>
+              <h4><i class="fas fa-apple-alt" style="color:#D42F2B"></i> 과일</h4>
             </v-col>
             <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info5" :key="'a5'+index"  style="padding-top:0px">
               <v-checkbox
@@ -137,7 +137,7 @@
 
           <v-row >
             <v-col cols="12"  class="gubun">
-              <h4><i class="fas fa-carrot"></i> 채소</h4>
+              <h4><i class="fas fa-carrot" style="color:#EC8314"></i> 채소</h4>
             </v-col>
             <v-col cols="4" sm="2" md="2"  v-for="(a,index) in allergy_info6" :key="'a6'+index" style="padding-top:0px">
               <v-checkbox
@@ -153,7 +153,7 @@
           <v-col cols="12"></v-col>
           <v-row style="">
             <v-col cols="12"  class="gubun">
-              <h4><i class="fas fa-shopping-basket"></i> 기타</h4>
+              <h4><i class="fas fa-shopping-basket" style="color:#7F6333"></i> 기타</h4>
             </v-col>
             <v-col cols="4" sm="2" md="2" v-for="(a,index) in allergy_info1" :key="'a1'+index" style="padding-top:0px" >
               <v-checkbox
