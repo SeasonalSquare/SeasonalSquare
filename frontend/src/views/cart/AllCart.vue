@@ -1,6 +1,6 @@
 <template>
     <v-container
-        style="min-height: 100%;"
+        style="min-height: 100%; max-width: 800px"
     >
         <h2 class="title-position">장바구니</h2>
         <p style="border-bottom:1px solid black; font-size:12px; padding: 1rem 0 1rem" />
