@@ -56,7 +56,7 @@ def allergy_vegan(request):
         return Response(True)
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
 @permission_classes((IsAuthenticated, ))
 @authentication_classes((JSONWebTokenAuthentication,))
 def cart(request):
@@ -64,9 +64,18 @@ def cart(request):
     if request.method == 'GET':
         shoppinglist = user.get_shop_data()
         return Response(shoppinglist)
-    else:
+    elif request.method == 'POST':
         shoppinglist = request.data['shoppinglist']
         user.set_shop_data(shoppinglist)
         user.save()
         return Response(True)
-
+    elif request.method == 'PUT':
+        shoppinglist = user.get_shop_data()
+        shoppinglist += request.data['shoppinglist']
+        user.set_shop_data(shoppinglist)
+        user.save()
+        return Response(True)
+    else:
+        user.shoppingcart = None
+        user.save()
+        return Response(True)
