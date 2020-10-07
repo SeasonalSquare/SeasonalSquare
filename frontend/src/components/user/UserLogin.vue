@@ -48,7 +48,6 @@ export default {
       let form = new FormData();
       form.append("email", this.email);
       form.append("password", this.password);
-      // console.log(this.email);
 
       http.post('/rest-auth/login/',form , {
                  headers: {
@@ -59,8 +58,7 @@ export default {
             let frm = new FormData();
             frm.append("password", this.password);
             frm.append("email", this.email);
-            
-            console.log(">>"+res);
+            res
 
              http.post("/accounts/token/",frm , {
                  headers: {
@@ -68,8 +66,6 @@ export default {
                 }
               }).then(res => {
                 const data = res.data;
-                console.log(">>>>>>>"+data.token);
-                // console.log(">>>>>>>"+JSON.stringify(res));
 
                 this.$store.dispatch("setAuth", "JWT " + data.token)
                 this.$store.dispatch("setUserProfile", data.token);
@@ -84,7 +80,6 @@ export default {
             })
           })
           .catch(error => {
-            // console.log('failed', error.response.data)
             if(error.response.data.email != null){
              this.$dialog.notify.error('유효한 이메일 주소를 입력하십시오', {
                 position: 'top-right',

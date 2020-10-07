@@ -108,11 +108,9 @@ export default {
           }
         })
       .then(res => {
-          console.log(res)
-          
+          res
       })
       .catch(error => {
-        // console.log('failed', error.response.data)
         if(error.response.data.email != null){
           let msg =error.response.data.email
           this.$dialog.notify.error(msg[0], {
@@ -163,7 +161,7 @@ export default {
           }
         })
       .then(res => {
-          console.log(">>>>>>"+res)
+          res
           this.$dialog.notify.success('회원가입이 완료되었습니다', {
             position: 'top-right',
             timeout: 3000
@@ -187,7 +185,6 @@ export default {
           msg =data.non_field_errors
           this.$refs.password2.focus();
         }else{
-           console.log('failed', error.response.data)
            return;
         }
 
