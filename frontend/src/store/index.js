@@ -18,6 +18,10 @@ export default new Vuex.Store({
       }
       return false
     }, 
+    getN(state){
+     // console.log(">>>>GETTERS")
+      return state.info
+    },
   },
   mutations: {
     SET_USERPROFILE(state, value) {
@@ -35,21 +39,24 @@ export default new Vuex.Store({
     LOGOUT(state){
       state.myProfile=""
       state.token=""
+      state.info=""
       sessionStorage.removeItem("myProfile")
       sessionStorage.removeItem("token")
+      sessionStorage.removeItem("info")
     },
   },
   actions: {
-    setUserProfile( { commit, getters } ) {
+    async setUserProfile( { commit, getters } ) {
       return http.get('/rest-auth/user/', getters.config)
       .then((res) => {
         commit('SET_USERPROFILE', res.data)
       })
       .catch(err => console.log(err))
     },
-    setUserInfo( { commit, getters } ) {
+    async setUserInfo( { commit, getters } ) {
       return http.get('/accounts/allergy-vegan/', getters.config)
       .then((res) => {
+       // console.log("내정보 "+res);
         commit('SET_USERINFO', res.data)
       })
       .catch(err => console.log(err))
