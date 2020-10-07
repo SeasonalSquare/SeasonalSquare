@@ -33,14 +33,14 @@
 
         <v-divider />
         <br>
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
+        <v-container style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
             <recipe-card
                 v-for="(recipe, index) in recipes" 
                 :key="index" 
                 :recipe="recipe"
                 style="margin: 1rem;">
             </recipe-card>
-        </div>
+        </v-container>
         <scroll-top/>
     </div>
 </template>
