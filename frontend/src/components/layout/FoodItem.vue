@@ -2,27 +2,50 @@
   <v-row>
      <template v-for="(produce,i) in produces">
         <v-col :key="i" cols="12" lg="3" md="3" xl="3" align="center" style="margin-top:50px" >
-          <div class="box" style="height:320px;width:249px">
-            <a   @click="goProduce(produce.name)" ><v-img :src="imgURL(produce.name)"  class="scale" style="height:100%" ></v-img></a>
+          <div class="box" style="height:320px;width:249px;border:1px solid rgb(247, 247, 247)">
+            <a   @click="goProduce(produce)" ><v-img :src="imgURL(produce.fullname)"  class="scale" style="height:100%" ></v-img></a>
           </div>
           <div>
-            <span  class="name"><a  @click="goProduce(produce.name)"  style="color:#333;">{{produce.fullname}}</a></span>
+            <span  class="name"><a  @click="goProduce(produce)"  style="color:#333;">{{produce.fullname}}</a></span>
             <span  class="price">{{produce.price}}원 <span style="color:#333;font-size:14px">({{produce.unit}})</span></span>
             <span  class="des">칼로리 {{produce.kcal}}</span>
-            <span  class="des">제철 {{produce.months}}</span>
+            <span  class="des">제철 {{formatMonths(produce.months)}}</span>
           </div>
         </v-col>
      </template>
+     {{getN}}
   </v-row>
 </template>
 
 <script>
  import httpPro from '@/util/http-produce.js'
+ import { mapState,mapGetters } from 'vuex'
 const baseURL = "http://j3a503.p.ssafy.io:8000"
 
 export default {
   name: 'FoodItem',
   components: {
+  },
+  computed : {
+    ...mapGetters(['loggedIn','config']),
+    ...mapState(['info']),
+      getN () { 
+          let url = "";
+         //console.log("******info 변화: "+ JSON.stringify(this.$store.getters.getN))
+          
+          if(this.$store.getters.getN == null || this.$store.getters.getN == ""){
+            url = "/todayProduce"
+          }else{
+            let vege = this.$store.state.info.vegetarian;
+            if(vege == null) vege = 0;
+
+            url=`/todayProduceWithout?allergies=${this.$store.state.info.allergy},&vegi=${vege}` 
+          }
+    
+          this.call(url);
+
+        return ''
+      }
   },
   data() {
     return {
@@ -30,19 +53,44 @@ export default {
     }
   },
   created() {
-      httpPro.get(`/todayProduce`).then(res => {
-        console.log(this.cate)
-        this.produces=res.data
-        this.produces.splice(8)
-      }).catch(err => {
-        console.log(err + "죽인다")
-      })
+    let url = "";
+
+    if(this.info == null || this.info == ""){
+       url = "/todayProduce"
+    }else{
+      let vege = this.$store.state.info.vegetarian;
+      if(vege == null) vege = 0;
+
+      url=`/todayProduceWithout?allergies=${this.$store.state.info.allergy},&vegi=${vege}` 
+    }
+    url
+    // httpPro.get(url).then(res => {
+    //   this.produces=res.data
+    //   this.produces.splice(8)
+    // }).catch(err => {
+    //   console.log(err)
+    // })
   },
+  
   methods: {
-    goProduce(foodName){
-      this.$router.push({name: 'RecipeList', params: {grocery: foodName}});
+    goProduce(produce){
+      this.$router.push({name: 'RecipeList', params: {produce: produce}});
     },
     imgURL(name) { return baseURL + "/produceImg?name=" + name },
+    formatMonths(months){
+      if(months === '-') return '없음'
+      else return months.replaceAll(" ", ", ") + '월'
+    },
+    async call(url) {
+        //console.log(">>>>>>>>>url"+url)
+        httpPro.get(url).then(res => {
+            this.produces=res.data
+              this.produces.splice(8)
+            //console.log(">>>>>>>>>produces:"+JSON.stringify(this.produces));
+            }).catch(err => {
+              console.log(err)
+          })
+      },
   },
 
   

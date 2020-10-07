@@ -6,44 +6,45 @@
         <food-carousel :produces="produces" ></food-carousel>
       </v-col>
     </v-row>
-    
     <category-main-food/>
-
-
-        <!-- <h1>다음은 API위한 테스트 인풋 박스입니다.</h1>
-        <v-text-field 
-          label="농수산물"
-          solo
-          v-model="testInput"
-          @keypress.enter="textInput"
-        >
-        </v-text-field>
-        <recipe-card  
-          v-for="(recipe, index) in recipes" 
-          :key="index" 
-          :recipe="recipe">
-        </recipe-card>  -->
-      
+     {{getN}}
   </v-container>
 </v-app>
 </template>
 
 <script>
-  // import http from "@/util/http-common"
-  import http from '@/util/http-common.js'
+// import http from '@/util/http-common.js'
   import httpPro from '@/util/http-produce.js'
-  // import RecipeCard from '@/components/recipe/RecipeCard.vue'
   import FoodCarousel from '@/components/layout/FoodCarousel.vue'
   import CategoryMainFood from '@/components/layout/CategoryMainFood.vue'
-  //const SERVER_URL = 'http://localhost:8301'
-
+ import { mapState,mapGetters  } from 'vuex'
 
   export default {
     name: 'Main',
     components : {
-      // RecipeCard,
       FoodCarousel,
       CategoryMainFood,
+    },
+    computed : {
+      ...mapGetters(['loggedIn','config']),
+      ...mapState(['info']),
+        getN () { 
+          let url = "";
+          // console.log("******info 변화: "+ JSON.stringify(this.$store.getters.getN))
+          
+          if(this.$store.getters.getN == null || this.$store.getters.getN == ""){
+            url = "/todayProduce"
+          }else{
+            let vege = this.$store.state.info.vegetarian;
+            if(vege == null) vege = 0;
+
+            url=`/todayProduceWithout?allergies=${this.$store.state.info.allergy},&vegi=${vege}` 
+          }
+    
+          this.call(url);
+
+        return ''
+      }
     },
     data() {
       return {
@@ -53,25 +54,47 @@
       }
    },
    methods:{
-     textInput() {
-       console.log(this.testInput)
-       http.get(`/recipe/grocery/${this.testInput}`)
-       .then(response => {
-        this.recipes = response.data
-       })
-       .catch(err => {
-        console.log(err + "죽인다")
-       })
-     }
+      async call(url) {
+        // console.log(">>>>>>>>>url"+url)
+        httpPro.get(url).then(res => {
+            this.produces=res.data
+              this.produces.splice(8)
+            // console.log(">>>>>>>>>produces:"+JSON.stringify(this.produces));
+            }).catch(err => {
+              console.log(err)
+          })
+      },
    },
-    created() {
-      httpPro.get(`/todayProduce`).then(res => {
-        // console.log(res.data)
-        this.produces=res.data
-        this.produces.splice(7)
-      }).catch(err => {
-        console.log("[Main Cretated] " + err)
-      })
+  async created() {
+    
+    // console.log("?????? "+JSON.stringify(this.$store.getters.config));
+
+    let url = "";
+    // console.log("created>>>"+JSON.stringify(this.info));
+    
+    if(this.info == null || this.info == ""){
+       url = "/todayProduce"
+    }else{
+      let vege = this.$store.state.info.vegetarian;
+      if(vege == null) vege = 0;
+
+      url=`/todayProduceWithout?allergies=${this.$store.state.info.allergy},&vegi=${vege}` 
+    }
+  url  
+    // httpPro.get(url).then(res => {
+    //   this.produces=res.data
+    //   this.produces.splice(8)
+    // }).catch(err => {
+    //   console.log(err)
+    // })
+
+
+      // httpPro.get(`/todayProduce`).then(res => {
+      //   this.produces=res.data
+      //   this.produces.splice(7)
+      // }).catch(err => {
+      //   console.log(err)
+      // })
     }
   }
 </script>

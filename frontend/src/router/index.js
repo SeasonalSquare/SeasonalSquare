@@ -6,12 +6,14 @@ import VueRouter from 'vue-router'
 import Main from "@/components/Main.vue"
 import UserLogin from '@/components/user/UserLogin.vue'
 import UserSignUp from '@/components/user/UserSignUp.vue'
-// Login Pingpong Test
-import TempLogin from '../views/TempLogin.vue'
+import UserProfile from '@/components/user/UserProfile.vue'
+import ProduceMore from '@/components/produce/ProduceMore.vue'
 import RecipeDetail from '@/views/recipe/RecipeDetail.vue'
 import RecipeList from '@/views/recipe/RecipeList.vue'
 import RecipeCart from '@/views/cart/RecipeCart.vue'
+import AllCart from '@/views/cart/AllCart.vue'
 
+import Error from '@/views/error/Error.vue'
 
 Vue.use(VueRouter)
 
@@ -32,12 +34,9 @@ const routes = [
     component: UserSignUp
   },
   {
-    path: '/login',
-    name: 'TempLogin',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: TempLogin
+    path: '/produce/more',
+    name: 'ProduceMore',
+    component: ProduceMore
   },
   {
     path: '/recipe/detail/:pk',
@@ -48,7 +47,7 @@ const routes = [
   {
     path: '/recipe/list',
     name: 'RecipeList',
-    props: ({params}) => ({grocery: params.grocery}),
+    props: ({params}) => ({produce: params.produce}),
     component: RecipeList,
   },
   {
@@ -58,16 +57,29 @@ const routes = [
     component: RecipeCart,
   },
   {
+    path: '/cart/all',
+    name: 'AllCart',
+    component: AllCart,
+  },
+  {
+    path: '/user/profile',
+    name: 'UserProfile',
+    component: UserProfile,
+  },
+  {
     path: "*",
     name: "Error",
-    component: RecipeCart,
+    component: Error,
   },
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior () {
+    return { x: 0, y: 0 };
+  }
 })
 
 export default router

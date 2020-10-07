@@ -1,7 +1,12 @@
 <template>
     <v-container>
-        <div style="font-size: 2rem; margin: 1rem; color: #5C5749;"> 
+        <div class="title-text"> 
             {{ summary.title }}
+        </div>
+        <div style="font-weight: 700; margin-start: 1rem">
+            <v-icon color="#FEAA6E">mdi-lead-pencil</v-icon>
+            작성자
+            {{ summary.writer }}
         </div>
         <div
             class="d-flex"
@@ -26,6 +31,7 @@
                     <v-subheader>
                         <v-chip
                             color="#BEDDBF"
+                            style="font-weight: 600"
                         >
                             재료
                         </v-chip>
@@ -56,6 +62,7 @@
                     <v-subheader>
                         <v-chip
                             color="#BEDDBF"
+                            style="font-weight: 600"
                         >
                             양념 재료
                         </v-chip>
@@ -83,7 +90,7 @@
         <br>
         <v-divider></v-divider>
         <br>
-        <div style="font-size: 2rem; margin: 1rem; color: #5C5749;"> 만드는 법 </div>
+        <div class="title-text">만드는 법</div>
         <div
             class="d-flex"
                 v-for="(step, index) in recipe"
@@ -93,7 +100,7 @@
                 style="flex: 1 1 10%; text-align: center;"
             >
                 <v-avatar
-                    size="3rem"
+                    size="2.5rem"
                     color="#FFE1A2"
                 >
                     {{ step.step }}
@@ -114,18 +121,44 @@
                 {{ step.explain }}
             </v-col>
         </div>
+
+        <v-divider></v-divider>
+        <div class="title-text">연관 추천 레시피</div>
+        <v-container style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
+            <recipe-card
+                v-for="(recipe, index) in rel_recipes" 
+                :key="index" 
+                :recipe="recipe"
+                style="margin: 1rem;">
+            </recipe-card>
+        </v-container>
+
+        <div class="title-text">색다른 추천 레시피</div>
+        <v-container style="display: flex; flex-wrap: wrap; justify-content: space-evenly;">
+            <recipe-card
+                v-for="(recipe, index) in unrel_recipes" 
+                :key="index" 
+                :recipe="recipe"
+                style="margin: 1rem;">
+            </recipe-card>
+        </v-container>
         <scroll-top/>
     </v-container>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import http from '@/util/http-common.js'
 import RecipeImage from '@/components/recipe/RecipeImage'
+import RecipeCard from '@/components/recipe/RecipeCard'
 import ScrollTop from '@/components/layout/ScrollTop.vue'
+
 export default {
     components: {
         RecipeImage,
-         ScrollTop,
+        RecipeCard,
+        ScrollTop,
     },
     props: {
         summary: {
@@ -133,11 +166,16 @@ export default {
             required: true,
         },
     },
+    computed: {
+        ...mapState(['token']),
+    },
     data() {
         return {
             main_ingredients : [],
             source_ingredients: [],
             recipe : [],
+            rel_recipes: [],
+            unrel_recipes: [],
         }
     },
     async created() {
@@ -145,14 +183,23 @@ export default {
     },
     methods: {
         async fetchRecipe() {
-            http.get(`/recipe/${this.summary.pk}`)
+            http.get(`/recipe/${this.summary.pk}/`,{
+                headers: {
+                    "Authorization": this.token,
+                }
+            })
             .then(response => {
                 this.main_ingredients = response.data.ingredient_data.main_ingredients
                 this.source_ingredients = response.data.ingredient_data.source_ingredients
                 this.recipe = response.data.recipe
+                this.rel_recipes = response.data.recommend.rel_recipes
+                this.unrel_recipes = response.data.recommend.unrel_recipes
             })
-            .catch(err => {
-                console.log(err)
+            .catch(() => {
+                this.$dialog.notify.error('레시피를 불러올 수 없습니다.', {
+                    position: 'top-right',
+                    timeout: 2000
+                })
             })
         }
     },
@@ -160,4 +207,10 @@ export default {
 </script>
 
 <style scoped>
+.title-text {
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin: 1rem;
+    color: #5C5749;
+}
 </style>
