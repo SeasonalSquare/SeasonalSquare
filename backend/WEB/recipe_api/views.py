@@ -5,37 +5,19 @@ import requests
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .models import Recipe, Allergy
+from .models import Recipe
 from .serializers import RecipeSerializer, RecipeListSerializer
 
 
 # Create your views here.
 @api_view(['GET'])
 def grocery(request, grocery_name):
-    user = request.user
-    if user.is_authenticated:
-        user_allergy = user.allergy.all()
-        ban_list = [allergy for allergy in user_allergy]
-        vegi_allergy = [[], [10, 3, 4, 5, 10100,10101,10102,10103,10104,10105,10002, 10000, 10001,10003], [3,       4,5, 10100,10101,10102,10103,10104,10105,    10002,    10000,10001,10003], [10, 4,5, 10100,10101,10102,10103,10104,10105,    10002,    10000,10001,10003], [4,5, 10100,10101,10102,10103,10104,10105,    10002,    10000,10001,10003], [10002,    10000,10001,10003], [10000, 10001, 10003]]
-        if user.vegetarian:
-            for pk in vegi_allergy[user.vegetarian.pk]:
-                print(pk)
-                ban = get_object_or_404(Allergy, pk=pk)
-                print(ban)
-                ban_list.append(ban)
-        recipes = Recipe.objects.filter(main_grocery=grocery_name).exclude(allergies__in=ban_list)
-        serializer = RecipeListSerializer(recipes, many=True)
-        for recipe in serializer.data:
-            recipe['pk'] = recipe['id']
-        
-        return Response(serializer.data)
-    else:
-        recipes = Recipe.objects.filter(main_grocery=grocery_name)
-        serializer = RecipeListSerializer(recipes, many=True)
-        for recipe in serializer.data:
-            recipe['pk'] = recipe['id']
-        
-        return Response(serializer.data)
+    recipes = Recipe.objects.filter(main_grocery=grocery_name)
+    serializer = RecipeListSerializer(recipes, many=True)
+    for recipe in serializer.data:
+        recipe['pk'] = recipe['id']
+    
+    return Response(serializer.data)
 
 
 @api_view(['GET'])

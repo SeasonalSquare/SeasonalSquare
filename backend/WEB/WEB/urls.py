@@ -16,7 +16,6 @@ schema_view = get_schema_view(
    validators=['flex', 'ssv'],
    public=True,
    permission_classes=(permissions.AllowAny,),
-   url='http://j3a503.p.ssafy.io/api/'
 )
 
 

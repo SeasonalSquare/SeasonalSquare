@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'lfb%q6uwl+8n25&ky0^((@2b+q=snz@m0m(r5^#^y=q#w$%mpt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'j3a503.p.ssafy.io', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -157,7 +157,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # CORS_ALLOWED_ORIGINS = [
 #     "http://localhost:8080",
@@ -189,7 +189,8 @@ CORS_ALLOW_HEADERS = (
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:8080',
-    'http://j3a503.p.ssafy.io',
+    'http://wouldyouci.ga',
+    'https://wouldyouci.ga'
 ]
 
  # jwt 인증 추가
@@ -230,12 +231,5 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
-AUTHENTICATION_BACKENDS = (
-    # Needed to login by username in Django admin, regardless of `allauth`
-    "django.contrib.auth.backends.ModelBackend",
-
-    # `allauth` specific authentication methods, such as login by e-mail
-    "allauth.account.auth_backends.AuthenticationBackend",
-)
 # 이메일로 인한 500에러 방지
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
