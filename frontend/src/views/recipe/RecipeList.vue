@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import http from '@/util/http-common.js'
 import RecipeCard from '@/components/recipe/RecipeCard.vue'
 import RecipeImage from '@/components/recipe/RecipeImage.vue'
@@ -63,6 +65,9 @@ export default {
             required: true,
         },
     },
+    computed: {
+        ...mapState(['token']),
+    },
     data() {
         return {
             recipes: [],
@@ -73,7 +78,11 @@ export default {
     },
     methods:{
         findRecipeByFoodName() {
-            http.get(`/recipe/grocery/${this.produce.name}/`)
+            http.get(`/recipe/grocery/${this.produce.name}/`, {
+                headers: {
+                    "Authorization": this.token,
+                }
+            })
             .then(response => {
                 this.recipes = response.data
             })
