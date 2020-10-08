@@ -169,6 +169,14 @@ export default {
     computed: {
         ...mapState(['token']),
     },
+    watch: {
+        summary: {
+            deep: true,
+            handler : function () {
+                this.fetchRecipe();
+            }
+        }
+    },
     data() {
         return {
             main_ingredients : [],
