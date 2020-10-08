@@ -14,7 +14,7 @@
 
 <script>
 import http from '@/util/http-common.js'
-
+import { mapState } from 'vuex'
 export default {
   name: 'RecipeMain',
   props : ['food'],
@@ -24,8 +24,15 @@ export default {
       recipes: [],
     }
   },
+  computed: {
+      ...mapState(['token']),
+  },
   created() {
-    http.get(`/recipe/grocery/${this.food}/`)
+    http.get(`/recipe/grocery/${this.food}/`,{
+                headers: {
+                    "Authorization": this.token,
+                }
+      })
       .then(response => {
       this.recipes = response.data;
       this.recipes.splice(6);
