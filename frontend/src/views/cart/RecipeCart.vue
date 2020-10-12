@@ -187,10 +187,12 @@ export default {
             }).then(response => {
                 this.shoppinglist = response.data
             }).catch(() => {
-                this.$dialog.notify.error('장바구니를 불러올 수 없습니다.', {
-                    position: 'top-right',
-                    timeout: 2000
-                })
+                if(this.token) {                    
+                    this.$dialog.notify.error('장바구니를 불러올 수 없습니다.', {
+                        position: 'top-right',
+                        timeout: 2000
+                    })
+                }
             })
         },
         addToCart() {

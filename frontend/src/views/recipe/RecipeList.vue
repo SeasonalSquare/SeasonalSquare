@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-container style="display: flex; margin: 1rem; justify-content: space-evenly;">
+        <v-container style="display: flex; justify-content: space-evenly;">
             <v-row>
                 <v-col>
                     <RecipeImage
