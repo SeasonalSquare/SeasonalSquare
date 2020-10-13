@@ -101,10 +101,17 @@ export default {
   },
   methods: {
     moveToRecipeDetail() {
-      this.$router.replace({name: 'RecipeDetail', params: {pk: this.recipe.pk, summary: this.recipe}});
+      this.$store.commit('setSummary', this.recipe);
+      this.$router.push({name: 'RecipeDetail'}).catch(() => {});
+      this.scrollToTop();
     },
     moveToRecipeCart() {
-      this.$router.replace({name: 'RecipeCart', params: {pk: this.recipe.pk, summary: this.recipe}});
+      this.$store.commit('setSummary', this.recipe);
+      this.$router.push({name: 'RecipeCart'}).catch(() => {});
+      this.scrollToTop();
+    },
+    scrollToTop() {
+      window.scrollTo(0,0);
     }
   },
 }

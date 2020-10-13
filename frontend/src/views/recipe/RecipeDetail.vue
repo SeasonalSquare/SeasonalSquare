@@ -110,6 +110,7 @@
                 style="flex: 1 1 30%;"
             >
                 <RecipeImage
+                    v-if="step.image"
                     :src="step.image"
                     :max-width="300"
                     :max-height="250"
@@ -160,14 +161,11 @@ export default {
         RecipeCard,
         ScrollTop,
     },
-    props: {
-        summary: {
-            type: Object,
-            required: true,
-        },
-    },
     computed: {
         ...mapState(['token']),
+        ...mapState({
+            summary: state => state.params.summary,
+        })
     },
     watch: {
         summary: {

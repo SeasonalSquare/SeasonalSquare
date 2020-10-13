@@ -131,14 +131,11 @@ export default {
     components: {
         RecipeImage,
     },
-    props: {
-        summary: {
-            type: Object,
-            required: true,
-        },
-    },
     computed: {
         ...mapState(['token']),
+        ...mapState({
+            summary: state => state.params.summary,
+        })
     },
     data() {
         return {

@@ -44,7 +44,8 @@ export default {
   },
   methods: {
     goRecipe(recipe){
-        this.$router.push({name: 'RecipeDetail', params: {pk: recipe.pk, summary: recipe}});
+        this.$store.commit('setSummary', recipe);
+        this.$router.push({name: 'RecipeDetail'});
     }
   }
   

@@ -2,9 +2,32 @@ import Vue from "vue";
 import Vuex from "vuex";
 import http from '@/util/http-common.js'
 
+import createPersistedState from "vuex-persistedstate"
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  modules: {
+    params : {
+      state: {
+        produce: {},
+        summary: {},
+      },
+      mutations: {
+        setProduce(state, payload) {
+            state.produce = payload
+        },
+        setSummary(state, payload) {
+            state.summary = payload
+        },
+      },
+    }
+  },
+  plugins: [
+    createPersistedState({
+      paths: ['params'],
+    })
+  ],
   state: {
     token: sessionStorage.getItem("token"),
     myProfile: sessionStorage.getItem("myProfile")?JSON.parse(sessionStorage.getItem("myProfile")):[],
@@ -68,5 +91,4 @@ export default new Vuex.Store({
       commit("LOGOUT")
     },
   },
-  modules: {},
 });

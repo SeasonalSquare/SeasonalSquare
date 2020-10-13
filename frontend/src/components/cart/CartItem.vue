@@ -88,7 +88,8 @@ export default {
                 image: this.image,
                 title: this.title,
             }
-            this.$router.push({name: 'RecipeDetail', params: {pk: this.pk, summary: summary}});
+            this.$store.commit('setSummary', summary);
+            this.$router.push({name: 'RecipeDetail'});
         }
     },
 }

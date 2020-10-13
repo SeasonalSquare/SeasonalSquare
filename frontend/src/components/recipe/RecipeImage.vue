@@ -25,7 +25,7 @@ export default {
     props : {
         src: {
             type: String,
-            required: true,
+            required: false,
         },
         maxWidth: {
             type: Number,

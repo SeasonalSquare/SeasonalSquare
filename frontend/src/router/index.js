@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-
-// import Home from '../views/Home.vue'
 import Main from "@/components/Main.vue"
 import UserLogin from '@/components/user/UserLogin.vue'
 import UserSignUp from '@/components/user/UserSignUp.vue'
@@ -39,21 +37,18 @@ const routes = [
     component: ProduceMore
   },
   {
-    path: '/recipe/detail/:pk',
+    path: '/recipe/detail',
     name: 'RecipeDetail',
-    props: ({params}) => ({pk: Number.parseInt(params.pk, 10) || 0 , summary: params.summary}),
     component: RecipeDetail,
   },
   {
     path: '/recipe/list',
     name: 'RecipeList',
-    props: ({params}) => ({produce: params.produce}),
     component: RecipeList,
   },
   {
     path: '/cart/recipe',
     name: 'RecipeCart',
-    props: ({params}) => ({pk: Number.parseInt(params.pk, 10) || 0 , summary: params.summary}),
     component: RecipeCart,
   },
   {
