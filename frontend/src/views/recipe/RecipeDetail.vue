@@ -110,6 +110,7 @@
                 style="flex: 1 1 30%;"
             >
                 <RecipeImage
+                    v-if="step.image"
                     :src="step.image"
                     :max-width="300"
                     :max-height="250"
