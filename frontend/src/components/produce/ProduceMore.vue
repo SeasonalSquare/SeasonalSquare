@@ -64,7 +64,8 @@ export default {
   
   methods: {
     goProduce(produce){
-      this.$router.push({name: 'RecipeList', params: {produce: produce}});
+      this.$store.commit('setProduce', produce);
+      this.$router.push({name: 'RecipeList'});
     },
     imgURL(name) { return baseURL + "/produceImg?name=" + name },
     formatMonths(months){

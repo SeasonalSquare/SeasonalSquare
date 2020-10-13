@@ -59,14 +59,11 @@ export default {
         RecipeImage,
         ScrollTop,
     },
-    props: {
-        produce: {
-            type: Object,
-            required: true,
-        },
-    },
     computed: {
         ...mapState(['token']),
+        ...mapState({
+            produce: state => state.params.produce,
+        })
     },
     data() {
         return {

@@ -160,14 +160,11 @@ export default {
         RecipeCard,
         ScrollTop,
     },
-    props: {
-        summary: {
-            type: Object,
-            required: true,
-        },
-    },
     computed: {
         ...mapState(['token']),
+        ...mapState({
+            summary: state => state.params.summary,
+        })
     },
     watch: {
         summary: {
